@@ -1,0 +1,19 @@
+platform :ios, '13.0'
+
+target 'ami' do
+  use_frameworks!
+
+  # Official pods
+  pod 'SwiftLint'
+  pod 'R.swift'
+  pod 'Validator'
+
+end
+
+target 'DataManager' do
+  use_frameworks!
+
+  pod 'CryptoSwift'
+  pod 'Keychain'
+
+end

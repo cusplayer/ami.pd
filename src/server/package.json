@@ -1,0 +1,39 @@
+{
+  "name": "ami",
+  "version": "0.1.0",
+  "description": "Приложение для здорового образа жизни",
+  "main": "index.js",
+  "scripts": {
+    "start": "cross-env NODE_ENV=production node index.js",
+    "server": "nodemon index.js",
+    "client": "npm run start --prefix client",
+    "client:install": "npm install --prefix client",
+    "client:build": "npm run build --prefix client",
+    "dev": "cross-env NODE_ENV=development concurrently \"npm run server\" \"npm run client\" ",
+    "test": "cross-env NODE_ENV=test mocha --timeout 10000"
+  },
+  "author": "Максим Хоцевич <xozewitc@yandex.ru>",
+  "license": "ISC",
+  "dependencies": {
+    "compression": "^1.7.4",
+    "config": "^3.3.1",
+    "express": "^4.17.1",
+    "express-http-to-https": "^1.1.4",
+    "express-validator": "^6.6.0",
+    "helmet": "^3.23.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.9.10",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.2",
+    "nodemailer": "^6.4.10",
+    "nodemailer-sendgrid-transport": "^0.2.0"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "concurrently": "^5.2.0",
+    "cross-env": "^7.0.2",
+    "mocha": "^8.0.1",
+    "nodemon": "^2.0.3"
+  }
+}

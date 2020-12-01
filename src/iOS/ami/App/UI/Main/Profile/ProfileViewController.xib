@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Blogger Sans-Medium.otf">
+            <string>BloggerSans-Medium</string>
+        </array>
+        <array key="Montserrat-Medium.ttf">
+            <string>Montserrat-Medium</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProfileViewController" customModule="ami" customModuleProvider="target">
+            <connections>
+                <outlet property="birthdateLabel" destination="dJ6-j9-yvr" id="pCR-bY-pev"/>
+                <outlet property="emailLabel" destination="aoX-61-042" id="lsU-1I-KBt"/>
+                <outlet property="fullNameLabel" destination="CLn-Zo-qMW" id="dnb-7h-IeU"/>
+                <outlet property="heightLabel" destination="RvS-jS-WpR" id="O4B-MW-06O"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="weightLabel" destination="IIL-iw-lUF" id="409-gN-xSh"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="92r-Sv-ocI">
+                    <rect key="frame" x="0.0" y="44" width="375" height="734"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yG8-9c-ziS">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="568.66666666666663"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vnk-4d-D8x">
+                                    <rect key="frame" x="35" y="25" width="305" height="202.66666666666666"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Артем Куфаев" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CLn-Zo-qMW">
+                                            <rect key="frame" x="25" y="19.999999999999996" width="255" height="32.666666666666657"/>
+                                            <fontDescription key="fontDescription" name="BloggerSans-Medium" family="Blogger Sans" pointSize="28"/>
+                                            <color key="textColor" name="478BA2"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Дата рождения: 12.01.1999" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dJ6-j9-yvr">
+                                            <rect key="frame" x="25" y="72.666666666666657" width="255" height="23.333333333333329"/>
+                                            <fontDescription key="fontDescription" name="BloggerSans-Medium" family="Blogger Sans" pointSize="20"/>
+                                            <color key="textColor" name="478BA2"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Рост: 181.5 см" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RvS-jS-WpR">
+                                            <rect key="frame" x="25" y="116" width="255" height="23.333333333333343"/>
+                                            <fontDescription key="fontDescription" name="BloggerSans-Medium" family="Blogger Sans" pointSize="20"/>
+                                            <color key="textColor" name="478BA2"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Вес: 82.7 кг" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IIL-iw-lUF">
+                                            <rect key="frame" x="25" y="159.33333333333334" width="255" height="23.333333333333343"/>
+                                            <fontDescription key="fontDescription" name="BloggerSans-Medium" family="Blogger Sans" pointSize="20"/>
+                                            <color key="textColor" name="478BA2"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                    <constraints>
+                                        <constraint firstItem="IIL-iw-lUF" firstAttribute="leading" secondItem="vnk-4d-D8x" secondAttribute="leading" constant="25" id="7FP-mO-GLG"/>
+                                        <constraint firstItem="RvS-jS-WpR" firstAttribute="leading" secondItem="vnk-4d-D8x" secondAttribute="leading" constant="25" id="EJp-H3-Mdd"/>
+                                        <constraint firstItem="dJ6-j9-yvr" firstAttribute="leading" secondItem="vnk-4d-D8x" secondAttribute="leading" constant="25" id="J1F-i4-2uN"/>
+                                        <constraint firstItem="RvS-jS-WpR" firstAttribute="top" secondItem="dJ6-j9-yvr" secondAttribute="bottom" constant="20" id="PIB-GI-FtD"/>
+                                        <constraint firstItem="IIL-iw-lUF" firstAttribute="top" secondItem="RvS-jS-WpR" secondAttribute="bottom" constant="20" id="QIB-0F-LPI"/>
+                                        <constraint firstAttribute="trailing" secondItem="RvS-jS-WpR" secondAttribute="trailing" constant="25" id="e1o-hm-cY7"/>
+                                        <constraint firstItem="dJ6-j9-yvr" firstAttribute="top" secondItem="CLn-Zo-qMW" secondAttribute="bottom" constant="20" id="flu-m7-g3k"/>
+                                        <constraint firstAttribute="trailing" secondItem="dJ6-j9-yvr" secondAttribute="trailing" constant="25" id="gc8-Sp-pty"/>
+                                        <constraint firstItem="CLn-Zo-qMW" firstAttribute="leading" secondItem="vnk-4d-D8x" secondAttribute="leading" constant="25" id="jgd-lN-KM0"/>
+                                        <constraint firstAttribute="trailing" secondItem="IIL-iw-lUF" secondAttribute="trailing" constant="25" id="pBW-jO-qyi"/>
+                                        <constraint firstAttribute="bottom" secondItem="IIL-iw-lUF" secondAttribute="bottom" constant="20" id="x2X-Xy-cgR"/>
+                                        <constraint firstAttribute="trailing" secondItem="CLn-Zo-qMW" secondAttribute="trailing" constant="25" id="x3E-J5-SlB"/>
+                                        <constraint firstItem="CLn-Zo-qMW" firstAttribute="top" secondItem="vnk-4d-D8x" secondAttribute="top" constant="20" id="xjJ-2q-Ci0"/>
+                                    </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                            <color key="value" name="478BA2"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                            <real key="value" value="5"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="20"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I8v-e5-Hjm">
+                                    <rect key="frame" x="35" y="322.66666666666669" width="305" height="151"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Почта: some-email@gmail.com" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aoX-61-042">
+                                            <rect key="frame" x="25" y="19.999999999999996" width="255" height="60.666666666666657"/>
+                                            <fontDescription key="fontDescription" name="BloggerSans-Medium" family="Blogger Sans" pointSize="26"/>
+                                            <color key="textColor" name="478BA2"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Пароль: ********" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lZa-Xa-qlY">
+                                            <rect key="frame" x="25" y="100.66666666666663" width="255" height="30.333333333333343"/>
+                                            <fontDescription key="fontDescription" name="BloggerSans-Medium" family="Blogger Sans" pointSize="26"/>
+                                            <color key="textColor" name="478BA2"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="lZa-Xa-qlY" secondAttribute="bottom" constant="20" id="57l-0R-O3d"/>
+                                        <constraint firstItem="lZa-Xa-qlY" firstAttribute="leading" secondItem="I8v-e5-Hjm" secondAttribute="leading" constant="25" id="C8b-at-Db0"/>
+                                        <constraint firstAttribute="trailing" secondItem="lZa-Xa-qlY" secondAttribute="trailing" constant="25" id="P2N-du-Ido"/>
+                                        <constraint firstAttribute="trailing" secondItem="aoX-61-042" secondAttribute="trailing" constant="25" id="P7C-pZ-NKM"/>
+                                        <constraint firstItem="aoX-61-042" firstAttribute="leading" secondItem="I8v-e5-Hjm" secondAttribute="leading" constant="25" id="fj5-fp-Uxh"/>
+                                        <constraint firstItem="aoX-61-042" firstAttribute="top" secondItem="I8v-e5-Hjm" secondAttribute="top" constant="20" id="kd9-ts-p8e"/>
+                                        <constraint firstItem="lZa-Xa-qlY" firstAttribute="top" secondItem="aoX-61-042" secondAttribute="bottom" constant="20" id="xDl-3J-QAJ"/>
+                                    </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                            <color key="value" name="478BA2"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                            <real key="value" value="5"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="20"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </view>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bJR-lS-SlT" customClass="Button" customModule="DesignKit">
+                                    <rect key="frame" x="20" y="247.66666666666669" width="335" height="50"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="50" id="BBf-XY-i7v"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="16"/>
+                                    <state key="normal" title="Редактировать данные">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="normalBackgroundColor">
+                                            <color key="value" name="FFB547"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="editData:" destination="-1" eventType="touchUpInside" id="Zed-jH-aPx"/>
+                                    </connections>
+                                </button>
+                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GAo-uH-OgO" customClass="Button" customModule="DesignKit">
+                                    <rect key="frame" x="20" y="498.66666666666663" width="335" height="50"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="50" id="LOj-X2-WVl"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="16"/>
+                                    <state key="normal" title="Редактировать данные авторизации">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="normalBackgroundColor">
+                                            <color key="value" name="86A845"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            <constraints>
+                                <constraint firstAttribute="bottom" secondItem="GAo-uH-OgO" secondAttribute="bottom" constant="20" id="1hn-au-et7"/>
+                                <constraint firstItem="GAo-uH-OgO" firstAttribute="leading" secondItem="yG8-9c-ziS" secondAttribute="leading" constant="20" id="6Vk-wH-NVl"/>
+                                <constraint firstItem="I8v-e5-Hjm" firstAttribute="top" secondItem="bJR-lS-SlT" secondAttribute="bottom" constant="25" id="AAf-bG-EZ2"/>
+                                <constraint firstItem="bJR-lS-SlT" firstAttribute="top" secondItem="vnk-4d-D8x" secondAttribute="bottom" constant="20" id="BuF-eq-n9Y"/>
+                                <constraint firstItem="I8v-e5-Hjm" firstAttribute="leading" secondItem="yG8-9c-ziS" secondAttribute="leading" constant="35" id="C6O-Co-VyR"/>
+                                <constraint firstItem="vnk-4d-D8x" firstAttribute="leading" secondItem="yG8-9c-ziS" secondAttribute="leading" constant="35" id="INp-Lb-8wO"/>
+                                <constraint firstAttribute="trailing" secondItem="bJR-lS-SlT" secondAttribute="trailing" constant="20" id="eco-MR-kTM"/>
+                                <constraint firstAttribute="trailing" secondItem="GAo-uH-OgO" secondAttribute="trailing" constant="20" id="iUj-Wc-mLk"/>
+                                <constraint firstAttribute="trailing" secondItem="I8v-e5-Hjm" secondAttribute="trailing" constant="35" id="lev-O5-JaF"/>
+                                <constraint firstItem="vnk-4d-D8x" firstAttribute="top" secondItem="yG8-9c-ziS" secondAttribute="top" constant="25" id="lf9-Ca-44S"/>
+                                <constraint firstAttribute="trailing" secondItem="vnk-4d-D8x" secondAttribute="trailing" constant="35" id="mPi-NJ-evS"/>
+                                <constraint firstItem="GAo-uH-OgO" firstAttribute="top" secondItem="I8v-e5-Hjm" secondAttribute="bottom" constant="25" id="sIt-pM-uMM"/>
+                                <constraint firstItem="bJR-lS-SlT" firstAttribute="leading" secondItem="yG8-9c-ziS" secondAttribute="leading" constant="20" id="uj2-AO-67q"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="yG8-9c-ziS" firstAttribute="trailing" secondItem="dcL-Dl-uQj" secondAttribute="trailing" id="LBe-tm-cBG"/>
+                        <constraint firstItem="yG8-9c-ziS" firstAttribute="width" secondItem="FDa-kr-cZI" secondAttribute="width" id="ZLX-Cy-hG1"/>
+                        <constraint firstItem="yG8-9c-ziS" firstAttribute="top" secondItem="dcL-Dl-uQj" secondAttribute="top" id="oyz-Yc-akc"/>
+                        <constraint firstItem="yG8-9c-ziS" firstAttribute="bottom" secondItem="dcL-Dl-uQj" secondAttribute="bottom" id="ozT-UL-usA"/>
+                        <constraint firstItem="yG8-9c-ziS" firstAttribute="leading" secondItem="dcL-Dl-uQj" secondAttribute="leading" id="tvb-xB-JrI"/>
+                    </constraints>
+                    <viewLayoutGuide key="contentLayoutGuide" id="dcL-Dl-uQj"/>
+                    <viewLayoutGuide key="frameLayoutGuide" id="FDa-kr-cZI"/>
+                </scrollView>
+            </subviews>
+            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+            <constraints>
+                <constraint firstItem="92r-Sv-ocI" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="C8F-1p-Ui0"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="92r-Sv-ocI" secondAttribute="bottom" id="CBE-PY-dL8"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="92r-Sv-ocI" secondAttribute="trailing" id="F4o-x1-L09"/>
+                <constraint firstItem="92r-Sv-ocI" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="yfw-ki-Pop"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="137.68115942028987" y="128.57142857142856"/>
+        </view>
+    </objects>
+    <resources>
+        <namedColor name="478BA2">
+            <color red="0.27799999713897705" green="0.54500001668930054" blue="0.63499999046325684" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="86A845">
+            <color red="0.52499997615814209" green="0.6589999794960022" blue="0.27099999785423279" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="FFB547">
+            <color red="1" green="0.70999997854232788" blue="0.27799999713897705" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

@@ -1,0 +1,8 @@
+{
+	"PORT": 5000,
+	"MONGODB_URI": "mongodb+srv://AMI_TEST:IvFo5OWUR3V9K3AZ@cluster0-4lwwx.mongodb.net/amidb_test",
+	"SENDGRID_API_KEY": "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",
+	"JWT_SECRET": "Здоровье — дороже золота",
+	"OUR_EMAIL": "info@amihp.ru",
+	"BASE_URL": "http://localhost:5000"
+}

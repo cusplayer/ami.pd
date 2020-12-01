@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19F101" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="ArticleCD" representedClassName="ArticleCD" syncable="YES">
+        <attribute name="content" attributeType="String"/>
+        <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" attributeType="String"/>
+        <attribute name="title" attributeType="String"/>
+    </entity>
+    <entity name="SleepInfoCD" representedClassName="SleepInfoCD" syncable="YES">
+        <attribute name="endAt" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" attributeType="String"/>
+        <attribute name="riseAt" attributeType="Date" usesScalarValueType="NO"/>
+    </entity>
+    <entity name="TaskInfoCD" representedClassName="TaskInfoCD" syncable="YES">
+        <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" attributeType="String"/>
+        <attribute name="notifyAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="title" attributeType="String"/>
+    </entity>
+    <entity name="UserCD" representedClassName="UserCD" syncable="YES">
+        <attribute name="appleId" optional="YES" attributeType="String"/>
+        <attribute name="birthdate" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="email" attributeType="String"/>
+        <attribute name="height" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="id" attributeType="String"/>
+        <attribute name="name" attributeType="String"/>
+        <attribute name="surname" attributeType="String"/>
+        <attribute name="vkId" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="WaterInfoCD" representedClassName="WaterInfoCD" syncable="YES">
+        <attribute name="amount" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="drinkedAt" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" attributeType="String"/>
+    </entity>
+    <entity name="WeightInfoCD" representedClassName="WeightInfoCD" syncable="YES">
+        <attribute name="amount" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="id" attributeType="String"/>
+        <attribute name="weighedAt" attributeType="Date" usesScalarValueType="NO"/>
+    </entity>
+    <elements>
+        <element name="ArticleCD" positionX="-63" positionY="-18" width="128" height="103"/>
+        <element name="SleepInfoCD" positionX="-18" positionY="63" width="128" height="88"/>
+        <element name="TaskInfoCD" positionX="0" positionY="72" width="128" height="103"/>
+        <element name="UserCD" positionX="-54" positionY="18" width="128" height="163"/>
+        <element name="WaterInfoCD" positionX="-36" positionY="54" width="128" height="88"/>
+        <element name="WeightInfoCD" positionX="18" positionY="81" width="128" height="88"/>
+    </elements>
+</model>

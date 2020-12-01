@@ -1,0 +1,35 @@
+.Login {
+	height: 700px;
+	background-color: #fff;
+	border: 1px solid #DDDDDD;
+	box-sizing: initial;
+}
+.Login h1 {
+	font-size: 24px;
+	font-weight: 500;
+	color: #478ba2;
+	margin-bottom: 20px;
+}
+.Login .social {
+	margin-top: 25px;
+}
+.Login .logo {
+	margin-bottom: 25px;
+}
+.Login .error {
+	color: #E9765B;
+	font-size: 16px;
+}
+.Login p {
+	font-style: normal;
+	font-weight: 500;
+	font-size: 14px;
+	line-height: 20px;
+	color: #478ba2;
+}
+.Login hr {
+	width: 60%;
+	opacity: 0.2;
+	border: 1px solid #2b2a2e;
+	margin: 8px auto;
+}

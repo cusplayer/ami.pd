@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Blogger Sans-Medium.otf">
+            <string>BloggerSans-Medium</string>
+        </array>
+        <array key="Montserrat-Bold.ttf">
+            <string>Montserrat-Bold</string>
+        </array>
+        <array key="Montserrat-Medium.ttf">
+            <string>Montserrat-Medium</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginViewController" customModule="ami" customModuleProvider="target">
+            <connections>
+                <outlet property="continueButton" destination="7m4-Vc-7N4" id="fyU-FN-EFQ"/>
+                <outlet property="emailField" destination="rM1-eg-FW7" id="0f1-Vw-LlE"/>
+                <outlet property="passwordField" destination="TMk-ER-fcr" id="cxM-AC-EyG"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R7X-sm-8hj">
+                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sl0-bq-wjJ">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="818"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="250" text="Введите почту и пароль, чтобы войти" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3AP-MT-TYw">
+                                    <rect key="frame" x="20" y="220" width="374" height="40"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="40" id="J88-6I-wdb"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="16"/>
+                                    <color key="textColor" name="478BA2"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rM1-eg-FW7" customClass="TextField" customModule="DesignKit">
+                                    <rect key="frame" x="20" y="300" width="374" height="50"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="50" id="zle-ff-deD"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits" keyboardType="emailAddress" textContentType="email"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="defaultColor">
+                                            <color key="value" name="478BA2"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="secondaryColor">
+                                            <color key="value" name="B9D4DB"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="invalidColor">
+                                            <color key="value" name="E9765B"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </textField>
+                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Пароль" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TMk-ER-fcr" customClass="TextField" customModule="DesignKit">
+                                    <rect key="frame" x="20" y="385" width="374" height="50"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="50" id="DbP-eg-3dh"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="invalidColor">
+                                            <color key="value" name="E9765B"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="secondaryColor">
+                                            <color key="value" name="B9D4DB"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="defaultColor">
+                                            <color key="value" name="478BA2"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </textField>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7m4-Vc-7N4" customClass="Button" customModule="DesignKit">
+                                    <rect key="frame" x="20" y="657" width="374" height="50"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="50" id="HXf-61-tct"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="16"/>
+                                    <state key="normal" title="Продолжить">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <state key="disabled">
+                                        <color key="titleColor" name="478BA2"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="10"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="normalBackgroundColor">
+                                            <color key="value" name="00BCB4"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="disabledBackgroundColor">
+                                            <color key="value" systemColor="systemGray5Color" red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="login:" destination="-1" eventType="touchUpInside" id="QaM-b1-Qhq"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ddE-Gg-CLy" customClass="Button" customModule="DesignKit">
+                                    <rect key="frame" x="20" y="748" width="374" height="50"/>
+                                    <color key="backgroundColor" name="86A845"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="50" id="XlN-O0-fAI"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="16"/>
+                                    <state key="normal" title="Еще нет аккаунта?">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="10"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="toRegister:" destination="-1" eventType="touchUpInside" id="kCc-si-O8y"/>
+                                    </connections>
+                                </button>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kPl-JV-3c2">
+                                    <rect key="frame" x="99.5" y="727" width="215" height="1"/>
+                                    <color key="backgroundColor" systemColor="systemGray3Color" red="0.78039215689999997" green="0.78039215689999997" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="215" id="0bg-Zg-pxE"/>
+                                        <constraint firstAttribute="height" constant="1" id="5zN-v1-6Eb"/>
+                                    </constraints>
+                                </view>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="250" text="Вход в систему" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lWj-Pt-h2o">
+                                    <rect key="frame" x="70" y="150" width="274" height="25"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="25" id="w4E-4F-gDm"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="BloggerSans-Medium" family="Blogger Sans" pointSize="24"/>
+                                    <color key="textColor" name="00BCB4"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            <constraints>
+                                <constraint firstItem="rM1-eg-FW7" firstAttribute="top" secondItem="3AP-MT-TYw" secondAttribute="bottom" constant="40" id="HnY-Vg-3Ce"/>
+                                <constraint firstItem="lWj-Pt-h2o" firstAttribute="top" relation="lessThanOrEqual" secondItem="Sl0-bq-wjJ" secondAttribute="top" constant="150" id="LE6-cl-Es3"/>
+                                <constraint firstItem="TMk-ER-fcr" firstAttribute="top" secondItem="rM1-eg-FW7" secondAttribute="bottom" constant="35" id="Mxd-b7-Mmm"/>
+                                <constraint firstItem="rM1-eg-FW7" firstAttribute="leading" secondItem="Sl0-bq-wjJ" secondAttribute="leading" constant="20" id="O8J-Pk-bGe"/>
+                                <constraint firstItem="TMk-ER-fcr" firstAttribute="leading" secondItem="Sl0-bq-wjJ" secondAttribute="leading" constant="20" id="RIc-KI-XoR"/>
+                                <constraint firstItem="lWj-Pt-h2o" firstAttribute="leading" secondItem="Sl0-bq-wjJ" secondAttribute="leading" constant="70" id="US6-1J-R4R"/>
+                                <constraint firstAttribute="trailing" secondItem="lWj-Pt-h2o" secondAttribute="trailing" constant="70" id="V9o-2B-cfr"/>
+                                <constraint firstItem="3AP-MT-TYw" firstAttribute="leading" secondItem="Sl0-bq-wjJ" secondAttribute="leading" constant="20" id="WkB-57-xSr"/>
+                                <constraint firstItem="7m4-Vc-7N4" firstAttribute="leading" secondItem="Sl0-bq-wjJ" secondAttribute="leading" constant="20" id="cxR-cf-Odz"/>
+                                <constraint firstItem="ddE-Gg-CLy" firstAttribute="leading" secondItem="Sl0-bq-wjJ" secondAttribute="leading" constant="20" id="dxs-UL-znV"/>
+                                <constraint firstAttribute="trailing" secondItem="TMk-ER-fcr" secondAttribute="trailing" constant="20" id="e4J-cC-vkE"/>
+                                <constraint firstItem="7m4-Vc-7N4" firstAttribute="top" secondItem="TMk-ER-fcr" secondAttribute="bottom" priority="250" constant="20" id="n2p-ju-KXA"/>
+                                <constraint firstItem="ddE-Gg-CLy" firstAttribute="centerX" secondItem="kPl-JV-3c2" secondAttribute="centerX" id="oAG-zj-agX"/>
+                                <constraint firstItem="kPl-JV-3c2" firstAttribute="top" secondItem="7m4-Vc-7N4" secondAttribute="bottom" constant="20" id="qg6-7p-wuY"/>
+                                <constraint firstItem="lWj-Pt-h2o" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Sl0-bq-wjJ" secondAttribute="top" constant="20" id="saa-FV-mHb"/>
+                                <constraint firstItem="3AP-MT-TYw" firstAttribute="top" secondItem="lWj-Pt-h2o" secondAttribute="bottom" constant="45" id="u9z-Gy-xKR"/>
+                                <constraint firstAttribute="trailing" secondItem="3AP-MT-TYw" secondAttribute="trailing" constant="20" id="ve4-4u-eRl"/>
+                                <constraint firstAttribute="trailing" secondItem="rM1-eg-FW7" secondAttribute="trailing" constant="20" id="vkR-8X-slK"/>
+                                <constraint firstItem="ddE-Gg-CLy" firstAttribute="top" secondItem="kPl-JV-3c2" secondAttribute="bottom" constant="20" id="w8w-Ce-HrP"/>
+                                <constraint firstAttribute="trailing" secondItem="7m4-Vc-7N4" secondAttribute="trailing" constant="20" id="wgZ-yN-R2M"/>
+                                <constraint firstAttribute="trailing" secondItem="ddE-Gg-CLy" secondAttribute="trailing" constant="20" id="z68-7D-vfu"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="Sl0-bq-wjJ" firstAttribute="top" secondItem="AWb-7w-Num" secondAttribute="top" id="GOk-UU-v3o"/>
+                        <constraint firstItem="Sl0-bq-wjJ" firstAttribute="width" secondItem="tu6-E5-rnu" secondAttribute="width" id="Kgs-cw-v65"/>
+                        <constraint firstItem="AWb-7w-Num" firstAttribute="bottom" secondItem="ddE-Gg-CLy" secondAttribute="bottom" constant="20" id="S1o-4s-MIB"/>
+                        <constraint firstItem="Sl0-bq-wjJ" firstAttribute="leading" secondItem="AWb-7w-Num" secondAttribute="leading" id="bLh-lE-WnJ"/>
+                        <constraint firstItem="Sl0-bq-wjJ" firstAttribute="trailing" secondItem="AWb-7w-Num" secondAttribute="trailing" id="eou-8L-y7e"/>
+                        <constraint firstItem="Sl0-bq-wjJ" firstAttribute="height" secondItem="tu6-E5-rnu" secondAttribute="height" priority="750" id="hBF-3T-d6z"/>
+                        <constraint firstItem="Sl0-bq-wjJ" firstAttribute="bottom" secondItem="AWb-7w-Num" secondAttribute="bottom" id="kmO-DW-8vd"/>
+                    </constraints>
+                    <viewLayoutGuide key="contentLayoutGuide" id="AWb-7w-Num"/>
+                    <viewLayoutGuide key="frameLayoutGuide" id="tu6-E5-rnu"/>
+                </scrollView>
+            </subviews>
+            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+            <constraints>
+                <constraint firstItem="R7X-sm-8hj" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="4uy-eT-AN3"/>
+                <constraint firstItem="R7X-sm-8hj" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="Do7-Aj-EE4"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="R7X-sm-8hj" secondAttribute="bottom" id="Hhf-p9-Dk0"/>
+                <constraint firstItem="R7X-sm-8hj" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="ppf-aj-mUO"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="137.68115942028987" y="152.67857142857142"/>
+        </view>
+    </objects>
+    <resources>
+        <namedColor name="00BCB4">
+            <color red="0.0" green="0.7369999885559082" blue="0.70599997043609619" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="478BA2">
+            <color red="0.27799999713897705" green="0.54500001668930054" blue="0.63499999046325684" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="86A845">
+            <color red="0.52499997615814209" green="0.6589999794960022" blue="0.27099999785423279" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="B9D4DB">
+            <color red="0.72500002384185791" green="0.83099997043609619" blue="0.85900002717971802" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="E9765B">
+            <color red="0.91399997472763062" green="0.46299999952316284" blue="0.35699999332427979" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

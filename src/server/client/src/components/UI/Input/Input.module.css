@@ -1,0 +1,25 @@
+.Input input {
+	width: 100%;
+	height: 50px;
+	border: 2px solid #b9d4db;
+	border-radius: 25px;
+	outline: none;
+	font-weight: 500;
+	font-size: 24px;
+	font-style: normal;
+	padding: 0 25px;
+	transition: all 300ms ease-in-out;
+	color: #478ba2;
+	caret-color: #478ba2;
+	margin-bottom: 20px;
+}
+.Input input:focus {
+	border: 2px solid #478ba2;
+}
+.Input input::placeholder {
+	color: #b9d4db;
+	padding-top: 20px;
+}
+.Input input:focus::placeholder {
+	color: transparent;
+}
