@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina3_5" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="InfoPlaceholderView" customModule="ami" customModuleProvider="target">
+            <connections>
+                <outlet property="birthdateField" destination="nli-8z-nYf" id="yWc-nX-6Ox"/>
+                <outlet property="contentView" destination="iN0-l3-epB" id="osb-u8-NsB"/>
+                <outlet property="heightField" destination="BCQ-B8-XVn" id="PYc-ez-ZKF"/>
+                <outlet property="nameField" destination="ipX-ps-8F2" id="sI7-cO-hSw"/>
+                <outlet property="surnameField" destination="qia-tk-Gsb" id="jwl-uL-oCj"/>
+                <outlet property="weightField" destination="eWu-1x-9C2" id="47j-dX-PTc"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="434" height="260"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Имя" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ipX-ps-8F2" customClass="TextField" customModule="DesignKit">
+                    <rect key="frame" x="0.0" y="0.0" width="204" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="c2K-2A-KBF"/>
+                    </constraints>
+                    <color key="textColor" name="B9D4DB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="next" textContentType="given-name"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                            <color key="value" name="B9D4DB"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="defaultColor">
+                            <color key="value" name="478BA2"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="secondaryColor">
+                            <color key="value" name="B9D4DB"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="invalidColor">
+                            <color key="value" name="E9765B"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </textField>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Фамилия" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qia-tk-Gsb" customClass="TextField" customModule="DesignKit">
+                    <rect key="frame" x="230" y="0.0" width="204" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="kYY-KE-iye"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="next" textContentType="family-name"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="defaultColor">
+                            <color key="value" name="478BA2"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="secondaryColor">
+                            <color key="value" name="B9D4DB"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="invalidColor">
+                            <color key="value" name="E9765B"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </textField>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Рост в сантиметрах" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BCQ-B8-XVn" customClass="TextField" customModule="DesignKit">
+                    <rect key="frame" x="0.0" y="140" width="434" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="5G7-xu-ISI"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="defaultColor">
+                            <color key="value" name="478BA2"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="secondaryColor">
+                            <color key="value" name="B9D4DB"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="invalidColor">
+                            <color key="value" name="E9765B"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </textField>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="День рождения" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nli-8z-nYf" customClass="DatePickerField" customModule="DesignKit">
+                    <rect key="frame" x="0.0" y="70" width="434" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="MPe-kW-UrG"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="defaultColor">
+                            <color key="value" name="478BA2"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="secondaryColor">
+                            <color key="value" name="B9D4DB"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="invalidColor">
+                            <color key="value" name="E9765B"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </textField>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Вес в килограммах" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eWu-1x-9C2" customClass="TextField" customModule="DesignKit">
+                    <rect key="frame" x="0.0" y="210" width="434" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="U56-Bj-wh7"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="defaultColor">
+                            <color key="value" name="478BA2"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="secondaryColor">
+                            <color key="value" name="B9D4DB"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="invalidColor">
+                            <color key="value" name="E9765B"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </textField>
+            </subviews>
+            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+            <constraints>
+                <constraint firstItem="qia-tk-Gsb" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.47" id="3Mm-la-GPb"/>
+                <constraint firstItem="ipX-ps-8F2" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="5M7-v0-SEQ"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="nli-8z-nYf" secondAttribute="trailing" id="HPH-Ng-yVf"/>
+                <constraint firstItem="nli-8z-nYf" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="K2R-36-3ne"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="qia-tk-Gsb" secondAttribute="trailing" id="OJi-kQ-tHt"/>
+                <constraint firstItem="eWu-1x-9C2" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="UaA-8V-FxK"/>
+                <constraint firstItem="ipX-ps-8F2" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.47" id="UcD-l9-0Tc"/>
+                <constraint firstItem="BCQ-B8-XVn" firstAttribute="top" secondItem="nli-8z-nYf" secondAttribute="bottom" constant="20" id="VLS-bv-dg4"/>
+                <constraint firstItem="ipX-ps-8F2" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="WQO-Nw-u8u"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="eWu-1x-9C2" secondAttribute="trailing" id="cPQ-X9-WIw"/>
+                <constraint firstItem="qia-tk-Gsb" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="eQs-3y-wzS"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="eWu-1x-9C2" secondAttribute="bottom" id="iO0-Nc-bJg"/>
+                <constraint firstItem="BCQ-B8-XVn" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="lRV-hl-3eV"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="BCQ-B8-XVn" secondAttribute="trailing" id="nOF-hV-cU4"/>
+                <constraint firstItem="eWu-1x-9C2" firstAttribute="top" secondItem="BCQ-B8-XVn" secondAttribute="bottom" constant="20" id="pvD-2y-YGf"/>
+                <constraint firstItem="nli-8z-nYf" firstAttribute="top" secondItem="ipX-ps-8F2" secondAttribute="bottom" constant="20" id="xmk-2v-hqw"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="55.072463768115945" y="375.66964285714283"/>
+        </view>
+    </objects>
+    <resources>
+        <namedColor name="478BA2">
+            <color red="0.27799999713897705" green="0.54500001668930054" blue="0.63499999046325684" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="B9D4DB">
+            <color red="0.72500002384185791" green="0.83099997043609619" blue="0.85900002717971802" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="E9765B">
+            <color red="0.91399997472763062" green="0.46299999952316284" blue="0.35699999332427979" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

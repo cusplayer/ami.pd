@@ -1,0 +1,28 @@
+.Button {
+	width: 100%;
+	min-height: 50px;
+	border-radius: 10px;
+	background-color: #00bcb4;
+	border: none;
+	outline: none !important;
+	color: #ffffff;
+	font-style: normal;
+	font-weight: 400;
+	font-size: 20px;
+	margin: 10px 0;
+}
+.Button:disabled {
+	background-color: #e4e4e4 !important;
+	color: #304e7e;
+	outline: none;
+}
+.Button:active {
+	box-shadow: inset 0 0 15px rgba(0, 143, 136, 0.8);
+	outline: none !important;
+}
+.Button.success {
+	background-color: #86a845;
+}
+.Button.primary {
+	background-color: #00bcb4;
+}

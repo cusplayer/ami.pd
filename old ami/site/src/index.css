@@ -1,0 +1,61 @@
+@import '~bootstrap/dist/css/bootstrap.min.css';
+@import "./fonts/bloggersans/bloggersans.css";
+
+.parallax {
+	background-color: #00ffa5;
+	height: 100%;
+	width: 100%;
+	background-attachment: fixed;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+.desc {
+	font-family: "Blogger Sans" !important;
+	font-size: 24px;
+	color: #478BA2;
+}
+h2 {
+	font-family: "Blogger Sans" !important;
+	color: #478BA2;
+}
+.tech img {
+	height: 150px;
+}
+
+.push {
+  list-style: none;
+	font-family: "Blogger Sans" !important;
+	font-size: 36px;
+	text-transform: uppercase;
+}
+.push li {
+  position: relative;
+  padding: 20px 0 20px 40px;
+  color: #478BA2;
+  font-variant: small-caps;
+  font-weight: bold;
+  cursor: pointer;
+}
+.push li:before {
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #4F5151;
+  content: "";
+  left: 0;
+  transition: .3s ease-in-out;
+  top: 40px;
+}
+.push li:after {
+  position: absolute;
+  border-left: 1px dotted #4F5151;
+  width: 1px;
+  bottom: -28px;
+  content: "";
+  left: 3px;
+  top: 55px;
+}
+.push li:hover:before{box-shadow: 0 0 0 10px rgba(0,0,0,.2)}
+.push li:last-child:after {content: none;}

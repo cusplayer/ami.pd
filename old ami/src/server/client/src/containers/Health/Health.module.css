@@ -1,0 +1,76 @@
+.Health {
+}
+.Health h1 {
+	font-style: normal;
+	font-weight: 500;
+	font-size: 36px;
+	color: #478ba2;
+}
+.Health a {
+	font-style: normal;
+	font-weight: 500;
+	font-size: 24px;
+	color: #e9765b;
+	text-decoration: none;
+	margin: 15px 0;
+}
+.Health .active {
+	color: #86a845;
+}
+.Health .sidebar {
+}
+.Health .sidebar a.active:nth-child(1)::before {
+	content: url("../../images/waterActive.svg");
+	position: relative;
+	top: 10px;
+	left: -10px;
+}
+.Health .sidebar a:nth-child(1)::before {
+	content: url("../../images/water.svg");
+	position: relative;
+	top: 10px;
+	left: -10px;
+}
+.Health .sidebar a.active:nth-child(2)::before {
+	content: url("../../images/sleepActive.svg");
+	position: relative;
+	top: 10px;
+	left: -10px;
+}
+.Health .sidebar a:nth-child(2)::before {
+	content: url("../../images/sleep.svg");
+	position: relative;
+	top: 10px;
+	left: -10px;
+}
+.Health .sidebar a.active:nth-child(3)::before {
+	content: url("../../images/tasksActive.svg");
+	position: relative;
+	top: 10px;
+	left: -10px;
+}
+.Health .sidebar a:nth-child(3)::before {
+	content: url("../../images/tasks.svg");
+	position: relative;
+	top: 10px;
+	left: -10px;
+}
+.Health .svg {
+	fill: blue;
+	stroke: black;
+}
+.Health .waterBtn {
+	width: 130px;
+	height: 130px;
+	background: #86a845;
+	border-radius: 100%;
+	border: none;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 24px;
+	line-height: 26px;
+	text-align: center;
+	color: #fff;
+	box-shadow: 0 0 0 3px #fff, 0 0 0 8px #86a845;
+	outline: none;
+}

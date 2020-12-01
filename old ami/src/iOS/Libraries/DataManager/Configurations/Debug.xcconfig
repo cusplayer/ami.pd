@@ -1,0 +1,13 @@
+//
+//  Debug.xcconfig
+//  ami
+//
+//  Created by Artem Kufaev on 31.05.2020.
+//  Copyright © 2020 Artem Kufaev. All rights reserved.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+#include "../../../Pods/Target Support Files/Pods-DataManager/Pods-DataManager.debug.xcconfig"
+#include "Secret.xcconfig"

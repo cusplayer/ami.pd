@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Blogger Sans-Medium.otf">
+            <string>BloggerSans-Medium</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EditInfoViewController" customModule="ami" customModuleProvider="target">
+            <connections>
+                <outlet property="button" destination="UMA-gq-PBu" id="BLx-X8-EqT"/>
+                <outlet property="dateTimeField" destination="tId-6a-iQB" id="hkL-kl-Kx5"/>
+                <outlet property="titleLabel" destination="xQQ-X8-F4h" id="Ype-UT-OwR"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="weightField" destination="puf-yx-Rva" id="MAG-bM-5Vw"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="День и время взвешивания" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tId-6a-iQB" customClass="DatePickerField" customModule="DesignKit">
+                    <rect key="frame" x="20" y="302" width="374" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="TOi-ai-Mss"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="defaultColor">
+                            <color key="value" name="478BA2"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="secondaryColor">
+                            <color key="value" name="B9D4DB"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="invalidColor">
+                            <color key="value" name="E9765B"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </textField>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Вес в килограммах" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="puf-yx-Rva" customClass="TextField" customModule="DesignKit">
+                    <rect key="frame" x="20" y="222" width="374" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="MBv-AA-O9A"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="defaultColor">
+                            <color key="value" name="478BA2"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="secondaryColor">
+                            <color key="value" name="B9D4DB"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="invalidColor">
+                            <color key="value" name="E9765B"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </textField>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UMA-gq-PBu" customClass="Button" customModule="DesignKit">
+                    <rect key="frame" x="20" y="792" width="374" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="7nc-7B-sUN"/>
+                    </constraints>
+                    <state key="normal" title="Добавить">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="normalBackgroundColor">
+                            <color key="value" name="00BCB4"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="disabledBackgroundColor">
+                            <color key="value" systemColor="systemGray5Color" red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="processing:" destination="-1" eventType="touchUpInside" id="Vry-Wi-hpr"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Добавление информации" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xQQ-X8-F4h">
+                    <rect key="frame" x="20" y="94" width="374" height="28"/>
+                    <fontDescription key="fontDescription" name="BloggerSans-Medium" family="Blogger Sans" pointSize="24"/>
+                    <color key="textColor" name="00BCB4"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+            <constraints>
+                <constraint firstItem="puf-yx-Rva" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="0ZQ-0e-rEu"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="UMA-gq-PBu" secondAttribute="trailing" constant="20" id="80Q-rH-pJr"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="xQQ-X8-F4h" secondAttribute="trailing" constant="20" id="HDP-Yv-30n"/>
+                <constraint firstItem="UMA-gq-PBu" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="Jzl-Y0-YeC"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="UMA-gq-PBu" secondAttribute="bottom" constant="20" id="KMD-WF-06I"/>
+                <constraint firstItem="xQQ-X8-F4h" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="50" id="Tp4-kq-AIk"/>
+                <constraint firstItem="puf-yx-Rva" firstAttribute="top" secondItem="xQQ-X8-F4h" secondAttribute="bottom" constant="100" id="VSp-3K-2w2"/>
+                <constraint firstItem="xQQ-X8-F4h" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="Yri-GP-GYj"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="tId-6a-iQB" secondAttribute="trailing" constant="20" id="ZhK-li-HQF"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="puf-yx-Rva" secondAttribute="trailing" constant="20" id="lBj-CJ-Tco"/>
+                <constraint firstItem="tId-6a-iQB" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="no7-tW-JKR"/>
+                <constraint firstItem="UMA-gq-PBu" firstAttribute="top" relation="greaterThanOrEqual" secondItem="tId-6a-iQB" secondAttribute="bottom" constant="20" id="r9C-WI-I2e"/>
+                <constraint firstItem="tId-6a-iQB" firstAttribute="top" secondItem="puf-yx-Rva" secondAttribute="bottom" constant="30" id="vNa-1o-PKt"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="137.68115942028987" y="128.57142857142856"/>
+        </view>
+    </objects>
+    <resources>
+        <namedColor name="00BCB4">
+            <color red="0.0" green="0.7369999885559082" blue="0.70599997043609619" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="478BA2">
+            <color red="0.27799999713897705" green="0.54500001668930054" blue="0.63499999046325684" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="B9D4DB">
+            <color red="0.72500002384185791" green="0.83099997043609619" blue="0.85900002717971802" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="E9765B">
+            <color red="0.91399997472763062" green="0.46299999952316284" blue="0.35699999332427979" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>
