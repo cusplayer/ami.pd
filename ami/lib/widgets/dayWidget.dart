@@ -61,18 +61,25 @@ class DayWidget extends CustomPainter {
     }
 
     canvas.drawCircle(center, radius, circlePaint);
+    print('Start ${(startNight * 2 * pi - pi / 2) - shift}');
+    print('Start ${(2 * pi * (endNight - startNight) + pi * 2)}');
+
     canvas.drawArc(
         new Rect.fromCenter(
             center: center, width: radius * 2, height: radius * 2),
         (startNight * 2 * pi - pi / 2) - shift,
-        (2 * pi * (endNight - startNight)),
+        ((2 * pi * (endNight - startNight)) < 0)
+            ? (2 * pi * (endNight - startNight) + pi * 2)
+            : (2 * pi * (endNight - startNight)),
         false,
         nightPaint);
     canvas.drawArc(
         new Rect.fromCenter(
             center: center, width: radius * 2, height: radius * 2),
         (startActivity * 2 * pi - pi / 2) - shift,
-        (2 * pi * (endActivity - startActivity)),
+        ((2 * pi * (endActivity - startActivity)) < 0)
+            ? (2 * pi * (endActivity - startActivity) + pi * 2)
+            : (2 * pi * (endActivity - startActivity)),
         false,
         activityPaint);
 

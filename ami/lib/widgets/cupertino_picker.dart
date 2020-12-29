@@ -18,7 +18,7 @@ class _PickerState extends State<Picker> {
         arr.add(Text('$i'));
       }
     } else {
-      for (var i = 0; i <= 60; i++) {
+      for (var i = 0; i <= 59; i++) {
         arr.add(Text('$i'));
       }
     }
