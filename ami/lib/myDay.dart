@@ -10,6 +10,16 @@ class MyDay extends StatefulWidget {
 }
 
 class _MyDayState extends State<MyDay> {
+  var nightStart1;
+  var nightEnd1;
+  var isNight = false;
+  @override
+  void initState() {
+    this.nightStart1 = double.parse(hour1) / 24 + double.parse(minute1) / 1440;
+    this.nightEnd1 = double.parse(hour2) / 24 + double.parse(minute2) / 1440;
+    super.initState();
+  }
+
   void callbackh1(String time) {
     setState(() {
       this.hour1 = time;
@@ -56,67 +66,93 @@ class _MyDayState extends State<MyDay> {
       body: SingleChildScrollView(
         child: Center(
           child: Column(children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  padding: EdgeInsets.only(top: mediaQuery.size.height / 20),
-                  child: Text(hour1, style: TextStyle(fontSize: 30)),
-                ),
-                Container(
-                  padding: EdgeInsets.only(top: mediaQuery.size.height / 20),
-                  child: Text(minute1, style: TextStyle(fontSize: 30)),
-                ),
-                Container(
-                  padding: EdgeInsets.only(top: mediaQuery.size.height / 20),
-                  child: Text(hour2, style: TextStyle(fontSize: 30)),
-                ),
-                Container(
-                  padding: EdgeInsets.only(top: mediaQuery.size.height / 20),
-                  child: Text(minute2, style: TextStyle(fontSize: 30)),
-                ),
-              ],
-            ),
             Container(
-              padding: EdgeInsets.only(top: mediaQuery.size.height / 20),
+              padding: EdgeInsets.only(top: mediaQuery.size.height / 40),
               child: Text(time, style: TextStyle(fontSize: 30)),
             ),
             Container(
-              padding: EdgeInsets.only(top: mediaQuery.size.height / 20),
+              padding: EdgeInsets.only(top: mediaQuery.size.height / 40),
               child: InteractiveViewer(
                 child: CustomPaint(
-                  painter: DayWidget(nightStart, nightEnd),
+                  painter: DayWidget(this.nightStart1, this.nightEnd1),
                   size: Size(300, 300),
                 ),
               ),
             ),
             Container(
-              height: 100,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Picker(this.callbackh1),
-                  Picker(this.callbackm1),
-                  Text(':'),
-                  Picker(this.callbackh2),
-                  Picker(this.callbackm2),
-                ],
-              ),
-            ),
+                margin: EdgeInsets.only(top: mediaQuery.size.height / 30),
+                color: Colors.blue,
+                child: isNight
+                    ? Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Text(
+                                'Изменить ночное время',
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 20),
+                              ),
+                              FloatingActionButton(
+                                  child: Icon(Icons.expand_less),
+                                  backgroundColor: Colors.lightBlue,
+                                  onPressed: () {
+                                    setState(() {
+                                      this.isNight = !this.isNight;
+                                    });
+                                  }),
+                            ],
+                          ),
+                          Container(
+                            height: 100,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Picker(this.callbackh1, true),
+                                Picker(this.callbackm1, false),
+                                Text(':'),
+                                Picker(this.callbackh2, true),
+                                Picker(this.callbackm2, false),
+                              ],
+                            ),
+                          ),
+                          FlatButton(
+                            shape: new RoundedRectangleBorder(
+                                borderRadius: new BorderRadius.circular(30.0)),
+                            color: Colors.deepPurple,
+                            onPressed: () {
+                              setState(() {
+                                this.nightStart1 = double.parse(hour1) / 24 +
+                                    double.parse(minute1) / 1440;
+                                this.nightEnd1 = double.parse(hour2) / 24 +
+                                    double.parse(minute2) / 1440;
+                              });
+                            },
+                            child: Text(
+                              'Изменить',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          )
+                        ],
+                      )
+                    : Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Text(
+                            'Изменить ночное время',
+                            style: TextStyle(color: Colors.white, fontSize: 20),
+                          ),
+                          FloatingActionButton(
+                              child: Icon(Icons.expand_more),
+                              onPressed: () {
+                                setState(() {
+                                  this.isNight = !this.isNight;
+                                });
+                              }),
+                        ],
+                      )),
             Container(
               padding: EdgeInsets.only(top: mediaQuery.size.height / 20),
-              child: FlatButton(
-                shape: new RoundedRectangleBorder(
-                    borderRadius: new BorderRadius.circular(30.0)),
-                color: Colors.deepPurple,
-                onPressed: () {
-                  setState(() {});
-                },
-                child: Text(
-                  'Изменить ночное время',
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
             ),
           ]),
         ),
