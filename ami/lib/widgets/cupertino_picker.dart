@@ -2,14 +2,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Picker extends StatefulWidget {
+  final Function callback;
+  Picker(this.callback);
+
   @override
   _PickerState createState() => _PickerState();
 }
 
 class _PickerState extends State<Picker> {
+  String yourParam;
+
   int selectedValue;
   @override
   Widget build(BuildContext context) {
+    print('selected value $selectedValue');
     var mediaQuery = MediaQuery.of(context);
     return Container(
       width: mediaQuery.size.width / 5,
@@ -18,6 +24,7 @@ class _PickerState extends State<Picker> {
         onSelectedItemChanged: (value) {
           setState(() {
             selectedValue = value;
+            this.widget.callback(value.toString());
           });
         },
         itemExtent: 32.0,
