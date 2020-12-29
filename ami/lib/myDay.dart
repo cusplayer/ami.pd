@@ -1,4 +1,4 @@
-import 'package:ami/widgets/cupertino_picker.dart';
+import 'package:ami/widgets/common_picker.dart';
 import 'package:ami/widgets/dayWidget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,52 +12,30 @@ class MyDay extends StatefulWidget {
 class _MyDayState extends State<MyDay> {
   var nightStart1;
   var nightEnd1;
-  var isNight = false;
+  void callback(double ns1, double ne1) {
+    setState(() {
+      this.nightStart1 = ns1;
+      this.nightEnd1 = ne1;
+    });
+  }
+
   @override
   void initState() {
-    this.nightStart1 = double.parse(hour1) / 24 + double.parse(minute1) / 1440;
-    this.nightEnd1 = double.parse(hour2) / 24 + double.parse(minute2) / 1440;
+    this.nightStart1 = 0.0;
+    this.nightEnd1 = 0.8;
     super.initState();
-  }
-
-  void callbackh1(String time) {
-    setState(() {
-      this.hour1 = time;
-    });
-  }
-
-  void callbackm1(String time) {
-    setState(() {
-      this.minute1 = time;
-    });
-  }
-
-  void callbackh2(String time) {
-    setState(() {
-      this.hour2 = time;
-    });
-  }
-
-  void callbackm2(String time) {
-    setState(() {
-      this.minute2 = time;
-    });
   }
 
   MediaQueryData mediaQuery;
   var nightStart = 0.0 / 24.0;
   var nightEnd = 8 / 24;
-  var hour1 = '0';
-  var minute1 = '0';
-  var hour2 = '0';
-  var minute2 = '0';
   var time = DateFormat('HH:mm').format(DateTime.now());
   int selectedValue;
   showPicker() {}
 
   @override
   Widget build(BuildContext context) {
-    print('hour $hour1');
+    print(this.nightStart1);
     var mediaQuery = MediaQuery.of(context);
     return Scaffold(
       appBar: AppBar(
@@ -80,79 +58,19 @@ class _MyDayState extends State<MyDay> {
               ),
             ),
             Container(
-                margin: EdgeInsets.only(top: mediaQuery.size.height / 30),
+              margin: EdgeInsets.only(top: mediaQuery.size.height / 30),
+              decoration: BoxDecoration(
                 color: Colors.blue,
-                child: isNight
-                    ? Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Text(
-                                'Изменить ночное время',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 20),
-                              ),
-                              FloatingActionButton(
-                                  child: Icon(Icons.expand_less),
-                                  backgroundColor: Colors.lightBlue,
-                                  onPressed: () {
-                                    setState(() {
-                                      this.isNight = !this.isNight;
-                                    });
-                                  }),
-                            ],
-                          ),
-                          Container(
-                            height: 100,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Picker(this.callbackh1, true),
-                                Picker(this.callbackm1, false),
-                                Text(':'),
-                                Picker(this.callbackh2, true),
-                                Picker(this.callbackm2, false),
-                              ],
-                            ),
-                          ),
-                          FlatButton(
-                            shape: new RoundedRectangleBorder(
-                                borderRadius: new BorderRadius.circular(30.0)),
-                            color: Colors.deepPurple,
-                            onPressed: () {
-                              setState(() {
-                                this.nightStart1 = double.parse(hour1) / 24 +
-                                    double.parse(minute1) / 1440;
-                                this.nightEnd1 = double.parse(hour2) / 24 +
-                                    double.parse(minute2) / 1440;
-                              });
-                            },
-                            child: Text(
-                              'Изменить',
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          )
-                        ],
-                      )
-                    : Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Text(
-                            'Изменить ночное время',
-                            style: TextStyle(color: Colors.white, fontSize: 20),
-                          ),
-                          FloatingActionButton(
-                              child: Icon(Icons.expand_more),
-                              onPressed: () {
-                                setState(() {
-                                  this.isNight = !this.isNight;
-                                });
-                              }),
-                        ],
-                      )),
-            Container(
-              padding: EdgeInsets.only(top: mediaQuery.size.height / 20),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 5,
+                    blurRadius: 7,
+                    offset: Offset(0, 3), // changes position of shadow
+                  ),
+                ],
+              ),
+              child: CommonPicker(mediaQuery, this.callback),
             ),
           ]),
         ),
