@@ -10,7 +10,10 @@ import 'package:intl/intl.dart';
 class DayWidget extends CustomPainter {
   final double startNight;
   final double endNight;
-  const DayWidget(this.startNight, this.endNight);
+  final double startActivity;
+  final double endActivity;
+  const DayWidget(
+      this.startNight, this.endNight, this.startActivity, this.endActivity);
   @override
   void paint(Canvas canvas, Size size) {
     var time = DateFormat('HH:mm').format(DateTime.now()).split(':');
@@ -37,12 +40,12 @@ class DayWidget extends CustomPainter {
       ..color = Color.fromRGBO(0, 188, 180, 1.0)
       ..style = PaintingStyle.stroke
       ..strokeWidth = 30.0;
-    final linePaint = Paint()
-      ..color = Color.fromRGBO(233, 118, 91, 1.0)
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 15.0;
     final nightPaint = Paint()
       ..color = Color.fromRGBO(33, 72, 131, 1.0)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 30.0;
+    final activityPaint = Paint()
+      ..color = Colors.red
       ..style = PaintingStyle.stroke
       ..strokeWidth = 30.0;
     final trianglePaint = Paint()
@@ -58,7 +61,6 @@ class DayWidget extends CustomPainter {
     }
 
     canvas.drawCircle(center, radius, circlePaint);
-    canvas.drawLine(startPoint, Offset(endPointX, endPointY), linePaint);
     canvas.drawArc(
         new Rect.fromCenter(
             center: center, width: radius * 2, height: radius * 2),
@@ -66,6 +68,13 @@ class DayWidget extends CustomPainter {
         (2 * pi * (endNight - startNight)),
         false,
         nightPaint);
+    canvas.drawArc(
+        new Rect.fromCenter(
+            center: center, width: radius * 2, height: radius * 2),
+        (startActivity * 2 * pi - pi / 2) - shift,
+        (2 * pi * (endActivity - startActivity)),
+        false,
+        activityPaint);
 
     canvas.drawPath(getTrianglePath(size.width, size.height), trianglePaint);
   }

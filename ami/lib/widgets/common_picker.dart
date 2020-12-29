@@ -5,7 +5,8 @@ import 'package:ami/widgets/cupertino_picker.dart';
 class CommonPicker extends StatefulWidget {
   final MediaQueryData size;
   final Function callback;
-  CommonPicker(this.size, this.callback);
+  final String text;
+  CommonPicker(this.size, this.callback, this.text);
   @override
   _CommonPickerState createState() => _CommonPickerState();
 }
@@ -48,12 +49,14 @@ class _CommonPickerState extends State<CommonPicker> {
         ? Column(
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  Spacer(),
                   Text(
-                    'Изменить ночное время',
+                    widget.text,
                     style: TextStyle(color: Colors.white, fontSize: 20),
                   ),
+                  Spacer(),
                   FloatingActionButton(
                       child: Icon(Icons.expand_less),
                       backgroundColor: Colors.lightBlue,
@@ -103,12 +106,14 @@ class _CommonPickerState extends State<CommonPicker> {
         : Container(
             height: widget.size.size.height / 15,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                Spacer(),
                 Text(
-                  'Изменить ночное время',
+                  widget.text,
                   style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
+                Spacer(),
                 FloatingActionButton(
                     child: Icon(Icons.expand_more),
                     onPressed: () {

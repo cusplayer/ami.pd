@@ -12,23 +12,32 @@ class MyDay extends StatefulWidget {
 class _MyDayState extends State<MyDay> {
   var nightStart1;
   var nightEnd1;
-  void callback(double ns1, double ne1) {
+  var activityStart;
+  var activityEnd;
+  void callbackN(double ns1, double ne1) {
     setState(() {
       this.nightStart1 = ns1;
       this.nightEnd1 = ne1;
     });
   }
 
+  void callbackA(double ns1, double ne1) {
+    setState(() {
+      this.activityStart = ns1;
+      this.activityEnd = ne1;
+    });
+  }
+
   @override
   void initState() {
     this.nightStart1 = 0.0;
-    this.nightEnd1 = 0.8;
+    this.nightEnd1 = 0.0;
+    this.activityStart = 0.0;
+    this.activityEnd = 0.0;
     super.initState();
   }
 
   MediaQueryData mediaQuery;
-  var nightStart = 0.0 / 24.0;
-  var nightEnd = 8 / 24;
   var time = DateFormat('HH:mm').format(DateTime.now());
   int selectedValue;
   showPicker() {}
@@ -52,7 +61,8 @@ class _MyDayState extends State<MyDay> {
               padding: EdgeInsets.only(top: mediaQuery.size.height / 40),
               child: InteractiveViewer(
                 child: CustomPaint(
-                  painter: DayWidget(this.nightStart1, this.nightEnd1),
+                  painter: DayWidget(this.nightStart1, this.nightEnd1,
+                      this.activityStart, this.activityEnd),
                   size: Size(300, 300),
                 ),
               ),
@@ -70,7 +80,24 @@ class _MyDayState extends State<MyDay> {
                   ),
                 ],
               ),
-              child: CommonPicker(mediaQuery, this.callback),
+              child: CommonPicker(
+                  mediaQuery, this.callbackN, 'Изменить ночное время'),
+            ),
+            Container(
+              margin: EdgeInsets.only(top: mediaQuery.size.height / 60),
+              decoration: BoxDecoration(
+                color: Colors.blue,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 5,
+                    blurRadius: 7,
+                    offset: Offset(0, 3), // changes position of shadow
+                  ),
+                ],
+              ),
+              child: CommonPicker(
+                  mediaQuery, this.callbackA, 'Изменить время активности'),
             ),
           ]),
         ),
