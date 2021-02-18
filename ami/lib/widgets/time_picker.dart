@@ -6,21 +6,22 @@ import 'package:flutter/material.dart';
 import '../helpers/db_helper.dart';
 
 class TimePicker extends StatefulWidget {
+  final Activity _act;
+  TimePicker(this._act);
   @override
   _TimePickerState createState() => _TimePickerState();
 }
 
 class _TimePickerState extends State<TimePicker> {
-  List<Activity> _activities = [
-    Activity(
-        id: 'gd1ghghgfh',
-        name: '1',
-        title: 'Спать',
-        start: 1613583148,
-        end: 1613583255),
-  ];
+  // List<Activity> _activities = [
+  //   Activity(
+  //       id: 'gd1ghghgfh',
+  //       name: '1',
+  //       title: 'Спать',
+  //       start: 1613583148,
+  //       end: 1613583255),
+  // ];
   final _nameController = TextEditingController();
-  List<Activity> _act = [];
   Activity sleep;
   String activityName;
   TimeOfDay _firstTime;
@@ -68,7 +69,7 @@ class _TimePickerState extends State<TimePicker> {
                 _secondTime.minute)
             .millisecondsSinceEpoch,
       );
-      _activities.add(sleep);
+      // _activities.add(sleep);
     });
     DBHelper.insert('activities', {
       'id': sleep.id,
@@ -77,20 +78,20 @@ class _TimePickerState extends State<TimePicker> {
       'start': sleep.start,
       'end': sleep.end
     });
-    print('Сон ${_activities[1].title}');
+    // print('Сон ${_activities[1].title}');
   }
 
-  Future<void> fetchAndSet() async {
-    final datalist = await DBHelper.getData('activities');
-    _act = datalist
-        .map((activity) => Activity(
-            id: activity['id'],
-            name: activity['name'],
-            title: activity['title'],
-            start: activity['start'],
-            end: activity['end']))
-        .toList();
-  }
+  // Future<void> fetchAndSet() async {
+  //   final datalist = await DBHelper.getData('activities');
+  //   _act = datalist
+  //       .map((activity) => Activity(
+  //           id: activity['id'],
+  //           name: activity['name'],
+  //           title: activity['title'],
+  //           start: activity['start'],
+  //           end: activity['end']))
+  //       .toList();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -98,6 +99,15 @@ class _TimePickerState extends State<TimePicker> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          TextField(
+            style: TextStyle(fontSize: 13),
+            decoration: InputDecoration(labelText: 'Name'),
+            controller: _nameController,
+            onSubmitted: (_) => (activityName = _nameController.text),
+          ),
+          SizedBox(
+            height: 10,
+          ),
           Container(
             height: MediaQuery.of(context).size.height / 18,
             child: Row(
@@ -105,56 +115,49 @@ class _TimePickerState extends State<TimePicker> {
               children: [
                 Container(
                   padding: EdgeInsets.all(10),
+                  width: MediaQuery.of(context).size.width * 0.3,
                   decoration:
                       BoxDecoration(border: Border.all(color: Colors.black)),
                   child: GestureDetector(
                     onTap: () => _presentDatePicker(1),
                     child: _firstTime != null
-                        ? Text('Начальное время ${_firstTime.format(context)}')
-                        : Text('Выберите начальное время'),
+                        ? Text('${_firstTime.format(context)}')
+                        : Text('Начальное время'),
                   ),
                 ),
                 Container(
                   padding: EdgeInsets.all(10),
+                  width: MediaQuery.of(context).size.width * 0.3,
                   decoration:
                       BoxDecoration(border: Border.all(color: Colors.black)),
                   child: GestureDetector(
                     onTap: () => _presentDatePicker(2),
                     child: _secondTime != null
-                        ? Text('Конечное время ${_secondTime.format(context)}')
-                        : Text('Выберите конечное время'),
+                        ? Text('${_secondTime.format(context)}')
+                        : Text('Конечное время'),
                   ),
                 ),
+                _secondTime != null && _firstTime != null
+                    ? FloatingActionButton(
+                        onPressed: () => {
+                          _setValue(),
+                          // fetchAndSet().then(
+                          //   (_) => {
+                          //     for (var a in _act)
+                          //       {
+                          //         print('fff ${a.name}'),
+                          //       }
+                          //   },
+                          // ),
+                        },
+                        child: Icon(Icons.check),
+                      )
+                    : SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.2,
+                      ),
               ],
             ),
           ),
-          TextField(
-            decoration: InputDecoration(labelText: 'Name'),
-            controller: _nameController,
-            onSubmitted: (_) => (activityName = _nameController.text),
-          ),
-          _secondTime != null && _firstTime != null
-              ? Container(
-                  margin: EdgeInsets.only(top: 5),
-                  padding: EdgeInsets.all(10),
-                  decoration:
-                      BoxDecoration(border: Border.all(color: Colors.black)),
-                  child: GestureDetector(
-                    onTap: () => {
-                      _setValue(),
-                      fetchAndSet().then(
-                        (_) => {
-                          for (var a in _act)
-                            {
-                              print('fff ${a.name}'),
-                            }
-                        },
-                      ),
-                    },
-                    child: Text('Сохранить'),
-                  ),
-                )
-              : Divider(),
         ],
       ),
     );
