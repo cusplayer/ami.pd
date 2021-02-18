@@ -1,4 +1,9 @@
+import 'dart:math';
+
+import 'package:ami/models/activity.dart';
 import 'package:flutter/material.dart';
+
+import '../helpers/db_helper.dart';
 
 class TimePicker extends StatefulWidget {
   @override
@@ -6,7 +11,18 @@ class TimePicker extends StatefulWidget {
 }
 
 class _TimePickerState extends State<TimePicker> {
-  TimeOfDay _selextedDate;
+  List<Activity> _activities = [
+    Activity(
+        id: 'gd1ghghgfh',
+        name: '1',
+        title: 'Спать',
+        start: 1613583148,
+        end: 1613583255),
+  ];
+  final _nameController = TextEditingController();
+  List<Activity> _act = [];
+  Activity sleep;
+  String activityName;
   TimeOfDay _firstTime;
   TimeOfDay _secondTime;
   final now = new DateTime.now();
@@ -36,6 +52,44 @@ class _TimePickerState extends State<TimePicker> {
         });
       }
     });
+  }
+
+  void _setValue() {
+    DateTime dayNow = DateTime.now();
+    setState(() {
+      sleep = Activity(
+        id: Random().nextInt(4294967296).toString(),
+        name: activityName,
+        title: 'Сколько вы спали',
+        start: DateTime(dayNow.year, dayNow.month, dayNow.day, _firstTime.hour,
+                _firstTime.minute)
+            .millisecondsSinceEpoch,
+        end: DateTime(dayNow.year, dayNow.month, dayNow.day, _secondTime.hour,
+                _secondTime.minute)
+            .millisecondsSinceEpoch,
+      );
+      _activities.add(sleep);
+    });
+    DBHelper.insert('activities', {
+      'id': sleep.id,
+      'name': sleep.name,
+      'title': sleep.title,
+      'start': sleep.start,
+      'end': sleep.end
+    });
+    print('Сон ${_activities[1].title}');
+  }
+
+  Future<void> fetchAndSet() async {
+    final datalist = await DBHelper.getData('activities');
+    _act = datalist
+        .map((activity) => Activity(
+            id: activity['id'],
+            name: activity['name'],
+            title: activity['title'],
+            start: activity['start'],
+            end: activity['end']))
+        .toList();
   }
 
   @override
@@ -74,6 +128,11 @@ class _TimePickerState extends State<TimePicker> {
               ],
             ),
           ),
+          TextField(
+            decoration: InputDecoration(labelText: 'Name'),
+            controller: _nameController,
+            onSubmitted: (_) => (activityName = _nameController.text),
+          ),
           _secondTime != null && _firstTime != null
               ? Container(
                   margin: EdgeInsets.only(top: 5),
@@ -81,7 +140,17 @@ class _TimePickerState extends State<TimePicker> {
                   decoration:
                       BoxDecoration(border: Border.all(color: Colors.black)),
                   child: GestureDetector(
-                    onTap: () => _presentDatePicker(2),
+                    onTap: () => {
+                      _setValue(),
+                      fetchAndSet().then(
+                        (_) => {
+                          for (var a in _act)
+                            {
+                              print('fff ${a.name}'),
+                            }
+                        },
+                      ),
+                    },
                     child: Text('Сохранить'),
                   ),
                 )

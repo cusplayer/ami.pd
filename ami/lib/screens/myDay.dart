@@ -10,16 +10,6 @@ class MyDay extends StatefulWidget {
 }
 
 class _MyDayState extends State<MyDay> {
-  List<Activity> _activities = [
-    Activity(
-      id: '1',
-      title: 'Спать',
-      time: DateTimeRange(
-        start: DateTime.utc(1989, 11, 9),
-        end: DateTime.utc(1989, 11, 10),
-      ),
-    ),
-  ];
   MediaQueryData mediaQuery;
   var nightStart = 0.0;
   var nightEnd = 0.3;
