@@ -22,7 +22,8 @@ class _MyDayState extends State<MyDay> {
       this.nightStart1 = ns1;
       this.nightEnd1 = ne1;
       DBHelper.insert('activities', {
-        'id': 'sleep ${DateTime.now().day.toString()}',
+        'id':
+            'sleep ${DateTime.now().year} ${DateTime.now().month} ${DateTime.now().day}',
         'name': 'sleep',
         'start': ns1,
         'end': ne1
@@ -38,7 +39,7 @@ class _MyDayState extends State<MyDay> {
               ),
             )
             .toList();
-        print('ы ${_act[0].name}');
+        print('ы ${_act[2].id}');
       });
     });
   }
