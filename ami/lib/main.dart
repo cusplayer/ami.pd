@@ -1,4 +1,4 @@
-import 'package:ami/myDay.dart';
+import 'package:ami/screens/myDay.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -16,6 +16,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (ctx) => MyDay(),
+        // '/day': (ctx) => SqliteExample(),
       },
     );
   }

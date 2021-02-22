@@ -1,8 +1,10 @@
-import 'package:ami/widgets/common_picker.dart';
+import 'package:ami/models/activity.dart';
 import 'package:ami/widgets/dayWidget.dart';
+import 'package:ami/widgets/element_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import '../helpers/db_helper.dart';
 
 class MyDay extends StatefulWidget {
   @override
@@ -10,14 +12,34 @@ class MyDay extends StatefulWidget {
 }
 
 class _MyDayState extends State<MyDay> {
-  var nightStart1;
-  var nightEnd1;
+  num nightStart1;
+  num nightEnd1;
   var activityStart;
   var activityEnd;
-  void callbackN(double ns1, double ne1) {
+  List<Activity> _act = [];
+  Future<void> callbackN(num ns1, num ne1) async {
     setState(() {
       this.nightStart1 = ns1;
       this.nightEnd1 = ne1;
+      DBHelper.insert('activities', {
+        'id': 'sleep ${DateTime.now().day.toString()}',
+        'name': 'sleep',
+        'start': ns1,
+        'end': ne1
+      }).then((_) async {
+        final datalist = await DBHelper.getData('activities');
+        _act = datalist
+            .map(
+              (activity) => Activity(
+                id: activity['id'],
+                name: activity['name'],
+                start: activity['start'],
+                end: activity['end'],
+              ),
+            )
+            .toList();
+        print('ы ${_act[0].name}');
+      });
     });
   }
 
@@ -44,6 +66,7 @@ class _MyDayState extends State<MyDay> {
 
   @override
   Widget build(BuildContext context) {
+    // print()
     print(this.nightStart1);
     var mediaQuery = MediaQuery.of(context);
     return Scaffold(
@@ -67,38 +90,13 @@ class _MyDayState extends State<MyDay> {
                 ),
               ),
             ),
-            Container(
-              margin: EdgeInsets.only(top: mediaQuery.size.height / 30),
-              decoration: BoxDecoration(
-                color: Colors.blue,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 5,
-                    blurRadius: 7,
-                    offset: Offset(0, 3), // changes position of shadow
-                  ),
-                ],
-              ),
-              child: CommonPicker(
-                  mediaQuery, this.callbackN, 'Изменить ночное время'),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: mediaQuery.size.height / 60),
-              decoration: BoxDecoration(
-                color: Colors.blue,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 5,
-                    blurRadius: 7,
-                    offset: Offset(0, 3), // changes position of shadow
-                  ),
-                ],
-              ),
-              child: CommonPicker(
-                  mediaQuery, this.callbackA, 'Изменить время активности'),
-            ),
+            ElementPicker(mediaQuery, this.callbackN),
+            ElementPicker(mediaQuery, this.callbackA),
+            // FlatButton(
+            //     onPressed: () {
+            //       Navigator.of(context).pushNamed('/day');
+            //     },
+            //     child: Text('э'))
           ]),
         ),
       ),
