@@ -1,5 +1,6 @@
 import 'package:ami/models/activity.dart';
 import 'package:ami/providers/activities.dart';
+import 'package:ami/widgets/activity_arc.dart';
 import 'package:ami/widgets/dayWidget.dart';
 import 'package:ami/widgets/element_picker.dart';
 import 'package:flutter/cupertino.dart';
@@ -89,6 +90,8 @@ class _MyDayState extends State<MyDay> {
                                         this.nightEnd1,
                                         this.activityStart,
                                         this.activityEnd),
+                                    foregroundPainter: ActivityArc(
+                                        0.3, 0.5, Colors.deepPurple),
                                     size: Size(300, 300),
                                   ),
                                 ),
