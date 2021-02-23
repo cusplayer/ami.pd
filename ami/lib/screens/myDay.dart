@@ -1,9 +1,12 @@
 import 'package:ami/models/activity.dart';
+import 'package:ami/providers/activities.dart';
 import 'package:ami/widgets/dayWidget.dart';
 import 'package:ami/widgets/element_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:path/path.dart';
+import 'package:provider/provider.dart';
 import '../helpers/db_helper.dart';
 
 class MyDay extends StatefulWidget {
@@ -16,31 +19,11 @@ class _MyDayState extends State<MyDay> {
   num nightEnd1;
   var activityStart;
   var activityEnd;
-  List<Activity> _act = [];
+
   Future<void> callbackN(num ns1, num ne1) async {
     setState(() {
       this.nightStart1 = ns1;
       this.nightEnd1 = ne1;
-      DBHelper.insert('activities', {
-        'id':
-            'sleep ${DateTime.now().year} ${DateTime.now().month} ${DateTime.now().day}',
-        'name': 'sleep',
-        'start': ns1,
-        'end': ne1
-      }).then((_) async {
-        final datalist = await DBHelper.getData('activities');
-        _act = datalist
-            .map(
-              (activity) => Activity(
-                id: activity['id'],
-                name: activity['name'],
-                start: activity['start'],
-                end: activity['end'],
-              ),
-            )
-            .toList();
-        print('ы ${_act[2].id}');
-      });
     });
   }
 
@@ -71,36 +54,82 @@ class _MyDayState extends State<MyDay> {
     print(this.nightStart1);
     var mediaQuery = MediaQuery.of(context);
     return Scaffold(
-      appBar: AppBar(
-        title: Text('ы'),
-      ),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Column(children: [
-            Container(
-              padding: EdgeInsets.only(top: mediaQuery.size.height / 40),
-              child: Text(time, style: TextStyle(fontSize: 30)),
-            ),
-            Container(
-              padding: EdgeInsets.only(top: mediaQuery.size.height / 40),
-              child: InteractiveViewer(
-                child: CustomPaint(
-                  painter: DayWidget(this.nightStart1, this.nightEnd1,
-                      this.activityStart, this.activityEnd),
-                  size: Size(300, 300),
-                ),
-              ),
-            ),
-            ElementPicker(mediaQuery, this.callbackN),
-            ElementPicker(mediaQuery, this.callbackA),
-            // FlatButton(
-            //     onPressed: () {
-            //       Navigator.of(context).pushNamed('/day');
-            //     },
-            //     child: Text('э'))
-          ]),
+        appBar: AppBar(
+          title: Text('ы'),
         ),
-      ),
-    );
+        body: FutureBuilder(
+          future: Provider.of<Activities>(context, listen: false).fetchAndSet(),
+          builder: (context, snapshot) => snapshot.connectionState ==
+                  ConnectionState.waiting
+              ? CircularProgressIndicator()
+              : Consumer<Activities>(
+                  child: Center(
+                    child: const Text('ниче нет'),
+                  ),
+                  builder: (context, activities, ch) => activities
+                              .activities.length <=
+                          0
+                      ? ch
+                      : SingleChildScrollView(
+                          child: Center(
+                            child: Column(children: [
+                              Container(
+                                padding: EdgeInsets.only(
+                                    top: mediaQuery.size.height / 40),
+                                child:
+                                    Text(time, style: TextStyle(fontSize: 30)),
+                              ),
+                              Container(
+                                padding: EdgeInsets.only(
+                                    top: mediaQuery.size.height / 40),
+                                child: InteractiveViewer(
+                                  child: CustomPaint(
+                                    painter: DayWidget(
+                                        this.nightStart1,
+                                        this.nightEnd1,
+                                        this.activityStart,
+                                        this.activityEnd),
+                                    size: Size(300, 300),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                height: 300,
+                                child: SingleChildScrollView(
+                                  physics: ScrollPhysics(),
+                                  child: Column(
+                                    children: <Widget>[
+                                      ListView.builder(
+                                          physics:
+                                              NeverScrollableScrollPhysics(),
+                                          shrinkWrap: true,
+                                          itemCount:
+                                              activities.activities.length,
+                                          itemBuilder: (context, index) {
+                                            return ElementPicker(
+                                                mediaQuery,
+                                                this.callbackN,
+                                                activities.activities[index]);
+                                          })
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              FloatingActionButton(
+                                onPressed: () => activities.addActivity(
+                                    'Дело 2021 2 22', 'Дело', 0.7, 0.8),
+                                child: Icon(Icons.add),
+                              )
+                              // ElementPicker(mediaQuery, this.callbackA),
+                              // FlatButton(
+                              //     onPressed: () {
+                              //       Navigator.of(context).pushNamed('/day');
+                              //     },
+                              //     child: Text('э'))
+                            ]),
+                          ),
+                        ),
+                ),
+        ));
   }
 }

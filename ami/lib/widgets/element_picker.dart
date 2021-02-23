@@ -1,3 +1,4 @@
+import 'package:ami/models/activity.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 
@@ -6,7 +7,8 @@ import 'common_picker.dart';
 class ElementPicker extends StatefulWidget {
   final MediaQueryData mediaQuery;
   final Function callback;
-  ElementPicker(this.mediaQuery, this.callback);
+  Activity activity;
+  ElementPicker(this.mediaQuery, this.callback, this.activity);
   @override
   _ElementPickerState createState() => _ElementPickerState();
 }
@@ -40,8 +42,8 @@ class _ElementPickerState extends State<ElementPicker> {
           ),
         ],
       ),
-      child: CommonPicker(
-          widget.mediaQuery, pickerCallback, 'Изменить ночное время'),
+      child:
+          CommonPicker(widget.mediaQuery, pickerCallback, widget.activity.name),
     );
   }
 }
