@@ -42,8 +42,8 @@ class _ElementPickerState extends State<ElementPicker> {
           ),
         ],
       ),
-      child:
-          CommonPicker(widget.mediaQuery, pickerCallback, widget.activity.name),
+      child: CommonPicker(
+          widget.mediaQuery, pickerCallback, widget.activity.end.toString()),
     );
   }
 }

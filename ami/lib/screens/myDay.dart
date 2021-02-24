@@ -9,6 +9,7 @@ import 'package:intl/intl.dart';
 import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 import '../helpers/db_helper.dart';
+import 'dart:math' as math;
 
 class MyDay extends StatefulWidget {
   @override
@@ -20,6 +21,7 @@ class _MyDayState extends State<MyDay> {
   num nightEnd1;
   var activityStart;
   var activityEnd;
+  List<Widget> widgetList = [];
 
   Future<void> callbackN(num ns1, num ne1) async {
     setState(() {
@@ -33,6 +35,17 @@ class _MyDayState extends State<MyDay> {
       this.activityStart = ns1;
       this.activityEnd = ne1;
     });
+  }
+
+  listEl(Activity act) {
+    return CustomPaint(
+      painter: ActivityArc(
+          act.start,
+          act.end,
+          Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
+              .withOpacity(1.0)),
+      size: Size(300, 300),
+    );
   }
 
   @override
@@ -84,15 +97,25 @@ class _MyDayState extends State<MyDay> {
                                 padding: EdgeInsets.only(
                                     top: mediaQuery.size.height / 40),
                                 child: InteractiveViewer(
-                                  child: CustomPaint(
-                                    painter: DayWidget(
-                                        this.nightStart1,
-                                        this.nightEnd1,
-                                        this.activityStart,
-                                        this.activityEnd),
-                                    foregroundPainter: ActivityArc(
-                                        0.3, 0.5, Colors.deepPurple),
-                                    size: Size(300, 300),
+                                  child: Stack(
+                                    children: [
+                                      CustomPaint(
+                                        painter: DayWidget(
+                                            this.nightStart1,
+                                            this.nightEnd1,
+                                            this.activityStart,
+                                            this.activityEnd),
+                                        size: Size(300, 300),
+                                      ),
+                                      Container(
+                                          height: 300,
+                                          width: 300,
+                                          child: Stack(children: [
+                                            for (var act
+                                                in activities.activities)
+                                              listEl(act)
+                                          ])),
+                                    ],
                                   ),
                                 ),
                               ),
