@@ -6,7 +6,9 @@ class CommonPicker extends StatefulWidget {
   final MediaQueryData size;
   final Function callback;
   final String text;
-  CommonPicker(this.size, this.callback, this.text);
+  final double start;
+  final double end;
+  CommonPicker(this.size, this.callback, this.text, this.start, this.end);
   @override
   _CommonPickerState createState() => _CommonPickerState();
 }
@@ -19,6 +21,12 @@ class _CommonPickerState extends State<CommonPicker> {
   var minute2 = '0';
   var nightStart1;
   var nightEnd1;
+  timeConverter(double time) {
+    int hours = time ~/ (1 / 24);
+    int minutes = ((time % (1 / 24)) * 1440).toInt();
+    return [hours, minutes];
+  }
+
   void callbackh1(String time) {
     setState(() {
       this.hour1 = time;
@@ -72,11 +80,14 @@ class _CommonPickerState extends State<CommonPicker> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Picker(this.callbackh1, true),
-                    Picker(this.callbackm1, false),
+                    Picker(
+                        this.callbackh1, true, timeConverter(widget.start)[0]),
+                    Picker(
+                        this.callbackm1, false, timeConverter(widget.start)[1]),
                     Text(':'),
-                    Picker(this.callbackh2, true),
-                    Picker(this.callbackm2, false),
+                    Picker(this.callbackh2, true, timeConverter(widget.end)[0]),
+                    Picker(
+                        this.callbackm2, false, timeConverter(widget.end)[1]),
                   ],
                 ),
               ),

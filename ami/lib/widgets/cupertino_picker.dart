@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 class Picker extends StatefulWidget {
   final Function callback;
   final bool isHours;
-  Picker(this.callback, this.isHours);
+  final int time;
+  Picker(this.callback, this.isHours, this.time);
 
   @override
   _PickerState createState() => _PickerState();
@@ -14,15 +15,24 @@ class _PickerState extends State<Picker> {
   void initState() {
     arr = [];
     if (widget.isHours) {
-      for (var i = 0; i <= 23; i++) {
-        arr.add(Text('$i'));
+      for (var i = 0; i < 23; i++) {
+        if (i + widget.time <= 23) {
+          arr.add(Text('${i + widget.time}'));
+        } else {
+          arr.add(Text('${i + widget.time - 23}'));
+        }
       }
     } else {
-      for (var i = 0; i <= 59; i++) {
-        arr.add(Text('$i'));
+      for (var i = 0; i < 59; i++) {
+        if (i + widget.time <= 59) {
+          arr.add(Text('${i + widget.time}'));
+        } else {
+          arr.add(Text('${i + widget.time - 59}'));
+        }
       }
     }
     super.initState();
+    print('Время ${widget.time.toString()}');
   }
 
   String yourParam;
@@ -44,6 +54,7 @@ class _PickerState extends State<Picker> {
         },
         itemExtent: 32.0,
         children: arr,
+        looping: true,
       ),
     );
   }

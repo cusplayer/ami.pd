@@ -7,7 +7,7 @@ import 'common_picker.dart';
 class ElementPicker extends StatefulWidget {
   final MediaQueryData mediaQuery;
   final Function callback;
-  Activity activity;
+  final Activity activity;
   ElementPicker(this.mediaQuery, this.callback, this.activity);
   @override
   _ElementPickerState createState() => _ElementPickerState();
@@ -43,7 +43,11 @@ class _ElementPickerState extends State<ElementPicker> {
         ],
       ),
       child: CommonPicker(
-          widget.mediaQuery, pickerCallback, widget.activity.end.toString()),
+          widget.mediaQuery,
+          pickerCallback,
+          widget.activity.end.toString(),
+          widget.activity.start,
+          widget.activity.end),
     );
   }
 }
