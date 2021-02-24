@@ -23,12 +23,12 @@ class _MyDayState extends State<MyDay> {
   var activityEnd;
   List<Widget> widgetList = [];
 
-  Future<void> callbackN(num ns1, num ne1) async {
-    setState(() {
-      this.nightStart1 = ns1;
-      this.nightEnd1 = ne1;
-    });
-  }
+  // Future<void> callbackN(num ns1, num ne1) async {
+  //   setState(() {
+  //     this.nightStart1 = ns1;
+  //     this.nightEnd1 = ne1;
+  //   });
+  // }
 
   void callbackA(double ns1, double ne1) {
     setState(() {
@@ -100,11 +100,7 @@ class _MyDayState extends State<MyDay> {
                                   child: Stack(
                                     children: [
                                       CustomPaint(
-                                        painter: DayWidget(
-                                            this.nightStart1,
-                                            this.nightEnd1,
-                                            this.activityStart,
-                                            this.activityEnd),
+                                        painter: DayWidget(),
                                         size: Size(300, 300),
                                       ),
                                       Container(
@@ -134,7 +130,7 @@ class _MyDayState extends State<MyDay> {
                                           itemBuilder: (context, index) {
                                             return ElementPicker(
                                                 mediaQuery,
-                                                this.callbackN,
+                                                // this.callbackN,
                                                 activities.activities[index]);
                                           })
                                     ],

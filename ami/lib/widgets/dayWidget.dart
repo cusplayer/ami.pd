@@ -8,18 +8,18 @@ import 'package:intl/intl.dart';
 // import 'package:intl/intl_browser.dart';
 
 class DayWidget extends CustomPainter {
-  final double startNight;
-  final double endNight;
-  final double startActivity;
-  final double endActivity;
-  const DayWidget(
-      this.startNight, this.endNight, this.startActivity, this.endActivity);
+  // final double startNight;
+  // final double endNight;
+  // final double startActivity;
+  // final double endActivity;
+  // const DayWidget(
+  //     this.startNight, this.endNight, this.startActivity, this.endActivity);
   @override
   void paint(Canvas canvas, Size size) {
     var time = DateFormat('HH:mm').format(DateTime.now()).split(':');
     print(DateTime.now());
-    print(startNight);
-    print(endNight);
+    // print(startNight);
+    // print(endNight);
     var centerX = size.width / 2;
     var centerY = size.height / 2;
     var center = Offset(centerX, centerY);
@@ -61,27 +61,27 @@ class DayWidget extends CustomPainter {
     }
 
     canvas.drawCircle(center, radius, circlePaint);
-    print('Start ${(startNight * 2 * pi - pi / 2) - shift}');
-    print('Start ${(2 * pi * (endNight - startNight) + pi * 2)}');
+    // print('Start ${(startNight * 2 * pi - pi / 2) - shift}');
+    // print('Start ${(2 * pi * (endNight - startNight) + pi * 2)}');
 
-    canvas.drawArc(
-        new Rect.fromCenter(
-            center: center, width: radius * 2, height: radius * 2),
-        (startNight * 2 * pi - pi / 2) - shift,
-        ((2 * pi * (endNight - startNight)) < 0)
-            ? (2 * pi * (endNight - startNight) + pi * 2)
-            : (2 * pi * (endNight - startNight)),
-        false,
-        nightPaint);
-    canvas.drawArc(
-        new Rect.fromCenter(
-            center: center, width: radius * 2, height: radius * 2),
-        (startActivity * 2 * pi - pi / 2) - shift,
-        ((2 * pi * (endActivity - startActivity)) < 0)
-            ? (2 * pi * (endActivity - startActivity) + pi * 2)
-            : (2 * pi * (endActivity - startActivity)),
-        false,
-        activityPaint);
+    // canvas.drawArc(
+    //     new Rect.fromCenter(
+    //         center: center, width: radius * 2, height: radius * 2),
+    //     (startNight * 2 * pi - pi / 2) - shift,
+    //     ((2 * pi * (endNight - startNight)) < 0)
+    //         ? (2 * pi * (endNight - startNight) + pi * 2)
+    //         : (2 * pi * (endNight - startNight)),
+    //     false,
+    //     nightPaint);
+    // canvas.drawArc(
+    //     new Rect.fromCenter(
+    //         center: center, width: radius * 2, height: radius * 2),
+    //     (startActivity * 2 * pi - pi / 2) - shift,
+    //     ((2 * pi * (endActivity - startActivity)) < 0)
+    //         ? (2 * pi * (endActivity - startActivity) + pi * 2)
+    //         : (2 * pi * (endActivity - startActivity)),
+    //     false,
+    //     activityPaint);
 
     canvas.drawPath(getTrianglePath(size.width, size.height), trianglePaint);
   }

@@ -1,14 +1,16 @@
 import 'package:ami/models/activity.dart';
+import 'package:ami/providers/activities.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
+import 'package:provider/provider.dart';
 
 import 'common_picker.dart';
 
 class ElementPicker extends StatefulWidget {
   final MediaQueryData mediaQuery;
-  final Function callback;
+  // final Function callback;
   final Activity activity;
-  ElementPicker(this.mediaQuery, this.callback, this.activity);
+  ElementPicker(this.mediaQuery, this.activity);
   @override
   _ElementPickerState createState() => _ElementPickerState();
 }
@@ -16,15 +18,15 @@ class ElementPicker extends StatefulWidget {
 class _ElementPickerState extends State<ElementPicker> {
   var activityStart;
   var activityEnd;
-  void pickerCallback(double ns1, double ne1) {
-    setState(() {
-      this.widget.callback(
-            ns1,
-            ne1,
-          );
-      this.activityStart = ns1;
-      this.activityEnd = ne1;
-    });
+  void pickerCallback(num ns1, num ne1) {
+    // setState(() {
+    //   this.widget.callback(
+    //         ns1,
+    //         ne1,
+    //       );
+    // });
+    Provider.of<Activities>(this.context, listen: false)
+        .addActivity(widget.activity.id, widget.activity.name, ns1, ne1);
   }
 
   @override
@@ -45,7 +47,7 @@ class _ElementPickerState extends State<ElementPicker> {
       child: CommonPicker(
           widget.mediaQuery,
           pickerCallback,
-          widget.activity.end.toString(),
+          'name ${widget.activity.name.toString()}, id ${widget.activity.id.toString()}',
           widget.activity.start,
           widget.activity.end),
     );
