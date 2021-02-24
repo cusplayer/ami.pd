@@ -5,6 +5,7 @@ class Picker extends StatefulWidget {
   final Function callback;
   final bool isHours;
   final int time;
+
   Picker(this.callback, this.isHours, this.time);
 
   @override
@@ -12,22 +13,23 @@ class Picker extends StatefulWidget {
 }
 
 class _PickerState extends State<Picker> {
+  Text text;
   void initState() {
     arr = [];
     if (widget.isHours) {
-      for (var i = 0; i < 23; i++) {
+      for (var i = 0; i < 24; i++) {
         if (i + widget.time <= 23) {
           arr.add(Text('${i + widget.time}'));
         } else {
-          arr.add(Text('${i + widget.time - 23}'));
+          arr.add(Text('${i + widget.time - 24}'));
         }
       }
     } else {
-      for (var i = 0; i < 59; i++) {
+      for (var i = 0; i < 60; i++) {
         if (i + widget.time <= 59) {
           arr.add(Text('${i + widget.time}'));
         } else {
-          arr.add(Text('${i + widget.time - 59}'));
+          arr.add(Text('${i + widget.time - 60}'));
         }
       }
     }
@@ -37,7 +39,7 @@ class _PickerState extends State<Picker> {
 
   String yourParam;
   var arr = <Widget>[];
-  int selectedValue;
+  String selectedValue;
   @override
   Widget build(BuildContext context) {
     print('selected value $selectedValue');
@@ -48,8 +50,9 @@ class _PickerState extends State<Picker> {
         backgroundColor: Colors.white,
         onSelectedItemChanged: (value) {
           setState(() {
-            selectedValue = value;
-            this.widget.callback(value.toString());
+            text = arr[value];
+            selectedValue = text.data;
+            this.widget.callback(selectedValue);
           });
         },
         itemExtent: 32.0,

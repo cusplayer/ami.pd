@@ -8,7 +8,6 @@ import 'common_picker.dart';
 
 class ElementPicker extends StatefulWidget {
   final MediaQueryData mediaQuery;
-  // final Function callback;
   final Activity activity;
   ElementPicker(this.mediaQuery, this.activity);
   @override
@@ -27,6 +26,7 @@ class _ElementPickerState extends State<ElementPicker> {
     // });
     Provider.of<Activities>(this.context, listen: false)
         .addActivity(widget.activity.id, widget.activity.name, ns1, ne1);
+    print('начало $ns1 конец $ne1');
   }
 
   @override
