@@ -42,7 +42,6 @@ class _PickerState extends State<Picker> {
   String selectedValue;
   @override
   Widget build(BuildContext context) {
-    print('selected value $selectedValue');
     var mediaQuery = MediaQuery.of(context);
     return Container(
       width: mediaQuery.size.width / 5,

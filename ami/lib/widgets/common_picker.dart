@@ -15,15 +15,15 @@ class CommonPicker extends StatefulWidget {
 
 class _CommonPickerState extends State<CommonPicker> {
   var isNight = false;
-  var hour1 = '0';
-  var minute1 = '0';
-  var hour2 = '0';
-  var minute2 = '0';
+  var hour1;
+  var minute1;
+  var hour2;
+  var minute2;
   var nightStart1;
   var nightEnd1;
   timeConverter(double time) {
     int hours = time ~/ (1 / 24);
-    int minutes = ((time % (1 / 24)) * 1440).toInt();
+    int minutes = ((time % (1 / 24)) * 1442).toInt();
     return [hours, minutes];
   }
 
@@ -49,6 +49,14 @@ class _CommonPickerState extends State<CommonPicker> {
     setState(() {
       this.minute2 = time;
     });
+  }
+
+  void initState() {
+    hour1 = timeConverter(widget.start)[0].toString();
+    minute1 = timeConverter(widget.start)[1].toString();
+    hour2 = timeConverter(widget.end)[0].toString();
+    minute2 = timeConverter(widget.end)[1].toString();
+    super.initState();
   }
 
   @override
