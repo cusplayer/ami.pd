@@ -49,7 +49,8 @@ class _ElementPickerState extends State<ElementPicker> {
           pickerCallback,
           'name ${widget.activity.name.toString()}, id ${widget.activity.id.toString()}',
           widget.activity.start,
-          widget.activity.end),
+          widget.activity.end,
+          widget.activity.id),
     );
   }
 }

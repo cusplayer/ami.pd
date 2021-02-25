@@ -1,6 +1,9 @@
+import 'package:ami/helpers/db_helper.dart';
+import 'package:ami/providers/activities.dart';
 import 'package:flutter/material.dart';
 
 import 'package:ami/widgets/cupertino_picker.dart';
+import 'package:provider/provider.dart';
 
 class CommonPicker extends StatefulWidget {
   final MediaQueryData size;
@@ -8,7 +11,9 @@ class CommonPicker extends StatefulWidget {
   final String text;
   final double start;
   final double end;
-  CommonPicker(this.size, this.callback, this.text, this.start, this.end);
+  final String id;
+  CommonPicker(
+      this.size, this.callback, this.text, this.start, this.end, this.id);
   @override
   _CommonPickerState createState() => _CommonPickerState();
 }
@@ -119,7 +124,16 @@ class _CommonPickerState extends State<CommonPicker> {
                   'Изменить',
                   style: TextStyle(color: Colors.white),
                 ),
-              )
+              ),
+              FlatButton(
+                  color: Colors.red,
+                  child: Text('Удалить'),
+                  onPressed: () {
+                    setState(() {
+                      Provider.of<Activities>(this.context, listen: false)
+                          .deleteActivity(widget.id);
+                    });
+                  })
             ],
           )
         : Container(
