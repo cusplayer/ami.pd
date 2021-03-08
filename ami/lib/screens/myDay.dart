@@ -1,14 +1,12 @@
 import 'package:ami/models/activity.dart';
 import 'package:ami/providers/activities.dart';
 import 'package:ami/widgets/activity_arc.dart';
-import 'package:ami/widgets/dayWidget.dart';
+import 'package:ami/widgets/day_container.dart';
 import 'package:ami/widgets/element_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:path/path.dart';
 import 'package:provider/provider.dart';
-import '../helpers/db_helper.dart';
 import 'dart:math' as math;
 
 class MyDay extends StatefulWidget {
@@ -22,6 +20,7 @@ class _MyDayState extends State<MyDay> {
   var activityStart;
   var activityEnd;
   List<Widget> widgetList = [];
+  Future fetchAndSetFuture;
 
   // Future<void> callbackN(num ns1, num ne1) async {
   //   setState(() {
@@ -54,6 +53,8 @@ class _MyDayState extends State<MyDay> {
     this.nightEnd1 = 0.0;
     this.activityStart = 0.0;
     this.activityEnd = 0.0;
+    fetchAndSetFuture =
+        Provider.of<Activities>(context, listen: false).fetchAndSet();
     super.initState();
   }
 
@@ -68,89 +69,62 @@ class _MyDayState extends State<MyDay> {
     print(this.nightStart1);
     var mediaQuery = MediaQuery.of(context);
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           title: Text('ы'),
         ),
         body: FutureBuilder(
-          future: Provider.of<Activities>(context, listen: false).fetchAndSet(),
+          future: fetchAndSetFuture,
           builder: (context, snapshot) => snapshot.connectionState ==
                   ConnectionState.waiting
-              ? CircularProgressIndicator()
+              ? Center(child: CircularProgressIndicator())
               : Consumer<Activities>(
                   child: Center(
                     child: const Text('ниче нет'),
                   ),
-                  builder: (context, activities, ch) => activities
-                              .activities.length <=
-                          0
-                      ? ch
-                      : SingleChildScrollView(
-                          child: Center(
-                            child: Column(children: [
-                              Container(
-                                padding: EdgeInsets.only(
-                                    top: mediaQuery.size.height / 40),
-                                child:
-                                    Text(time, style: TextStyle(fontSize: 30)),
-                              ),
-                              Container(
-                                padding: EdgeInsets.only(
-                                    top: mediaQuery.size.height / 40),
-                                child: InteractiveViewer(
-                                  child: Stack(
-                                    children: [
-                                      CustomPaint(
-                                        painter: DayWidget(),
-                                        size: Size(300, 300),
-                                      ),
-                                      Container(
-                                          height: 300,
-                                          width: 300,
-                                          child: Stack(children: [
-                                            for (var act
-                                                in activities.activities)
-                                              listEl(act)
-                                          ])),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                height: 300,
-                                child: SingleChildScrollView(
-                                  physics: ScrollPhysics(),
-                                  child: Column(
-                                    children: <Widget>[
-                                      ListView.builder(
-                                          physics:
-                                              NeverScrollableScrollPhysics(),
-                                          shrinkWrap: true,
-                                          itemCount:
-                                              activities.activities.length,
-                                          itemBuilder: (context, index) {
-                                            return ElementPicker(
-                                                mediaQuery,
-                                                // this.callbackN,
-                                                activities.activities[index]);
-                                          })
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              FloatingActionButton(
-                                onPressed: () => activities.addActivity(
-                                    'Дело 2021 2 22', 'Дело', 0.7, 0.8),
-                                child: Icon(Icons.add),
-                              )
-                              // ElementPicker(mediaQuery, this.callbackA),
-                              // FlatButton(
-                              //     onPressed: () {
-                              //       Navigator.of(context).pushNamed('/day');
-                              //     },
-                              //     child: Text('э'))
-                            ]),
+                  builder: (context, activities, ch) => SingleChildScrollView(
+                    child: Center(
+                      child: Column(children: [
+                        Container(
+                          padding:
+                              EdgeInsets.only(top: mediaQuery.size.height / 40),
+                          child: Text(time, style: TextStyle(fontSize: 30)),
+                        ),
+                        DayContainer(mediaQuery, activities),
+                        Container(
+                          height: 300,
+                          child: SingleChildScrollView(
+                            physics: ScrollPhysics(),
+                            child: Column(
+                              children: <Widget>[
+                                ListView.builder(
+                                    physics: NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    itemCount: activities.activities.length,
+                                    itemBuilder: (context, index) {
+                                      return ElementPicker(
+                                          mediaQuery,
+                                          // this.callbackN,
+                                          activities.activities[index]);
+                                    })
+                              ],
+                            ),
                           ),
                         ),
+                        FloatingActionButton(
+                          onPressed: () => activities.addActivity(
+                              '0Adding0', 'Добавить активность', 0.0, 0.0),
+                          child: Icon(Icons.add),
+                        )
+                        // ElementPicker(mediaQuery, this.callbackA),
+                        // FlatButton(
+                        //     onPressed: () {
+                        //       Navigator.of(context).pushNamed('/day');
+                        //     },
+                        //     child: Text('э'))
+                      ]),
+                    ),
+                  ),
                 ),
         ));
   }

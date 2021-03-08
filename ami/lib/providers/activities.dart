@@ -27,6 +27,7 @@ class Activities with ChangeNotifier {
   void deleteActivity(String id) {
     _activities.removeWhere((act) => act.id == id);
     DBHelper.delete(id);
+    notifyListeners();
   }
 
   Future<void> fetchAndSet() async {

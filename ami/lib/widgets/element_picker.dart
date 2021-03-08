@@ -1,7 +1,6 @@
 import 'package:ami/models/activity.dart';
 import 'package:ami/providers/activities.dart';
 import 'package:flutter/material.dart';
-import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 
 import 'common_picker.dart';
@@ -17,15 +16,18 @@ class ElementPicker extends StatefulWidget {
 class _ElementPickerState extends State<ElementPicker> {
   var activityStart;
   var activityEnd;
-  void pickerCallback(num ns1, num ne1) {
+  void pickerCallback(num ns1, num ne1, String name, String id) {
     // setState(() {
     //   this.widget.callback(
     //         ns1,
     //         ne1,
     //       );
     // });
-    Provider.of<Activities>(this.context, listen: false)
-        .addActivity(widget.activity.id, widget.activity.name, ns1, ne1);
+    widget.activity.id == '0Adding0'
+        ? Provider.of<Activities>(this.context, listen: false)
+            .addActivity(id, name, ns1, ne1)
+        : Provider.of<Activities>(this.context, listen: false)
+            .addActivity(widget.activity.id, widget.activity.name, ns1, ne1);
     print('начало $ns1 конец $ne1');
   }
 
@@ -44,13 +46,8 @@ class _ElementPickerState extends State<ElementPicker> {
           ),
         ],
       ),
-      child: CommonPicker(
-          widget.mediaQuery,
-          pickerCallback,
-          'name ${widget.activity.name.toString()}, id ${widget.activity.id.toString()}',
-          widget.activity.start,
-          widget.activity.end,
-          widget.activity.id),
+      child: CommonPicker(widget.mediaQuery, pickerCallback,
+          '${widget.activity.name.toString()}', widget.activity),
     );
   }
 }
