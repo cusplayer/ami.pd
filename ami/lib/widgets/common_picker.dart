@@ -73,10 +73,43 @@ class _CommonPickerState extends State<CommonPicker> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Spacer(),
-                    Text(
-                      widget.text,
-                      style: TextStyle(color: Colors.white, fontSize: 20),
-                    ),
+                    widget.activity.id != '0Adding0'
+                        ? GestureDetector(
+                            child: _textController.text == ''
+                                ? Text(
+                                    widget.text,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 20,
+                                      fontStyle: FontStyle.italic,
+                                    ),
+                                  )
+                                : Text(
+                                    _textController.text,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 20,
+                                      fontStyle: FontStyle.italic,
+                                    ),
+                                  ),
+                            onTap: () => showModalBottomSheet(
+                                context: context,
+                                builder: (_) {
+                                  return Container(
+                                    height: 500,
+                                    child: TextField(
+                                      controller: _textController,
+                                    ),
+                                  );
+                                }),
+                          )
+                        : Text(
+                            widget.text,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                            ),
+                          ),
                     Spacer(),
                     FloatingActionButton(
                         child: Icon(Icons.expand_less),
@@ -107,8 +140,20 @@ class _CommonPickerState extends State<CommonPicker> {
                 ),
                 widget.activity.id == '0Adding0'
                     ? Column(children: [
-                        TextField(
-                          controller: _textController,
+                        GestureDetector(
+                          child: _textController.text != ''
+                              ? Text(_textController.text)
+                              : Text('Введите название'),
+                          onTap: () => showModalBottomSheet(
+                              context: context,
+                              builder: (_) {
+                                return Container(
+                                  height: 500,
+                                  child: TextField(
+                                    controller: _textController,
+                                  ),
+                                );
+                              }),
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -152,8 +197,13 @@ class _CommonPickerState extends State<CommonPicker> {
                                     double.parse(minute1) / 1440;
                                 this.nightEnd1 = double.parse(hour2) / 24 +
                                     double.parse(minute2) / 1440;
-                                this.widget.callback(this.nightStart1,
-                                    this.nightEnd1, widget.activity.name);
+                                this.widget.callback(
+                                    this.nightStart1,
+                                    this.nightEnd1,
+                                    _textController.text != ''
+                                        ? _textController.text
+                                        : widget.activity.name,
+                                    widget.activity.id);
                               });
                             },
                             child: Text(

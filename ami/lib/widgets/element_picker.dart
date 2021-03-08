@@ -27,7 +27,7 @@ class _ElementPickerState extends State<ElementPicker> {
         ? Provider.of<Activities>(this.context, listen: false)
             .addActivity(id, name, ns1, ne1)
         : Provider.of<Activities>(this.context, listen: false)
-            .addActivity(widget.activity.id, widget.activity.name, ns1, ne1);
+            .addActivity(widget.activity.id, name, ns1, ne1);
     print('начало $ns1 конец $ne1');
   }
 
