@@ -92,13 +92,13 @@ class _MyDayState extends State<MyDay> {
                         ),
                         DayContainer(mediaQuery, activities),
                         Container(
-                          height: 300,
+                          height: MediaQuery.of(context).size.height / 2,
                           child: SingleChildScrollView(
                             physics: ScrollPhysics(),
                             child: Column(
                               children: <Widget>[
                                 ListView.builder(
-                                    physics: NeverScrollableScrollPhysics(),
+                                    physics: ScrollPhysics(),
                                     shrinkWrap: true,
                                     itemCount: activities.activities.length,
                                     itemBuilder: (context, index) {
@@ -106,16 +106,20 @@ class _MyDayState extends State<MyDay> {
                                           mediaQuery,
                                           // this.callbackN,
                                           activities.activities[index]);
-                                    })
+                                    }),
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height / 6,
+                                ),
                               ],
                             ),
                           ),
                         ),
-                        FloatingActionButton(
-                          onPressed: () => activities.addActivity(
-                              '0Adding0', 'Добавить активность', 0.0, 0.0),
-                          child: Icon(Icons.add),
-                        )
+                        // FloatingActionButton(  //Developer button
+                        //   onPressed: () => activities.addActivity(
+                        //       '0Adding0', 'Добавить активность', 0.0, 0.0),
+                        //   child: Icon(Icons.add),
+                        // )
                         // ElementPicker(mediaQuery, this.callbackA),
                         // FlatButton(
                         //     onPressed: () {

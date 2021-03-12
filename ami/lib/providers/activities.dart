@@ -14,7 +14,9 @@ class Activities with ChangeNotifier {
 
   void addActivity(String id, String name, num start, num end) {
     final newActivity = Activity(id: id, name: name, start: start, end: end);
-    _activities.add(newActivity);
+    // if ((_activities.contains((el) => el.id == newActivity.id))) {
+    //   _activities.add(newActivity);
+    // }
     notifyListeners();
     DBHelper.insert('activities', {
       'id': newActivity.id,
@@ -22,6 +24,7 @@ class Activities with ChangeNotifier {
       'start': newActivity.start,
       'end': newActivity.end
     });
+    fetchAndSet();
   }
 
   void deleteActivity(String id) {
