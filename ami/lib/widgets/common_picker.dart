@@ -155,14 +155,22 @@ class _CommonPickerState extends State<CommonPicker> {
                                 );
                               }),
                         ),
+                        GestureDetector(
+                          child: Container(
+                            color: Colors.white,
+                            height: 20,
+                            width: 20,
+                          ),
+                        ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            FlatButton(
-                              shape: new RoundedRectangleBorder(
-                                  borderRadius:
-                                      new BorderRadius.circular(30.0)),
-                              color: Colors.deepPurple,
+                            TextButton(
+                              style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        Colors.deepPurple),
+                              ),
                               onPressed: () {
                                 setState(() {
                                   this.nightStart1 = double.parse(hour1) / 24 +
@@ -187,10 +195,11 @@ class _CommonPickerState extends State<CommonPicker> {
                     : Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          FlatButton(
-                            shape: new RoundedRectangleBorder(
-                                borderRadius: new BorderRadius.circular(30.0)),
-                            color: Colors.deepPurple,
+                          TextButton(
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateColor.resolveWith(
+                                  (states) => Colors.deepPurple),
+                            ),
                             onPressed: () {
                               setState(() {
                                 this.nightStart1 = double.parse(hour1) / 24 +
@@ -211,11 +220,14 @@ class _CommonPickerState extends State<CommonPicker> {
                               style: TextStyle(color: Colors.white),
                             ),
                           ),
-                          FlatButton(
-                              shape: new RoundedRectangleBorder(
-                                  borderRadius:
-                                      new BorderRadius.circular(30.0)),
-                              color: Colors.red,
+                          TextButton(
+                              style: ButtonStyle(
+                                  backgroundColor:
+                                      MaterialStateColor.resolveWith(
+                                          (states) => Colors.red)),
+                              // shape: new RoundedRectangleBorder(
+                              //     borderRadius:
+                              //         new BorderRadius.circular(30.0)),
                               child: Text(
                                 'Удалить',
                                 style: TextStyle(color: Colors.white),

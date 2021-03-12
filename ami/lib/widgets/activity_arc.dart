@@ -20,7 +20,7 @@ class ActivityArc extends CustomPainter {
     var centerY = size.height / 2;
     var shift = angle * pi * 2;
     var center = Offset(centerX, centerY);
-    var radius = min(centerX, centerY);
+    var radius = min(centerX, centerY) * 0.9;
     canvas.drawArc(
         new Rect.fromCenter(
             center: center, width: radius * 2, height: radius * 2),

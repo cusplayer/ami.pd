@@ -15,6 +15,7 @@ class DayContainer extends StatefulWidget {
 }
 
 class _DayContainerState extends State<DayContainer> {
+  double size = 300;
   listEl(Activity act) {
     return CustomPaint(
       painter: ActivityArc(
@@ -22,7 +23,7 @@ class _DayContainerState extends State<DayContainer> {
           act.end,
           Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
               .withOpacity(1.0)),
-      size: Size(300, 300),
+      size: Size(size, size),
     );
   }
 
@@ -35,12 +36,12 @@ class _DayContainerState extends State<DayContainer> {
           children: [
             CustomPaint(
               painter: DayWidget(),
-              size: Size(300, 300),
+              size: Size(size, size),
             ),
             widget.activities != null
                 ? Container(
-                    height: 300,
-                    width: 300,
+                    height: size,
+                    width: size,
                     child: Stack(children: [
                       for (var act in widget.activities.activities) listEl(act)
                     ]))
