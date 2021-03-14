@@ -5,11 +5,12 @@ class Activity {
   final String name;
   final num start;
   final num end;
+  final String color;
 
-  const Activity({
-    @required this.id,
-    @required this.name,
-    @required this.start,
-    @required this.end,
-  });
+  const Activity(
+      {@required this.id,
+      @required this.name,
+      @required this.start,
+      @required this.end,
+      @required this.color});
 }

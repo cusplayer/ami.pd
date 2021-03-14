@@ -1,19 +1,19 @@
 import 'package:ami/helpers/db_helper.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 
 import '../models/activity.dart';
 
 class Activities with ChangeNotifier {
-  List<Activity> _activities = [
-    Activity(id: 'id', name: 'name', start: 0, end: 1)
-  ];
+  List<Activity> _activities = [];
 
   List<Activity> get activities {
     return [..._activities];
   }
 
-  void addActivity(String id, String name, num start, num end) {
-    final newActivity = Activity(id: id, name: name, start: start, end: end);
+  void addActivity(String id, String name, num start, num end, Color color) {
+    final newActivity = Activity(
+        id: id, name: name, start: start, end: end, color: color.toString());
     // if ((_activities.contains((el) => el.id == newActivity.id))) {
     //   _activities.add(newActivity);
     // }
@@ -22,7 +22,8 @@ class Activities with ChangeNotifier {
       'id': newActivity.id,
       'name': newActivity.name,
       'start': newActivity.start,
-      'end': newActivity.end
+      'end': newActivity.end,
+      'color': newActivity.color
     });
     fetchAndSet();
   }
@@ -42,6 +43,7 @@ class Activities with ChangeNotifier {
             name: activity['name'],
             start: activity['start'],
             end: activity['end'],
+            color: activity['color'],
           ),
         )
         .toList();

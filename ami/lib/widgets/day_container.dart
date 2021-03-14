@@ -15,14 +15,17 @@ class DayContainer extends StatefulWidget {
 }
 
 class _DayContainerState extends State<DayContainer> {
+  toColor(colorString) {
+    String valueString =
+        colorString.split('(0x')[1].split(')')[0]; // kind of hacky..
+    int value = int.parse(valueString, radix: 16);
+    return Color(value);
+  }
+
   double size = 300;
   listEl(Activity act) {
     return CustomPaint(
-      painter: ActivityArc(
-          act.start,
-          act.end,
-          Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
-              .withOpacity(1.0)),
+      painter: ActivityArc(act.start, act.end, toColor(act.color)),
       size: Size(size, size),
     );
   }

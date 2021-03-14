@@ -1,67 +1,40 @@
-// import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 
-// import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:flex_color_picker/flex_color_picker.dart';
 
-// class ColorPicker extends StatefulWidget {
-//   @override
-//   _ColorPickerState createState() => _ColorPickerState();
-// }
+class ColorPickerWidget extends StatefulWidget {
+  final Function callback;
+  ColorPickerWidget(this.callback);
+  @override
+  _ColorPickerWidgetState createState() => _ColorPickerWidgetState();
+}
 
-// class _ColorPickerState extends State<ColorPicker> {
-//   Color pickerColor = Color(0xff443a49);
-//   Color currentColor = Color(0xff443a49);
+class _ColorPickerWidgetState extends State<ColorPickerWidget> {
+  Color screenPickerColor;
+  @override
+  void initState() {
+    super.initState();
+    screenPickerColor = Colors.white;
+  }
 
-// // ValueChanged<Color> callback
-//   void changeColor(Color color) {
-//     setState(() => pickerColor = color);
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return GestureDetector(
-//       child: Text('Нажми на меня'),
-//       onTap: () => showDialog(
-//         context: context,
-//         child: AlertDialog(
-//           title: const Text('Pick a color!'),
-//           content: SingleChildScrollView(
-//             child: ColorPicker(
-//                 // pickerColor: pickerColor,
-//                 // onColorChanged: changeColor,
-//                 // showLabel: true,
-//                 // pickerAreaHeightPercent: 0.8,
-//                 ),
-//             // Use Material color picker:
-//             //
-//             // child: MaterialPicker(
-//             //   pickerColor: pickerColor,
-//             //   onColorChanged: changeColor,
-//             //   showLabel: true, // only on portrait mode
-//             // ),
-//             //
-//             // Use Block color picker:
-//             //
-//             // child: BlockPicker(
-//             //   pickerColor: currentColor,
-//             //   onColorChanged: changeColor,
-//             // ),
-//             //
-//             // child: MultipleChoiceBlockPicker(
-//             //   pickerColors: currentColors,
-//             //   onColorsChanged: changeColors,
-//             // ),
-//           ),
-//           actions: <Widget>[
-//             FlatButton(
-//               child: const Text('Got it'),
-//               onPressed: () {
-//                 setState(() => currentColor = pickerColor);
-//                 Navigator.of(context).pop();
-//               },
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
+  @override
+  Widget build(BuildContext context) {
+    return ColorPicker(
+      pickersEnabled: {
+        ColorPickerType.both: false,
+        ColorPickerType.primary: true,
+        ColorPickerType.accent: false
+      },
+      enableShadesSelection: false,
+      onColorChanged: (Color color) => setState(() {
+        widget.callback(color);
+        screenPickerColor = color;
+      }),
+      color: screenPickerColor,
+      heading: Text(
+        'Выберите цвет',
+        style: Theme.of(context).textTheme.headline5,
+      ),
+    );
+  }
+}

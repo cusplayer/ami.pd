@@ -8,8 +8,8 @@ class DBHelper {
     return sql.openDatabase(path.join(dbPath, 'health.db'),
         onCreate: (db, version) {
       return db.execute(
-          'CREATE TABLE activities(id TEXT PRIMARY KEY, name TEXT, start REAL, end REAL)');
-    }, version: 1);
+          'CREATE TABLE activities(id TEXT PRIMARY KEY, name TEXT, start REAL, end REAL, color TEXT)');
+    }, version: 2);
   }
 
   static Future<void> insert(String table, Map<String, Object> data) async {

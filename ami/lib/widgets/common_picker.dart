@@ -1,6 +1,7 @@
 import 'package:ami/helpers/db_helper.dart';
 import 'package:ami/models/activity.dart';
 import 'package:ami/providers/activities.dart';
+import 'package:ami/widgets/color_picker.dart';
 import 'package:flutter/material.dart';
 
 import 'package:ami/widgets/cupertino_picker.dart';
@@ -25,6 +26,8 @@ class _CommonPickerState extends State<CommonPicker> {
   var nightStart1;
   var nightEnd1;
   final _textController = TextEditingController();
+  Color color;
+
   timeConverter(double time) {
     int hours = time ~/ (1 / 24);
     int minutes = ((time % (1 / 24)) * 1442).toInt();
@@ -34,6 +37,19 @@ class _CommonPickerState extends State<CommonPicker> {
   void callbackh1(String time) {
     setState(() {
       this.hour1 = time;
+    });
+  }
+
+  toColor(colorString) {
+    String valueString =
+        colorString.split('(0x')[1].split(')')[0]; // kind of hacky..
+    int value = int.parse(valueString, radix: 16);
+    return Color(value);
+  }
+
+  void callbackColor(Color color) {
+    setState(() {
+      this.color = color;
     });
   }
 
@@ -60,6 +76,13 @@ class _CommonPickerState extends State<CommonPicker> {
     minute1 = timeConverter(widget.activity.start)[1].toString();
     hour2 = timeConverter(widget.activity.end)[0].toString();
     minute2 = timeConverter(widget.activity.end)[1].toString();
+    widget.activity.id != '0Adding0'
+        ? setState(() {
+            this.color = toColor(widget.activity.color);
+          })
+        : setState(() {
+            this.color = Colors.white;
+          });
     super.initState();
   }
 
@@ -74,35 +97,53 @@ class _CommonPickerState extends State<CommonPicker> {
                   children: [
                     Spacer(),
                     widget.activity.id != '0Adding0'
-                        ? GestureDetector(
-                            child: _textController.text == ''
-                                ? Text(
-                                    widget.text,
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 20,
-                                      fontStyle: FontStyle.italic,
+                        ? Row(children: [
+                            GestureDetector(
+                              child: _textController.text == ''
+                                  ? Text(
+                                      widget.text,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 20,
+                                        fontStyle: FontStyle.italic,
+                                      ),
+                                    )
+                                  : Text(
+                                      _textController.text,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 20,
+                                        fontStyle: FontStyle.italic,
+                                      ),
                                     ),
-                                  )
-                                : Text(
-                                    _textController.text,
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 20,
-                                      fontStyle: FontStyle.italic,
-                                    ),
-                                  ),
-                            onTap: () => showModalBottomSheet(
-                                context: context,
-                                builder: (_) {
-                                  return Container(
-                                    height: 500,
-                                    child: TextField(
-                                      controller: _textController,
-                                    ),
-                                  );
-                                }),
-                          )
+                              onTap: () => showModalBottomSheet(
+                                  context: context,
+                                  builder: (_) {
+                                    return Container(
+                                      height: 500,
+                                      child: TextField(
+                                        controller: _textController,
+                                      ),
+                                    );
+                                  }),
+                            ),
+                            GestureDetector(
+                              child: Container(
+                                color: this.color,
+                                height: 20,
+                                width: 20,
+                              ),
+                              onTap: () => showModalBottomSheet(
+                                  context: context,
+                                  builder: (_) {
+                                    return Container(
+                                      height: 500,
+                                      child:
+                                          ColorPickerWidget(this.callbackColor),
+                                    );
+                                  }),
+                            ),
+                          ])
                         : Text(
                             widget.text,
                             style: TextStyle(
@@ -157,10 +198,18 @@ class _CommonPickerState extends State<CommonPicker> {
                         ),
                         GestureDetector(
                           child: Container(
-                            color: Colors.white,
+                            color: color,
                             height: 20,
                             width: 20,
                           ),
+                          onTap: () => showModalBottomSheet(
+                              context: context,
+                              builder: (_) {
+                                return Container(
+                                  height: 500,
+                                  child: ColorPickerWidget(this.callbackColor),
+                                );
+                              }),
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -172,6 +221,7 @@ class _CommonPickerState extends State<CommonPicker> {
                                         Colors.deepPurple),
                               ),
                               onPressed: () {
+                                print(color);
                                 setState(() {
                                   this.nightStart1 = double.parse(hour1) / 24 +
                                       double.parse(minute1) / 1440;
@@ -181,6 +231,7 @@ class _CommonPickerState extends State<CommonPicker> {
                                       this.nightStart1,
                                       this.nightEnd1,
                                       _textController.text,
+                                      color,
                                       '${_textController.text} ${DateTime.now().year} ${DateTime.now().month} ${DateTime.now().day}');
                                 });
                               },
@@ -212,6 +263,7 @@ class _CommonPickerState extends State<CommonPicker> {
                                     _textController.text != ''
                                         ? _textController.text
                                         : widget.activity.name,
+                                    color,
                                     widget.activity.id);
                               });
                             },

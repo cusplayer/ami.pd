@@ -114,12 +114,12 @@ class _MyDayState extends State<MyDay> {
                               ],
                             ),
                           ),
-                        ),
-                        // FloatingActionButton(  //Developer button
-                        //   onPressed: () => activities.addActivity(
-                        //       '0Adding0', 'Добавить активность', 0.0, 0.0),
+                        ), //Developer button
+                        // FloatingActionButton(
+                        //   onPressed: () => activities.addActivity('0Adding0',
+                        //       'Добавить активность', 0.0, 0.0, Colors.white),
                         //   child: Icon(Icons.add),
-                        // )
+                        // ),
                         // ElementPicker(mediaQuery, this.callbackA),
                         // FlatButton(
                         //     onPressed: () {

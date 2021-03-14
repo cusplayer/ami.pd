@@ -16,7 +16,7 @@ class ElementPicker extends StatefulWidget {
 class _ElementPickerState extends State<ElementPicker> {
   var activityStart;
   var activityEnd;
-  void pickerCallback(num ns1, num ne1, String name, String id) {
+  void pickerCallback(num ns1, num ne1, String name, Color color, String id) {
     // setState(() {
     //   this.widget.callback(
     //         ns1,
@@ -25,9 +25,9 @@ class _ElementPickerState extends State<ElementPicker> {
     // });
     widget.activity.id == '0Adding0'
         ? Provider.of<Activities>(this.context, listen: false)
-            .addActivity(id, name, ns1, ne1)
+            .addActivity(id, name, ns1, ne1, color)
         : Provider.of<Activities>(this.context, listen: false)
-            .addActivity(widget.activity.id, name, ns1, ne1);
+            .addActivity(widget.activity.id, name, ns1, ne1, color);
     print('начало $ns1 конец $ne1');
   }
 
