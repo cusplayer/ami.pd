@@ -97,6 +97,16 @@ class _MyDayState extends State<MyDay> {
                             physics: ScrollPhysics(),
                             child: Column(
                               children: <Widget>[
+                                // Костыльная кнопка, чтобы удалять поломанные элементы
+                                // FloatingActionButton(
+                                //   onPressed: () {
+                                //     Provider.of<Activities>(this.context,
+                                //             listen: false)
+                                //         .deleteActivity(
+                                //             activities.activities[1].id);
+                                //   },
+                                //   child: Text('Тыкни'),
+                                // ),
                                 ListView.builder(
                                     physics: ScrollPhysics(),
                                     shrinkWrap: true,

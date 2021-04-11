@@ -14,23 +14,6 @@ class ElementPicker extends StatefulWidget {
 }
 
 class _ElementPickerState extends State<ElementPicker> {
-  var activityStart;
-  var activityEnd;
-  void pickerCallback(num ns1, num ne1, String name, Color color, String id) {
-    // setState(() {
-    //   this.widget.callback(
-    //         ns1,
-    //         ne1,
-    //       );
-    // });
-    widget.activity.id == '0Adding0'
-        ? Provider.of<Activities>(this.context, listen: false)
-            .addActivity(id, name, ns1, ne1, color)
-        : Provider.of<Activities>(this.context, listen: false)
-            .addActivity(widget.activity.id, name, ns1, ne1, color);
-    print('начало $ns1 конец $ne1');
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -46,7 +29,7 @@ class _ElementPickerState extends State<ElementPicker> {
           ),
         ],
       ),
-      child: CommonPicker(widget.mediaQuery, pickerCallback,
+      child: CommonPicker(widget.mediaQuery,
           '${widget.activity.name.toString()}', widget.activity),
     );
   }

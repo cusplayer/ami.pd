@@ -28,6 +28,21 @@ class Activities with ChangeNotifier {
     fetchAndSet();
   }
 
+  void editActivity(String id, String name, num start, num end, Color color) {
+    notifyListeners();
+    DBHelper.update(
+        'activities',
+        {
+          'id': id,
+          'name': name,
+          'start': start,
+          'end': end,
+          'color': color.toString()
+        },
+        id);
+    fetchAndSet();
+  }
+
   void deleteActivity(String id) {
     _activities.removeWhere((act) => act.id == id);
     DBHelper.delete(id);

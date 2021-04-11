@@ -9,10 +9,10 @@ import 'package:provider/provider.dart';
 
 class CommonPicker extends StatefulWidget {
   final MediaQueryData size;
-  final Function callback;
+  // final Function callback;
   final String text;
   final Activity activity;
-  CommonPicker(this.size, this.callback, this.text, this.activity);
+  CommonPicker(this.size, this.text, this.activity);
   @override
   _CommonPickerState createState() => _CommonPickerState();
 }
@@ -34,12 +34,6 @@ class _CommonPickerState extends State<CommonPicker> {
     return [hours, minutes];
   }
 
-  void callbackh1(String time) {
-    setState(() {
-      this.hour1 = time;
-    });
-  }
-
   toColor(colorString) {
     String valueString =
         colorString.split('(0x')[1].split(')')[0]; // kind of hacky..
@@ -50,6 +44,12 @@ class _CommonPickerState extends State<CommonPicker> {
   void callbackColor(Color color) {
     setState(() {
       this.color = color;
+    });
+  }
+
+  void callbackh1(String time) {
+    setState(() {
+      this.hour1 = time;
     });
   }
 
@@ -71,11 +71,12 @@ class _CommonPickerState extends State<CommonPicker> {
     });
   }
 
+  @override
   void initState() {
-    hour1 = timeConverter(widget.activity.start)[0].toString();
-    minute1 = timeConverter(widget.activity.start)[1].toString();
-    hour2 = timeConverter(widget.activity.end)[0].toString();
-    minute2 = timeConverter(widget.activity.end)[1].toString();
+    this.hour1 = timeConverter(widget.activity.start)[0].toString();
+    this.minute1 = timeConverter(widget.activity.start)[1].toString();
+    this.hour2 = timeConverter(widget.activity.end)[0].toString();
+    this.minute2 = timeConverter(widget.activity.end)[1].toString();
     widget.activity.id != '0Adding0'
         ? setState(() {
             this.color = toColor(widget.activity.color);
@@ -83,6 +84,7 @@ class _CommonPickerState extends State<CommonPicker> {
         : setState(() {
             this.color = Colors.white;
           });
+    print('${this.hour1} : ${this.minute1} - ${this.hour2} : ${this.minute2}');
     super.initState();
   }
 
@@ -158,6 +160,7 @@ class _CommonPickerState extends State<CommonPicker> {
                         onPressed: () {
                           setState(() {
                             this.isNight = !this.isNight;
+                            print(widget.activity.color);
                           });
                         }),
                   ],
@@ -227,12 +230,22 @@ class _CommonPickerState extends State<CommonPicker> {
                                       double.parse(minute1) / 1440;
                                   this.nightEnd1 = double.parse(hour2) / 24 +
                                       double.parse(minute2) / 1440;
-                                  this.widget.callback(
-                                      this.nightStart1,
-                                      this.nightEnd1,
-                                      _textController.text,
-                                      color,
-                                      '${_textController.text} ${DateTime.now().year} ${DateTime.now().month} ${DateTime.now().day}');
+                                  // this.widget.callback(
+                                  //     this.nightStart1,
+                                  //     this.nightEnd1,
+                                  //     _textController.text,
+                                  //     color,
+                                  //     '${_textController.text} ${DateTime.now().year} ${DateTime.now().month} ${DateTime.now().day}');
+                                  Provider.of<Activities>(this.context,
+                                          listen: false)
+                                      .addActivity(
+                                          '${_textController.text} ${DateTime.now().year} ${DateTime.now().month} ${DateTime.now().day}',
+                                          _textController.text,
+                                          double.parse(hour1) / 24 +
+                                              double.parse(minute1) / 1440,
+                                          nightEnd1 = double.parse(hour2) / 24 +
+                                              double.parse(minute2) / 1440,
+                                          color);
                                 });
                               },
                               child: Text(
@@ -252,20 +265,37 @@ class _CommonPickerState extends State<CommonPicker> {
                                   (states) => Colors.deepPurple),
                             ),
                             onPressed: () {
+                              // this.widget.callback(
+                              //     double.parse(hour1) / 24 +
+                              //         double.parse(minute1) / 1440,
+                              //     nightEnd1 = double.parse(hour2) / 24 +
+                              //         double.parse(minute2) / 1440,
+                              //     _textController.text != ''
+                              //         ? _textController.text
+                              //         : widget.activity.name,
+                              //     color,
+                              //     widget.activity.id);
+                              Provider.of<Activities>(this.context,
+                                      listen: false)
+                                  .editActivity(
+                                      widget.activity.id,
+                                      _textController.text != ''
+                                          ? _textController.text
+                                          : widget.activity.name,
+                                      double.parse(hour1) / 24 +
+                                          double.parse(minute1) / 1440,
+                                      nightEnd1 = double.parse(hour2) / 24 +
+                                          double.parse(minute2) / 1440,
+                                      color);
                               setState(() {
-                                this.nightStart1 = double.parse(hour1) / 24 +
-                                    double.parse(minute1) / 1440;
-                                this.nightEnd1 = double.parse(hour2) / 24 +
-                                    double.parse(minute2) / 1440;
-                                this.widget.callback(
-                                    this.nightStart1,
-                                    this.nightEnd1,
-                                    _textController.text != ''
-                                        ? _textController.text
-                                        : widget.activity.name,
-                                    color,
-                                    widget.activity.id);
+                                this.nightStart1 = 0;
+                                this.nightEnd1 = 0;
+
+                                isNight = !isNight;
+                                _textController.text = '';
                               });
+                              print(
+                                  '${this.hour1} : ${this.minute1} - ${this.hour2} : ${this.minute2}');
                             },
                             child: Text(
                               'Изменить',
@@ -310,6 +340,7 @@ class _CommonPickerState extends State<CommonPicker> {
                     onPressed: () {
                       setState(() {
                         this.isNight = !this.isNight;
+                        print(widget.activity.color);
                       });
                     }),
               ],
