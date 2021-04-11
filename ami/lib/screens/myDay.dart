@@ -47,6 +47,22 @@ class _MyDayState extends State<MyDay> {
     );
   }
 
+  void _presentDatePicker() {
+    showDatePicker(
+            context: context,
+            initialDate: DateTime.now(),
+            firstDate: DateTime(2020),
+            lastDate: DateTime.now())
+        .then((pickedDate) {
+      if (pickedDate == null) {
+        return;
+      } else {
+        Provider.of<Activities>(this.context, listen: false)
+            .updateDate(pickedDate);
+      }
+    });
+  }
+
   @override
   void initState() {
     this.nightStart1 = 0.0;
@@ -85,6 +101,16 @@ class _MyDayState extends State<MyDay> {
                   builder: (context, activities, ch) => SingleChildScrollView(
                     child: Center(
                       child: Column(children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('No date'),
+                            TextButton(
+                              onPressed: _presentDatePicker,
+                              child: Text('Выберите дату'),
+                            )
+                          ],
+                        ),
                         Container(
                           padding:
                               EdgeInsets.only(top: mediaQuery.size.height / 40),
@@ -119,7 +145,7 @@ class _MyDayState extends State<MyDay> {
                                     }),
                                 SizedBox(
                                   height:
-                                      MediaQuery.of(context).size.height / 6,
+                                      MediaQuery.of(context).size.height / 4,
                                 ),
                               ],
                             ),

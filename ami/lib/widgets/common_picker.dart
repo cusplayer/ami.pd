@@ -28,6 +28,12 @@ class _CommonPickerState extends State<CommonPicker> {
   final _textController = TextEditingController();
   Color color;
 
+  final month = DateTime.now().month < 10
+      ? '0${DateTime.now().month}'
+      : DateTime.now().month;
+  final day =
+      DateTime.now().day < 10 ? '0${DateTime.now().day}' : DateTime.now().day;
+
   timeConverter(double time) {
     int hours = time ~/ (1 / 24);
     int minutes = ((time % (1 / 24)) * 1442).toInt();
@@ -84,7 +90,11 @@ class _CommonPickerState extends State<CommonPicker> {
         : setState(() {
             this.color = Colors.white;
           });
-    print('${this.hour1} : ${this.minute1} - ${this.hour2} : ${this.minute2}');
+    if (widget.activity.id != '0Adding0') {
+      print(
+          'id ${widget.activity.id.substring(widget.activity.id.indexOf(' ') + 1)}');
+    }
+    // print(widget.activity.id);
     super.initState();
   }
 
@@ -95,57 +105,59 @@ class _CommonPickerState extends State<CommonPicker> {
             child: Column(
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Spacer(),
                     widget.activity.id != '0Adding0'
-                        ? Row(children: [
-                            GestureDetector(
-                              child: _textController.text == ''
-                                  ? Text(
-                                      widget.text,
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 20,
-                                        fontStyle: FontStyle.italic,
+                        ? Container(
+                            width: MediaQuery.of(context).size.width / 1.3,
+                            child: Row(children: [
+                              Spacer(),
+                              GestureDetector(
+                                child: _textController.text == ''
+                                    ? Text(
+                                        widget.text,
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                          fontStyle: FontStyle.italic,
+                                        ),
+                                      )
+                                    : Text(
+                                        _textController.text,
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                          fontStyle: FontStyle.italic,
+                                        ),
                                       ),
-                                    )
-                                  : Text(
-                                      _textController.text,
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 20,
-                                        fontStyle: FontStyle.italic,
-                                      ),
-                                    ),
-                              onTap: () => showModalBottomSheet(
+                                onTap: () => showDialog(
                                   context: context,
-                                  builder: (_) {
-                                    return Container(
-                                      height: 500,
-                                      child: TextField(
+                                  builder: (ctx) => AlertDialog(
+                                      title: Text('Изменить название'),
+                                      content: TextField(
                                         controller: _textController,
                                       ),
-                                    );
-                                  }),
-                            ),
-                            GestureDetector(
-                              child: Container(
-                                color: this.color,
-                                height: 20,
-                                width: 20,
+                                      actions: []),
+                                ),
                               ),
-                              onTap: () => showModalBottomSheet(
-                                  context: context,
-                                  builder: (_) {
-                                    return Container(
-                                      height: 500,
-                                      child:
-                                          ColorPickerWidget(this.callbackColor),
-                                    );
-                                  }),
-                            ),
-                          ])
+                              Spacer(),
+                              GestureDetector(
+                                child: Container(
+                                  color: this.color,
+                                  height: 20,
+                                  width: 20,
+                                ),
+                                onTap: () => showModalBottomSheet(
+                                    context: context,
+                                    builder: (_) {
+                                      return Container(
+                                        height: 500,
+                                        child: ColorPickerWidget(
+                                            this.callbackColor),
+                                      );
+                                    }),
+                              ),
+                            ]))
                         : Text(
                             widget.text,
                             style: TextStyle(
@@ -188,16 +200,15 @@ class _CommonPickerState extends State<CommonPicker> {
                           child: _textController.text != ''
                               ? Text(_textController.text)
                               : Text('Введите название'),
-                          onTap: () => showModalBottomSheet(
-                              context: context,
-                              builder: (_) {
-                                return Container(
-                                  height: 500,
-                                  child: TextField(
-                                    controller: _textController,
-                                  ),
-                                );
-                              }),
+                          onTap: () => showDialog(
+                            context: context,
+                            builder: (ctx) => AlertDialog(
+                                title: Text('Название'),
+                                content: TextField(
+                                  controller: _textController,
+                                ),
+                                actions: []),
+                          ),
                         ),
                         GestureDetector(
                           child: Container(
@@ -239,7 +250,7 @@ class _CommonPickerState extends State<CommonPicker> {
                                   Provider.of<Activities>(this.context,
                                           listen: false)
                                       .addActivity(
-                                          '${_textController.text} ${DateTime.now().year} ${DateTime.now().month} ${DateTime.now().day}',
+                                          '${_textController.text} ${DateTime.now().year}-$month-$day',
                                           _textController.text,
                                           double.parse(hour1) / 24 +
                                               double.parse(minute1) / 1440,
@@ -294,8 +305,6 @@ class _CommonPickerState extends State<CommonPicker> {
                                 isNight = !isNight;
                                 _textController.text = '';
                               });
-                              print(
-                                  '${this.hour1} : ${this.minute1} - ${this.hour2} : ${this.minute2}');
                             },
                             child: Text(
                               'Изменить',

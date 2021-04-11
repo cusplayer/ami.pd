@@ -1,14 +1,25 @@
 import 'package:ami/helpers/db_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:intl/intl.dart';
 
 import '../models/activity.dart';
 
 class Activities with ChangeNotifier {
   List<Activity> _activities = [];
 
+  DateFormat formatter = DateFormat('yyyy-MM-dd');
+
+  String date = DateFormat('yyyy-MM-dd').format(DateTime.now());
+
   List<Activity> get activities {
     return [..._activities];
+  }
+
+  void updateDate(newDate) {
+    this.date = formatter.format(newDate);
+    notifyListeners();
+    print(date);
   }
 
   void addActivity(String id, String name, num start, num end, Color color) {
