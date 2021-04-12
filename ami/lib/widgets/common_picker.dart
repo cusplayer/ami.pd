@@ -10,9 +10,8 @@ import 'package:provider/provider.dart';
 class CommonPicker extends StatefulWidget {
   final MediaQueryData size;
   // final Function callback;
-  final String text;
   final Activity activity;
-  CommonPicker(this.size, this.text, this.activity);
+  CommonPicker(this.size, this.activity);
   @override
   _CommonPickerState createState() => _CommonPickerState();
 }
@@ -115,7 +114,7 @@ class _CommonPickerState extends State<CommonPicker> {
                               GestureDetector(
                                 child: _textController.text == ''
                                     ? Text(
-                                        widget.text,
+                                        widget.activity.name,
                                         style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 20,
@@ -151,15 +150,17 @@ class _CommonPickerState extends State<CommonPicker> {
                                     context: context,
                                     builder: (_) {
                                       return Container(
-                                        height: 500,
+                                        height:
+                                            MediaQuery.of(context).size.height,
                                         child: ColorPickerWidget(
                                             this.callbackColor),
                                       );
                                     }),
                               ),
-                            ]))
+                            ]),
+                          )
                         : Text(
-                            widget.text,
+                            widget.activity.name,
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 20,
@@ -167,6 +168,7 @@ class _CommonPickerState extends State<CommonPicker> {
                           ),
                     Spacer(),
                     FloatingActionButton(
+                        heroTag: 'less',
                         child: Icon(Icons.expand_less),
                         backgroundColor: Colors.lightBlue,
                         onPressed: () {
@@ -334,24 +336,26 @@ class _CommonPickerState extends State<CommonPicker> {
             ),
           )
         : Container(
+            color: Colors.white,
             height: widget.size.size.height / 15,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Spacer(),
                 Text(
-                  widget.text,
-                  style: TextStyle(color: Colors.white, fontSize: 20),
+                  widget.activity.name,
+                  style: TextStyle(color: Colors.black, fontSize: 20),
                 ),
                 Spacer(),
-                FloatingActionButton(
-                    child: Icon(Icons.expand_more),
-                    onPressed: () {
-                      setState(() {
-                        this.isNight = !this.isNight;
-                        print(widget.activity.color);
-                      });
-                    }),
+                // FloatingActionButton(
+                //     heroTag: 'more',
+                //     child: Icon(Icons.expand_more),
+                //     onPressed: () {
+                //       setState(() {
+                //         this.isNight = !this.isNight;
+                //         print(widget.activity.color);
+                //       });
+                //     }),
               ],
             ),
           );

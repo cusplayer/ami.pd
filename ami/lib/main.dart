@@ -1,4 +1,5 @@
 import 'package:ami/providers/activities.dart';
+import 'package:ami/screens/add_screen.dart';
 import 'package:ami/screens/myDay.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         routes: {
           '/': (ctx) => MyDay(),
-          // '/day': (ctx) => SqliteExample(),
+          AddScreen.routeName: (ctx) => AddScreen(),
         },
       ),
     );

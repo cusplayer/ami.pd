@@ -1,5 +1,6 @@
 import 'package:ami/models/activity.dart';
 import 'package:ami/providers/activities.dart';
+import 'package:ami/screens/add_screen.dart';
 import 'package:ami/widgets/activity_arc.dart';
 import 'package:ami/widgets/day_container.dart';
 import 'package:ami/widgets/element_picker.dart';
@@ -145,17 +146,18 @@ class _MyDayState extends State<MyDay> {
                                     }),
                                 SizedBox(
                                   height:
-                                      MediaQuery.of(context).size.height / 4,
+                                      MediaQuery.of(context).size.height / 2,
                                 ),
                               ],
                             ),
                           ),
                         ), //Developer button
-                        // FloatingActionButton(
-                        //   onPressed: () => activities.addActivity('0Adding0',
-                        //       'Добавить активность', 0.0, 0.0, Colors.white),
-                        //   child: Icon(Icons.add),
-                        // ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pushNamed('/add-screen');
+                          },
+                          child: Icon(Icons.add),
+                        ),
                         // ElementPicker(mediaQuery, this.callbackA),
                         // FlatButton(
                         //     onPressed: () {

@@ -40,8 +40,7 @@ class _ElementPickerState extends State<ElementPicker> {
                 ),
               ],
             ),
-            child: CommonPicker(widget.mediaQuery,
-                '${widget.activity.name.toString()}', widget.activity),
+            child: CommonPicker(widget.mediaQuery, widget.activity),
           )
         : SizedBox();
   }
