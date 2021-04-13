@@ -195,6 +195,7 @@ class _EditScreenState extends State<EditScreen> {
                         double.parse(hour1) / 24 + double.parse(minute1) / 1440,
                         double.parse(hour2) / 24 + double.parse(minute2) / 1440,
                         color),
+                Provider.of<Activities>(this.context, listen: false).clear()
               },
               child: Text('Изменить'),
             ),
@@ -212,6 +213,7 @@ class _EditScreenState extends State<EditScreen> {
                 onPressed: () {
                   Provider.of<Activities>(this.context, listen: false)
                       .deleteActivity(widget.activity.id);
+                  Provider.of<Activities>(this.context, listen: false).clear();
                 })
           ])
         ]),

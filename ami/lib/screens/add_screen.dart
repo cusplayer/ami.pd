@@ -179,6 +179,7 @@ class _AddScreenState extends State<AddScreen> {
                     nightEnd1 =
                         double.parse(hour2) / 24 + double.parse(minute2) / 1440,
                     color);
+                Provider.of<Activities>(this.context, listen: false).clear();
               },
               child: Text(
                 'Добавить',
