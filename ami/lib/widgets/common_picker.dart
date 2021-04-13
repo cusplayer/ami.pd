@@ -83,13 +83,10 @@ class _CommonPickerState extends State<CommonPicker> {
     this.minute1 = timeConverter(widget.activity.start)[1].toString();
     this.hour2 = timeConverter(widget.activity.end)[0].toString();
     this.minute2 = timeConverter(widget.activity.end)[1].toString();
-    widget.activity.id != '0Adding0'
-        ? setState(() {
-            this.color = toColor(widget.activity.color);
-          })
-        : setState(() {
-            this.color = Colors.white;
-          });
+    setState(() {
+      this.color = toColor(widget.activity.color);
+    });
+
     if (widget.activity.id != '0Adding0') {
       print(
           'id ${widget.activity.id.substring(widget.activity.id.indexOf(' ') + 1)}');
@@ -352,7 +349,7 @@ class _CommonPickerState extends State<CommonPicker> {
                 Provider.of<Activities>(this.context, listen: false).isEditable
                     ? Positioned(
                         top: MediaQuery.of(context).size.height / 100,
-                        right: MediaQuery.of(context).size.width / 10,
+                        right: MediaQuery.of(context).size.width / 13,
                         child: GestureDetector(
                             child: Image.asset(
                               'assets/images/vector.png',
@@ -365,6 +362,18 @@ class _CommonPickerState extends State<CommonPicker> {
                                 )),
                       )
                     : Container(),
+                Positioned(
+                  top: MediaQuery.of(context).size.height / 100,
+                  right: MediaQuery.of(context).size.width / 5,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: this.color,
+                      border: Border.all(color: Colors.black),
+                    ),
+                    height: 20,
+                    width: 20,
+                  ),
+                )
 
                 // FloatingActionButton(
                 //     heroTag: 'more',

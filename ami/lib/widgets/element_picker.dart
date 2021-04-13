@@ -14,34 +14,32 @@ class ElementPicker extends StatefulWidget {
 }
 
 class _ElementPickerState extends State<ElementPicker> {
-  dateName() {
-    if (widget.activity.id != '0Adding0') {
-      return widget.activity.id
-              .substring(widget.activity.id.indexOf(' ') + 1) ==
-          Provider.of<Activities>(context, listen: true).date;
-    } else {
-      return true;
-    }
-  }
+  // dateName() {
+  //   if (widget.activity.id != '0Adding0') {
+  //     return widget.activity.id
+  //             .substring(widget.activity.id.indexOf(' ') + 1) ==
+  //         Provider.of<Activities>(context, listen: true).date;
+  //   } else {
+  //     return true;
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
-    return dateName()
-        ? Container(
-            margin: EdgeInsets.only(top: widget.mediaQuery.size.height / 70),
-            decoration: BoxDecoration(
-              color: Colors.blue,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  spreadRadius: 5,
-                  blurRadius: 7,
-                  offset: Offset(0, 3), // changes position of shadow
-                ),
-              ],
-            ),
-            child: CommonPicker(widget.mediaQuery, widget.activity),
-          )
-        : SizedBox();
+    return Container(
+      margin: EdgeInsets.only(top: widget.mediaQuery.size.height / 70),
+      decoration: BoxDecoration(
+        color: Colors.blue,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 5,
+            blurRadius: 7,
+            offset: Offset(0, 3), // changes position of shadow
+          ),
+        ],
+      ),
+      child: CommonPicker(widget.mediaQuery, widget.activity),
+    );
   }
 }

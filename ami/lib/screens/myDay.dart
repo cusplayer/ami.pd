@@ -118,7 +118,7 @@ class _MyDayState extends State<MyDay> {
                                   onPressed: _presentDatePicker,
                                   child: Text(Provider.of<Activities>(
                                           this.context,
-                                          listen: false)
+                                          listen: true)
                                       .date),
                                 ),
                                 GestureDetector(

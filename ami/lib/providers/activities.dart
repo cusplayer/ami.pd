@@ -25,8 +25,9 @@ class Activities with ChangeNotifier {
 
   void updateDate(newDate) {
     this.date = formatter.format(newDate);
+    calendar();
+    fetchAndSet();
     notifyListeners();
-    print(date);
   }
 
   void addActivity(String id, String name, num start, num end, Color color) {
@@ -67,6 +68,11 @@ class Activities with ChangeNotifier {
     notifyListeners();
   }
 
+  void calendar() {
+    _activities.removeWhere((activity) =>
+        (activity.id.substring(activity.id.indexOf(' ') + 1)) != date);
+  }
+
   Future<void> fetchAndSet() async {
     final datalist = await DBHelper.getData('activities');
     _activities = datalist
@@ -80,6 +86,8 @@ class Activities with ChangeNotifier {
           ),
         )
         .toList();
+    _activities.removeWhere((activity) =>
+        (activity.id.substring(activity.id.indexOf(' ') + 1)) != date);
     notifyListeners();
   }
 }
