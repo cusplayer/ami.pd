@@ -124,6 +124,7 @@ class _AddScreenState extends State<AddScreen> {
                           builder: (ctx) => AlertDialog(
                               title: Text('Название'),
                               content: TextField(
+                                autofocus: true,
                                 controller: _textController,
                                 onSubmitted: (_) => setState(() {}),
                               ),

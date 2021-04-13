@@ -134,6 +134,7 @@ class _EditScreenState extends State<EditScreen> {
                           style: TextStyle(fontSize: 20),
                         ),
                         content: TextField(
+                          autofocus: true,
                           controller: _textController,
                           onSubmitted: (_) => setState(() {}),
                         ),
