@@ -18,6 +18,7 @@ class _EditScreenState extends State<EditScreen> {
   var minute1;
   var hour2;
   var minute2;
+  bool isAllowed;
   TextEditingController _textController;
   toColor(colorString) {
     String valueString =
@@ -188,17 +189,34 @@ class _EditScreenState extends State<EditScreen> {
           ),
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             TextButton(
-              onPressed: () => {
-                Provider.of<Activities>(this.context, listen: false)
-                    .editActivity(
-                        widget.activity.id,
-                        _textController.text != ''
-                            ? _textController.text
-                            : widget.activity.name,
+              onPressed: () async {
+                isAllowed = await Provider.of<Activities>(this.context,
+                        listen: false)
+                    .isAllowed(
                         double.parse(hour1) / 24 + double.parse(minute1) / 1440,
-                        double.parse(hour2) / 24 + double.parse(minute2) / 1440,
-                        color),
-                Provider.of<Activities>(this.context, listen: false).clear()
+                        double.parse(hour2) / 24 +
+                            double.parse(minute2) / 1440);
+                if (isAllowed) {
+                  Provider.of<Activities>(this.context, listen: false)
+                      .editActivity(
+                          widget.activity.id,
+                          _textController.text != ''
+                              ? _textController.text
+                              : widget.activity.name,
+                          double.parse(hour1) / 24 +
+                              double.parse(minute1) / 1440,
+                          double.parse(hour2) / 24 +
+                              double.parse(minute2) / 1440,
+                          color);
+                  Provider.of<Activities>(this.context, listen: false).clear();
+                } else {
+                  showDialog(
+                    context: context,
+                    builder: (ctx) => AlertDialog(
+                      title: Text('Выбранный промежуток недопустим'),
+                    ),
+                  );
+                }
               },
               child: Text(
                 'Изменить',
