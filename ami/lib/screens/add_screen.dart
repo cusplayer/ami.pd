@@ -179,7 +179,6 @@ class _AddScreenState extends State<AddScreen> {
                     nightEnd1 =
                         double.parse(hour2) / 24 + double.parse(minute2) / 1440,
                     color);
-                Navigator.of(context).pop();
               },
               child: Text(
                 'Добавить',

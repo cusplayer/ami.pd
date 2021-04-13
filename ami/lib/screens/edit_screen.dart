@@ -4,6 +4,7 @@ import 'package:ami/widgets/color_picker.dart';
 import 'package:ami/widgets/cupertino_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class EditScreen extends StatefulWidget {
   final Activity activity;
@@ -75,8 +76,13 @@ class _EditScreenState extends State<EditScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
+    return SlidingUpPanel(
+      onPanelClosed: () =>
+          Provider.of<Activities>(this.context, listen: false).clear(),
+      defaultPanelState: PanelState.OPEN,
+      backdropEnabled: true,
+      maxHeight: MediaQuery.of(context).size.height * 0.7,
+      panel: SingleChildScrollView(
         child: Column(children: [
           Container(
             margin: EdgeInsets.symmetric(
@@ -188,7 +194,6 @@ class _EditScreenState extends State<EditScreen> {
                         double.parse(hour1) / 24 + double.parse(minute1) / 1440,
                         double.parse(hour2) / 24 + double.parse(minute2) / 1440,
                         color),
-                Navigator.of(context).pop()
               },
               child: Text('Изменить'),
             ),
@@ -206,7 +211,6 @@ class _EditScreenState extends State<EditScreen> {
                 onPressed: () {
                   Provider.of<Activities>(this.context, listen: false)
                       .deleteActivity(widget.activity.id);
-                  Navigator.of(context).pop();
                 })
           ])
         ]),

@@ -1,4 +1,6 @@
 import 'package:ami/helpers/db_helper.dart';
+import 'package:ami/screens/add_screen.dart';
+import 'package:ami/screens/edit_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
@@ -21,6 +23,20 @@ class Activities with ChangeNotifier {
 
   void clear() {
     commentWidgets.clear();
+    notifyListeners();
+  }
+
+  void returnAdd() {
+    if (commentWidgets.isEmpty) {
+      commentWidgets.add(AddScreen());
+    }
+    notifyListeners();
+  }
+
+  void returnEdit(activity) {
+    if (commentWidgets.isEmpty) {
+      commentWidgets.add(EditScreen(activity));
+    }
     notifyListeners();
   }
 

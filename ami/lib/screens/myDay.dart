@@ -39,18 +39,6 @@ class _MyDayState extends State<MyDay> {
     });
   }
 
-  void returnPanel() {
-    setState(() {
-      if (Provider.of<Activities>(this.context, listen: false)
-          .commentWidgets
-          .isEmpty) {
-        Provider.of<Activities>(this.context, listen: false)
-            .commentWidgets
-            .add(AddScreen());
-      }
-    });
-  }
-
   listEl(Activity act) {
     return CustomPaint(
       painter: ActivityArc(
@@ -201,7 +189,9 @@ class _MyDayState extends State<MyDay> {
               top: MediaQuery.of(context).size.height / 1.3,
               left: MediaQuery.of(context).size.width / 1.25,
               child: FloatingActionButton(
-                onPressed: () => returnPanel(),
+                onPressed: () =>
+                    Provider.of<Activities>(this.context, listen: false)
+                        .returnAdd(),
                 child: Icon(Icons.add),
               ),
             )

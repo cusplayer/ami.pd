@@ -351,15 +351,14 @@ class _CommonPickerState extends State<CommonPicker> {
                         top: MediaQuery.of(context).size.height / 100,
                         right: MediaQuery.of(context).size.width / 13,
                         child: GestureDetector(
-                            child: Image.asset(
-                              'assets/images/vector.png',
-                              width: MediaQuery.of(context).size.width / 15,
-                            ),
-                            onTap: () => Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          EditScreen(widget.activity)),
-                                )),
+                          child: Image.asset(
+                            'assets/images/vector.png',
+                            width: MediaQuery.of(context).size.width / 15,
+                          ),
+                          onTap: () => Provider.of<Activities>(this.context,
+                                  listen: false)
+                              .returnEdit(widget.activity),
+                        ),
                       )
                     : Container(),
                 Positioned(
