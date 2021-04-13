@@ -183,8 +183,6 @@ class _MyDayState extends State<MyDay> {
                       ),
                     ),
             ),
-            ...Provider.of<Activities>(this.context, listen: false)
-                .commentWidgets,
             Positioned(
               top: MediaQuery.of(context).size.height / 1.3,
               left: MediaQuery.of(context).size.width / 1.25,
@@ -194,7 +192,9 @@ class _MyDayState extends State<MyDay> {
                         .returnAdd(),
                 child: Icon(Icons.add),
               ),
-            )
+            ),
+            ...Provider.of<Activities>(this.context, listen: false)
+                .commentWidgets,
           ],
         ));
   }

@@ -18,7 +18,7 @@ class _EditScreenState extends State<EditScreen> {
   var minute1;
   var hour2;
   var minute2;
-  final _textController = TextEditingController();
+  TextEditingController _textController;
   toColor(colorString) {
     String valueString =
         colorString.split('(0x')[1].split(')')[0]; // kind of hacky..
@@ -65,6 +65,7 @@ class _EditScreenState extends State<EditScreen> {
 
   @override
   void initState() {
+    this._textController = TextEditingController(text: widget.activity.name);
     this.hour1 = timeConverter(widget.activity.start)[0].toString();
     this.minute1 = timeConverter(widget.activity.start)[1].toString();
     this.hour2 = timeConverter(widget.activity.end)[0].toString();
@@ -91,7 +92,7 @@ class _EditScreenState extends State<EditScreen> {
             child: Stack(alignment: AlignmentDirectional.center, children: [
               Positioned(
                 child: GestureDetector(
-                  child: _textController.text == ''
+                  child: this._textController.text == ''
                       ? Container(
                           width: MediaQuery.of(context).size.width * 0.6,
                           decoration: BoxDecoration(
