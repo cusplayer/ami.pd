@@ -74,79 +74,118 @@ class _AddScreenState extends State<AddScreen> {
       appBar: AppBar(
         title: Text('ы'),
       ),
-      body: Column(
-        children: [
-          GestureDetector(
-            child: _textController.text != ''
-                ? Text(_textController.text)
-                : Text('Введите название'),
-            onTap: () => showDialog(
-              context: context,
-              builder: (ctx) => AlertDialog(
-                  title: Text('Название'),
-                  content: TextField(
-                    controller: _textController,
-                    onSubmitted: (_) => setState(() {}),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              margin: EdgeInsets.symmetric(
+                  vertical: MediaQuery.of(context).size.width / 8),
+              width: MediaQuery.of(context).size.width,
+              child: Stack(
+                alignment: AlignmentDirectional.center,
+                children: [
+                  Positioned(
+                    child: GestureDetector(
+                      child: _textController.text != ''
+                          ? Container(
+                              width: MediaQuery.of(context).size.width * 0.6,
+                              decoration: BoxDecoration(
+                                border: Border(
+                                  bottom:
+                                      BorderSide(width: 2, color: Colors.black),
+                                ),
+                              ),
+                              child: Text(
+                                _textController.text,
+                              ),
+                            )
+                          : Container(
+                              width: MediaQuery.of(context).size.width * 0.6,
+                              decoration: BoxDecoration(
+                                border: Border(
+                                  bottom:
+                                      BorderSide(width: 2, color: Colors.black),
+                                ),
+                              ),
+                              child: Text('Введите название'),
+                            ),
+                      onTap: () => showDialog(
+                        context: context,
+                        builder: (ctx) => AlertDialog(
+                            title: Text('Название'),
+                            content: TextField(
+                              controller: _textController,
+                              onSubmitted: (_) => setState(() {}),
+                            ),
+                            actions: []),
+                      ),
+                    ),
                   ),
-                  actions: []),
-            ),
-          ),
-          GestureDetector(
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.black),
-                color: color,
+                  Container(
+                    margin: EdgeInsets.only(
+                      right: MediaQuery.of(context).size.width / 10,
+                    ),
+                    alignment: Alignment.centerRight,
+                    child: GestureDetector(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black),
+                          color: color,
+                          borderRadius: BorderRadius.circular(50.0),
+                        ),
+                        height: 20,
+                        width: 20,
+                      ),
+                      onTap: () => showModalBottomSheet(
+                          context: context,
+                          builder: (_) {
+                            return Container(
+                              height: 500,
+                              child: ColorPickerWidget(this.callbackColor),
+                            );
+                          }),
+                    ),
+                  ),
+                ],
               ),
-              height: 20,
-              width: 20,
             ),
-            onTap: () => showModalBottomSheet(
-                context: context,
-                builder: (_) {
-                  return Container(
-                    height: 500,
-                    child: ColorPickerWidget(this.callbackColor),
-                  );
-                }),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [],
-          ),
-          Container(
-            height: 100,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Picker(this.callbackh1, true, 0),
-                Picker(this.callbackm1, false, 0),
-                Text(':'),
-                Picker(this.callbackh2, true, 0),
-                Picker(this.callbackm2, false, 0),
-              ],
+            Container(
+              margin: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).size.width / 8),
+              height: 100,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Picker(this.callbackh1, true, 0),
+                  Picker(this.callbackm1, false, 0),
+                  Text(':'),
+                  Picker(this.callbackh2, true, 0),
+                  Picker(this.callbackm2, false, 0),
+                ],
+              ),
             ),
-          ),
-          TextButton(
-            style: ButtonStyle(
-              backgroundColor:
-                  MaterialStateProperty.all<Color>(Colors.deepPurple),
+            TextButton(
+              style: ButtonStyle(
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(Colors.deepPurple),
+              ),
+              onPressed: () {
+                Provider.of<Activities>(this.context, listen: false).addActivity(
+                    '${_textController.text} ${DateTime.now().year}-$month-$day',
+                    _textController.text,
+                    double.parse(hour1) / 24 + double.parse(minute1) / 1440,
+                    nightEnd1 =
+                        double.parse(hour2) / 24 + double.parse(minute2) / 1440,
+                    color);
+                Navigator.of(context).pop();
+              },
+              child: Text(
+                'Добавить',
+                style: TextStyle(color: Colors.white),
+              ),
             ),
-            onPressed: () {
-              Provider.of<Activities>(this.context, listen: false).addActivity(
-                  '${_textController.text} ${DateTime.now().year}-$month-$day',
-                  _textController.text,
-                  double.parse(hour1) / 24 + double.parse(minute1) / 1440,
-                  nightEnd1 =
-                      double.parse(hour2) / 24 + double.parse(minute2) / 1440,
-                  color);
-              Navigator.of(context).pop();
-            },
-            child: Text(
-              'Добавить',
-              style: TextStyle(color: Colors.white),
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

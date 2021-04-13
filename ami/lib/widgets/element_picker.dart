@@ -14,16 +14,6 @@ class ElementPicker extends StatefulWidget {
 }
 
 class _ElementPickerState extends State<ElementPicker> {
-  // dateName() {
-  //   if (widget.activity.id != '0Adding0') {
-  //     return widget.activity.id
-  //             .substring(widget.activity.id.indexOf(' ') + 1) ==
-  //         Provider.of<Activities>(context, listen: true).date;
-  //   } else {
-  //     return true;
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Container(

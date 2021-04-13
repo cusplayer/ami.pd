@@ -77,61 +77,90 @@ class _EditScreenState extends State<EditScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('ы')),
-      body: Container(
-        // width: MediaQuery.of(context).size.width / 1.3,
+      body: SingleChildScrollView(
         child: Column(children: [
-          Row(children: [
-            Spacer(),
-            GestureDetector(
-              child: _textController.text == ''
-                  ? Text(
-                      widget.activity.name,
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontStyle: FontStyle.italic,
-                      ),
-                    )
-                  : Text(
-                      _textController.text,
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontStyle: FontStyle.italic,
-                      ),
-                    ),
-              onTap: () => showDialog(
-                context: context,
-                builder: (ctx) => AlertDialog(
-                    title: Text('Изменить название'),
-                    content: TextField(
-                      controller: _textController,
-                      onSubmitted: (_) => setState(() {}),
-                    ),
-                    actions: []),
-              ),
-            ),
-            Spacer(),
-            GestureDetector(
-              child: Container(
-                decoration: BoxDecoration(
-                  color: this.color,
-                  border: Border.all(color: Colors.black),
-                ),
-                height: 20,
-                width: 20,
-              ),
-              onTap: () => showModalBottomSheet(
-                  context: context,
-                  builder: (_) {
-                    return Container(
-                      height: MediaQuery.of(context).size.height,
-                      child: ColorPickerWidget(this.callbackColor),
-                    );
-                  }),
-            ),
-          ]),
           Container(
+            margin: EdgeInsets.symmetric(
+                vertical: MediaQuery.of(context).size.width / 8),
+            width: MediaQuery.of(context).size.width,
+            child: Stack(alignment: AlignmentDirectional.center, children: [
+              Positioned(
+                child: GestureDetector(
+                  child: _textController.text == ''
+                      ? Container(
+                          width: MediaQuery.of(context).size.width * 0.6,
+                          decoration: BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(width: 2, color: Colors.black),
+                            ),
+                          ),
+                          child: Text(
+                            widget.activity.name,
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 20,
+                              fontStyle: FontStyle.italic,
+                            ),
+                          ),
+                        )
+                      : Container(
+                          width: MediaQuery.of(context).size.width * 0.6,
+                          decoration: BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(width: 2, color: Colors.black),
+                            ),
+                          ),
+                          child: Text(
+                            _textController.text,
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 20,
+                              fontStyle: FontStyle.italic,
+                            ),
+                          ),
+                        ),
+                  onTap: () => showDialog(
+                    context: context,
+                    builder: (ctx) => AlertDialog(
+                        title: Text('Изменить название'),
+                        content: TextField(
+                          controller: _textController,
+                          onSubmitted: (_) => setState(() {}),
+                        ),
+                        actions: []),
+                  ),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(
+                  right: MediaQuery.of(context).size.width / 10,
+                ),
+                alignment: Alignment.centerRight,
+                child: GestureDetector(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: this.color,
+                      border: Border.all(color: Colors.black),
+                      borderRadius: BorderRadius.circular(50.0),
+                    ),
+                    height: 20,
+                    width: 20,
+                  ),
+                  onTap: () => showModalBottomSheet(
+                      context: context,
+                      builder: (_) {
+                        return Container(
+                          height: MediaQuery.of(context).size.height,
+                          child: ColorPickerWidget(this.callbackColor),
+                        );
+                      }),
+                ),
+              ),
+            ]),
+          ),
+          Container(
+            margin:
+                EdgeInsets.only(bottom: MediaQuery.of(context).size.width / 8),
             height: 100,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
