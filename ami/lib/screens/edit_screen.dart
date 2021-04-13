@@ -104,7 +104,7 @@ class _EditScreenState extends State<EditScreen> {
                             widget.activity.name,
                             style: TextStyle(
                               color: Colors.black,
-                              fontSize: 20,
+                              fontSize: 25,
                               fontStyle: FontStyle.italic,
                             ),
                           ),
@@ -120,7 +120,7 @@ class _EditScreenState extends State<EditScreen> {
                             _textController.text,
                             style: TextStyle(
                               color: Colors.black,
-                              fontSize: 20,
+                              fontSize: 25,
                               fontStyle: FontStyle.italic,
                             ),
                           ),
@@ -128,7 +128,10 @@ class _EditScreenState extends State<EditScreen> {
                   onTap: () => showDialog(
                     context: context,
                     builder: (ctx) => AlertDialog(
-                        title: Text('Изменить название'),
+                        title: Text(
+                          'Изменить название',
+                          style: TextStyle(fontSize: 20),
+                        ),
                         content: TextField(
                           controller: _textController,
                           onSubmitted: (_) => setState(() {}),
@@ -197,7 +200,10 @@ class _EditScreenState extends State<EditScreen> {
                         color),
                 Provider.of<Activities>(this.context, listen: false).clear()
               },
-              child: Text('Изменить'),
+              child: Text(
+                'Изменить',
+                style: TextStyle(fontSize: 20),
+              ),
             ),
             TextButton(
                 style: ButtonStyle(
@@ -208,7 +214,7 @@ class _EditScreenState extends State<EditScreen> {
                 //         new BorderRadius.circular(30.0)),
                 child: Text(
                   'Удалить',
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
                 onPressed: () {
                   Provider.of<Activities>(this.context, listen: false)

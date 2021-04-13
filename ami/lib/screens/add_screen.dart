@@ -99,6 +99,7 @@ class _AddScreenState extends State<AddScreen> {
                               ),
                               child: Text(
                                 _textController.text,
+                                style: TextStyle(fontSize: 25),
                               ),
                             )
                           : Container(
@@ -109,7 +110,10 @@ class _AddScreenState extends State<AddScreen> {
                                       BorderSide(width: 2, color: Colors.black),
                                 ),
                               ),
-                              child: Text('Введите название'),
+                              child: Text(
+                                'Введите название',
+                                style: TextStyle(fontSize: 25),
+                              ),
                             ),
                       onTap: () => showDialog(
                         context: context,
@@ -183,7 +187,7 @@ class _AddScreenState extends State<AddScreen> {
               },
               child: Text(
                 'Добавить',
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: Colors.white, fontSize: 20),
               ),
             ),
           ],

@@ -70,7 +70,6 @@ class Activities with ChangeNotifier {
   }
 
   void editActivity(String id, String name, num start, num end, Color color) {
-    notifyListeners();
     DBHelper.update(
         'activities',
         {
@@ -82,6 +81,7 @@ class Activities with ChangeNotifier {
         },
         id);
     fetchAndSet();
+    notifyListeners();
   }
 
   void deleteActivity(String id) {

@@ -52,7 +52,9 @@ class _MyDayState extends State<MyDay> {
 
   void _presentDatePicker() {
     showDatePicker(
+            helpText: '',
             context: context,
+            locale: const Locale("ru", "RU"),
             initialDate: DateTime.now(),
             firstDate: DateTime(2020),
             lastDate: DateTime.now())
@@ -116,13 +118,17 @@ class _MyDayState extends State<MyDay> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
+                                Spacer(),
                                 TextButton(
                                   onPressed: _presentDatePicker,
-                                  child: Text(Provider.of<Activities>(
-                                          this.context,
-                                          listen: true)
-                                      .date),
+                                  child: Text(
+                                    Provider.of<Activities>(this.context,
+                                            listen: true)
+                                        .date,
+                                    style: TextStyle(fontSize: 20),
+                                  ),
                                 ),
+                                Spacer(),
                                 GestureDetector(
                                   child: Image(
                                     width:
@@ -134,6 +140,9 @@ class _MyDayState extends State<MyDay> {
                                           this.context,
                                           listen: false)
                                       .changeEditable(),
+                                ),
+                                Spacer(
+                                  flex: 6,
                                 ),
                               ],
                             ),
