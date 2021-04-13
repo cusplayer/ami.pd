@@ -12,7 +12,7 @@ class AddScreen extends StatefulWidget {
 }
 
 class _AddScreenState extends State<AddScreen> {
-  Color color = Colors.black;
+  Color color = Colors.white;
   var hour1 = '0';
   var minute1 = '0';
   var hour2 = '0';
@@ -93,7 +93,10 @@ class _AddScreenState extends State<AddScreen> {
           ),
           GestureDetector(
             child: Container(
-              color: color,
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.black),
+                color: color,
+              ),
               height: 20,
               width: 20,
             ),
@@ -136,6 +139,7 @@ class _AddScreenState extends State<AddScreen> {
                   nightEnd1 =
                       double.parse(hour2) / 24 + double.parse(minute2) / 1440,
                   color);
+              Navigator.of(context).pop();
             },
             child: Text(
               'Добавить',

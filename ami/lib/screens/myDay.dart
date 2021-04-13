@@ -90,84 +90,108 @@ class _MyDayState extends State<MyDay> {
         appBar: AppBar(
           title: Text('ы'),
         ),
-        body: FutureBuilder(
-          future: fetchAndSetFuture,
-          builder: (context, snapshot) => snapshot.connectionState ==
-                  ConnectionState.waiting
-              ? Center(child: CircularProgressIndicator())
-              : Consumer<Activities>(
-                  child: Center(
-                    child: const Text('ниче нет'),
-                  ),
-                  builder: (context, activities, ch) => SingleChildScrollView(
-                    child: Center(
-                      child: Column(children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text('No date'),
-                            TextButton(
-                              onPressed: _presentDatePicker,
-                              child: Text('Выберите дату'),
-                            )
-                          ],
-                        ),
-                        Container(
-                          padding:
-                              EdgeInsets.only(top: mediaQuery.size.height / 40),
-                          child: Text(time, style: TextStyle(fontSize: 30)),
-                        ),
-                        DayContainer(mediaQuery, activities),
-                        Container(
-                          height: MediaQuery.of(context).size.height / 2,
-                          child: SingleChildScrollView(
-                            physics: ScrollPhysics(),
-                            child: Column(
-                              children: <Widget>[
-                                // Костыльная кнопка, чтобы удалять поломанные элементы
-                                // FloatingActionButton(
-                                //   onPressed: () {
-                                //     Provider.of<Activities>(this.context,
-                                //             listen: false)
-                                //         .deleteActivity(
-                                //             activities.activities[1].id);
-                                //   },
-                                //   child: Text('Тыкни'),
-                                // ),
-                                ListView.builder(
-                                    physics: ScrollPhysics(),
-                                    shrinkWrap: true,
-                                    itemCount: activities.activities.length,
-                                    itemBuilder: (context, index) {
-                                      return ElementPicker(
-                                          mediaQuery,
-                                          // this.callbackN,
-                                          activities.activities[index]);
-                                    }),
-                                SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height / 2,
+        body: Stack(
+          children: [
+            FutureBuilder(
+              future: fetchAndSetFuture,
+              builder: (context, snapshot) => snapshot.connectionState ==
+                      ConnectionState.waiting
+                  ? Center(child: CircularProgressIndicator())
+                  : Consumer<Activities>(
+                      child: Center(
+                        child: const Text('ниче нет'),
+                      ),
+                      builder: (context, activities, ch) =>
+                          SingleChildScrollView(
+                        child: Center(
+                          child: Column(children: [
+                            Container(
+                              padding: EdgeInsets.only(
+                                  top: mediaQuery.size.height / 40),
+                              child: Text(time, style: TextStyle(fontSize: 30)),
+                            ),
+                            DayContainer(mediaQuery, activities),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                TextButton(
+                                  onPressed: _presentDatePicker,
+                                  child: Text(Provider.of<Activities>(
+                                          this.context,
+                                          listen: false)
+                                      .date),
+                                ),
+                                GestureDetector(
+                                  child: Image(
+                                    width:
+                                        MediaQuery.of(context).size.width / 15,
+                                    image:
+                                        AssetImage('assets/images/vector.png'),
+                                  ),
+                                  onTap: () => Provider.of<Activities>(
+                                          this.context,
+                                          listen: false)
+                                      .changeEditable(),
                                 ),
                               ],
                             ),
-                          ),
-                        ), //Developer button
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pushNamed('/add-screen');
-                          },
-                          child: Icon(Icons.add),
+                            Container(
+                              height: MediaQuery.of(context).size.height / 2,
+                              child: SingleChildScrollView(
+                                physics: ScrollPhysics(),
+                                child: Column(
+                                  children: <Widget>[
+                                    // Костыльная кнопка, чтобы удалять поломанные элементы
+                                    // FloatingActionButton(
+                                    //   onPressed: () {
+                                    //     Provider.of<Activities>(this.context,
+                                    //             listen: false)
+                                    //         .deleteActivity(
+                                    //             activities.activities[1].id);
+                                    //   },
+                                    //   child: Text('Тыкни'),
+                                    // ),
+                                    ListView.builder(
+                                        physics: ScrollPhysics(),
+                                        shrinkWrap: true,
+                                        itemCount: activities.activities.length,
+                                        itemBuilder: (context, index) {
+                                          return ElementPicker(
+                                              mediaQuery,
+                                              // this.callbackN,
+                                              activities.activities[index]);
+                                        }),
+                                    SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              2,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ), //Developer button
+                            // ElementPicker(mediaQuery, this.callbackA),
+                            // FlatButton(
+                            //     onPressed: () {
+                            //       Navigator.of(context).pushNamed('/day');
+                            //     },
+                            //     child: Text('э'))
+                          ]),
                         ),
-                        // ElementPicker(mediaQuery, this.callbackA),
-                        // FlatButton(
-                        //     onPressed: () {
-                        //       Navigator.of(context).pushNamed('/day');
-                        //     },
-                        //     child: Text('э'))
-                      ]),
+                      ),
                     ),
-                  ),
-                ),
+            ),
+            Positioned(
+              top: MediaQuery.of(context).size.height / 1.3,
+              left: MediaQuery.of(context).size.width / 1.3,
+              child: FloatingActionButton(
+                onPressed: () {
+                  Navigator.of(context).pushNamed('/add-screen');
+                },
+                child: Icon(Icons.add),
+              ),
+            )
+          ],
         ));
   }
 }

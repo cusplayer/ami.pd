@@ -16,6 +16,13 @@ class Activities with ChangeNotifier {
     return [..._activities];
   }
 
+  bool isEditable = false;
+
+  void changeEditable() {
+    isEditable = !isEditable;
+    notifyListeners();
+  }
+
   void updateDate(newDate) {
     this.date = formatter.format(newDate);
     notifyListeners();
