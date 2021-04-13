@@ -120,6 +120,7 @@ class _CommonPickerState extends State<CommonPicker> {
                 decoration: BoxDecoration(
                   color: toColor(widget.activity.color),
                   border: Border.all(color: Colors.black),
+                  borderRadius: BorderRadius.circular(50.0),
                 ),
                 height: 20,
                 width: 20,
