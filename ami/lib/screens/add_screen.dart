@@ -4,9 +4,9 @@ import 'package:ami/widgets/color_picker.dart';
 import 'package:ami/widgets/cupertino_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class AddScreen extends StatefulWidget {
-  static const routeName = '/add-screen';
   @override
   _AddScreenState createState() => _AddScreenState();
 }
@@ -70,11 +70,13 @@ class _AddScreenState extends State<AddScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('ы'),
-      ),
-      body: SingleChildScrollView(
+    return SlidingUpPanel(
+      onPanelClosed: () =>
+          Provider.of<Activities>(this.context, listen: false).clear(),
+      defaultPanelState: PanelState.OPEN,
+      backdropEnabled: true,
+      maxHeight: MediaQuery.of(context).size.height * 0.7,
+      panel: SingleChildScrollView(
         child: Column(
           children: [
             Container(

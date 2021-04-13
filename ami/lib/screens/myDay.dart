@@ -10,6 +10,8 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'dart:math' as math;
 
+import 'package:sliding_up_panel/sliding_up_panel.dart';
+
 class MyDay extends StatefulWidget {
   @override
   _MyDayState createState() => _MyDayState();
@@ -34,6 +36,18 @@ class _MyDayState extends State<MyDay> {
     setState(() {
       this.activityStart = ns1;
       this.activityEnd = ne1;
+    });
+  }
+
+  void returnPanel() {
+    setState(() {
+      if (Provider.of<Activities>(this.context, listen: false)
+          .commentWidgets
+          .isEmpty) {
+        Provider.of<Activities>(this.context, listen: false)
+            .commentWidgets
+            .add(AddScreen());
+      }
     });
   }
 
@@ -91,7 +105,7 @@ class _MyDayState extends State<MyDay> {
           title: Text('ы'),
         ),
         body: Stack(
-          children: [
+          children: <Widget>[
             FutureBuilder(
               future: fetchAndSetFuture,
               builder: (context, snapshot) => snapshot.connectionState ==
@@ -181,13 +195,13 @@ class _MyDayState extends State<MyDay> {
                       ),
                     ),
             ),
+            ...Provider.of<Activities>(this.context, listen: false)
+                .commentWidgets,
             Positioned(
               top: MediaQuery.of(context).size.height / 1.3,
-              left: MediaQuery.of(context).size.width / 1.3,
+              left: MediaQuery.of(context).size.width / 1.25,
               child: FloatingActionButton(
-                onPressed: () {
-                  Navigator.of(context).pushNamed('/add-screen');
-                },
+                onPressed: () => returnPanel(),
                 child: Icon(Icons.add),
               ),
             )

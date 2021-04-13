@@ -23,7 +23,6 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         routes: {
           '/': (ctx) => MyDay(),
-          AddScreen.routeName: (ctx) => AddScreen(),
         },
       ),
     );

@@ -7,6 +7,7 @@ import '../models/activity.dart';
 
 class Activities with ChangeNotifier {
   List<Activity> _activities = [];
+  final commentWidgets = <Widget>[];
 
   DateFormat formatter = DateFormat('yyyy-MM-dd');
 
@@ -17,6 +18,11 @@ class Activities with ChangeNotifier {
   }
 
   bool isEditable = false;
+
+  void clear() {
+    commentWidgets.clear();
+    notifyListeners();
+  }
 
   void changeEditable() {
     isEditable = !isEditable;

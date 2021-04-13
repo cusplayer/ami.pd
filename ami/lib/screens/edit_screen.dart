@@ -76,7 +76,6 @@ class _EditScreenState extends State<EditScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('ы')),
       body: SingleChildScrollView(
         child: Column(children: [
           Container(
