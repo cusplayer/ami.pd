@@ -11,6 +11,18 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  Map<int, Color> color = {
+    50: Color.fromRGBO(233, 118, 91, 1),
+    100: Color.fromRGBO(233, 118, 91, 1),
+    200: Color.fromRGBO(233, 118, 91, 1),
+    300: Color.fromRGBO(233, 118, 91, 1),
+    400: Color.fromRGBO(233, 118, 91, 1),
+    500: Color.fromRGBO(233, 118, 91, 1),
+    600: Color.fromRGBO(233, 118, 91, 1),
+    700: Color.fromRGBO(233, 118, 91, 1),
+    800: Color.fromRGBO(233, 118, 91, 1),
+    900: Color.fromRGBO(233, 118, 91, 1),
+  };
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider.value(
@@ -20,7 +32,8 @@ class MyApp extends StatelessWidget {
         localizationsDelegates: [GlobalMaterialLocalizations.delegate],
         supportedLocales: [const Locale('en'), const Locale('ru')],
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          scaffoldBackgroundColor: Colors.white,
+          primarySwatch: MaterialColor(0xFFE9765B, color),
           fontFamily: 'Bloggersans',
         ),
         initialRoute: '/',

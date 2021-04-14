@@ -78,7 +78,12 @@ class _AddScreenState extends State<AddScreen> {
 
   @override
   Widget build(BuildContext context) {
+    BorderRadiusGeometry radius = BorderRadius.only(
+      topLeft: Radius.circular(30.0),
+      topRight: Radius.circular(30.0),
+    );
     return SlidingUpPanel(
+      borderRadius: radius,
       onPanelClosed: () =>
           Provider.of<Activities>(this.context, listen: false).clear(),
       defaultPanelState: PanelState.OPEN,

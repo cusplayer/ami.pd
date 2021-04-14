@@ -79,6 +79,7 @@ class _MyDayState extends State<MyDay> {
     this.activityEnd = 0.0;
     fetchAndSetFuture =
         Provider.of<Activities>(context, listen: false).fetchAndSet();
+
     super.initState();
   }
 
@@ -94,9 +95,6 @@ class _MyDayState extends State<MyDay> {
     var mediaQuery = MediaQuery.of(context);
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: AppBar(
-          title: Text('ы'),
-        ),
         body: Stack(
           children: <Widget>[
             FutureBuilder(
@@ -113,45 +111,53 @@ class _MyDayState extends State<MyDay> {
                         child: Center(
                           child: Column(children: [
                             Container(
-                              padding: EdgeInsets.only(
-                                  top: mediaQuery.size.height / 40),
-                              child: Text(time, style: TextStyle(fontSize: 30)),
+                              margin: EdgeInsets.only(
+                                  top: mediaQuery.size.height / 15),
+                              child: Text(time, style: TextStyle(fontSize: 40)),
                             ),
                             DayContainer(
                                 mediaQuery,
                                 Provider.of<Activities>(this.context,
                                         listen: true)
                                     .sortForArc(activities.activities)),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Spacer(),
-                                TextButton(
-                                  onPressed: _presentDatePicker,
-                                  child: Text(
-                                    Provider.of<Activities>(this.context,
-                                            listen: true)
-                                        .date,
-                                    style: TextStyle(fontSize: 20),
+                            Container(
+                              margin: EdgeInsets.only(
+                                  top: MediaQuery.of(context).size.width / 50),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Spacer(),
+                                  TextButton(
+                                    onPressed: _presentDatePicker,
+                                    child: Text(
+                                      Provider.of<Activities>(this.context,
+                                              listen: true)
+                                          .dateView,
+                                      style: TextStyle(fontSize: 32),
+                                    ),
                                   ),
-                                ),
-                                Spacer(),
-                                GestureDetector(
-                                  child: Image(
-                                    width:
-                                        MediaQuery.of(context).size.width / 15,
-                                    image:
-                                        AssetImage('assets/images/vector.png'),
+                                  Spacer(),
+                                  Container(
+                                    padding: EdgeInsets.only(bottom: 4),
+                                    child: GestureDetector(
+                                      child: Image(
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                15,
+                                        image: AssetImage(
+                                            'assets/images/vector.png'),
+                                      ),
+                                      onTap: () => Provider.of<Activities>(
+                                              this.context,
+                                              listen: false)
+                                          .changeEditable(),
+                                    ),
                                   ),
-                                  onTap: () => Provider.of<Activities>(
-                                          this.context,
-                                          listen: false)
-                                      .changeEditable(),
-                                ),
-                                Spacer(
-                                  flex: 6,
-                                ),
-                              ],
+                                  Spacer(
+                                    flex: 20,
+                                  ),
+                                ],
+                              ),
                             ),
                             Container(
                               height: MediaQuery.of(context).size.height / 2,
@@ -159,24 +165,13 @@ class _MyDayState extends State<MyDay> {
                                 physics: ScrollPhysics(),
                                 child: Column(
                                   children: <Widget>[
-                                    // Костыльная кнопка, чтобы удалять поломанные элементы
-                                    // FloatingActionButton(
-                                    //   onPressed: () {
-                                    //     Provider.of<Activities>(this.context,
-                                    //             listen: false)
-                                    //         .deleteActivity(
-                                    //             activities.activities[1].id);
-                                    //   },
-                                    //   child: Text('Тыкни'),
-                                    // ),
                                     ListView.builder(
+                                        padding: EdgeInsets.all(0),
                                         physics: ScrollPhysics(),
                                         shrinkWrap: true,
                                         itemCount: activities.activities.length,
                                         itemBuilder: (context, index) {
-                                          return CommonPicker(
-                                              mediaQuery,
-                                              // this.callbackN,
+                                          return CommonPicker(mediaQuery,
                                               activities.activities[index]);
                                         }),
                                     SizedBox(
@@ -200,7 +195,7 @@ class _MyDayState extends State<MyDay> {
                     ),
             ),
             Positioned(
-              top: MediaQuery.of(context).size.height / 1.3,
+              top: MediaQuery.of(context).size.height / 1.12,
               left: MediaQuery.of(context).size.width / 1.25,
               child: FloatingActionButton(
                 onPressed: () =>

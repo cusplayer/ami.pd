@@ -4,17 +4,18 @@ import 'package:ami/screens/edit_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
-
+import 'package:intl/date_symbol_data_local.dart';
 import '../models/activity.dart';
 
 class Activities with ChangeNotifier {
   List<Activity> _activities = [];
 
   final commentWidgets = <Widget>[];
-
   DateFormat formatter = DateFormat('yyyy-MM-dd');
+  DateFormat formatterView = DateFormat('MMMd');
 
   String date = DateFormat('yyyy-MM-dd').format(DateTime.now());
+  String dateView = DateFormat('MMMd').format(DateTime.now());
 
   List<Activity> sortedActivities;
 
@@ -65,6 +66,7 @@ class Activities with ChangeNotifier {
 
   void updateDate(newDate) {
     this.date = formatter.format(newDate);
+    this.dateView = formatterView.format(newDate);
     calendar();
     fetchAndSet();
     notifyListeners();

@@ -53,33 +53,6 @@ class _CommonPickerState extends State<CommonPicker> {
     return Color(value);
   }
 
-  // void callbackh1(String time) {
-  //   setState(() {
-  //     this.hour1 = time;
-  //   });
-  // }
-
-  // void callbackm1(String time) {
-  //   setState(() {
-  //     if (time.length < 2) {
-  //       this.minute1 = '0' + time;
-  //     }
-  //     this.minute1 = time;
-  //   });
-  // }
-
-  // void callbackh2(String time) {
-  //   setState(() {
-  //     this.hour2 = time;
-  //   });
-  // }
-
-  // void callbackm2(String time) {
-  //   setState(() {
-  //     this.minute2 = time;
-  //   });
-  // }
-
   @override
   void initState() {
     this.hour1 = timeConverter(widget.activity.start)[0].toString();
@@ -87,10 +60,6 @@ class _CommonPickerState extends State<CommonPicker> {
     this.hour2 = timeConverter(widget.activity.end)[0].toString();
     this.minute2 = timeConverter(widget.activity.end)[1].toString();
 
-    if (widget.activity.id != '0Adding0') {
-      print(
-          'id ${widget.activity.id.substring(widget.activity.id.indexOf(' ') + 1)}');
-    }
     super.initState();
   }
 
@@ -98,17 +67,18 @@ class _CommonPickerState extends State<CommonPicker> {
   Widget build(BuildContext context) {
     return Container(
       child: Card(
+        elevation: 0.0,
         child: Column(
           children: [
             ListTile(
-                leading: Container(
-                    height: MediaQuery.of(context).size.width / 15,
-                    width: MediaQuery.of(context).size.width / 15,
-                    decoration: BoxDecoration(
-                      color: toColor(widget.activity.color),
-                      border: Border.all(color: Colors.black),
-                      borderRadius: BorderRadius.circular(50.0),
-                    )),
+                // leading: Container(
+                //     height: MediaQuery.of(context).size.width / 15,
+                //     width: MediaQuery.of(context).size.width / 15,
+                //     decoration: BoxDecoration(
+                //       color: toColor(widget.activity.color),
+                //       border: Border.all(color: Colors.black),
+                //       borderRadius: BorderRadius.circular(50.0),
+                //     )),
                 title: Text(
                   widget.activity.name,
                   style: TextStyle(color: Colors.black, fontSize: 20),
@@ -116,10 +86,15 @@ class _CommonPickerState extends State<CommonPicker> {
                 subtitle: widget.activity.end == 2
                     ? Text(
                         '${timeConverter(widget.activity.start)[0]}:${timeConverter(widget.activity.start)[1]}',
-                        style: TextStyle(color: Colors.black, fontSize: 13))
+                        style: TextStyle(
+                          color: toColor(widget.activity.color),
+                          fontSize: 13,
+                        ))
                     : Text(
                         '${timeConverter(widget.activity.start)[0]}:${timeConverter(widget.activity.start)[1]} - ${timeConverter(widget.activity.end)[0]}:${timeConverter(widget.activity.end)[1]}',
-                        style: TextStyle(color: Colors.black, fontSize: 13)),
+                        style: TextStyle(
+                            color: toColor(widget.activity.color),
+                            fontSize: 13)),
                 trailing: Provider.of<Activities>(this.context, listen: false)
                         .isEditable
                     ? GestureDetector(

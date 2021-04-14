@@ -19,15 +19,23 @@ class _PickerState extends State<Picker> {
     if (widget.isHours) {
       for (var i = 0; i < 24; i++) {
         if (i + widget.time <= 23) {
-          arr.add(Text('${i + widget.time}'));
+          if (i + widget.time < 10) {
+            arr.add(Text('0${i + widget.time}'));
+          } else {
+            arr.add(Text('${i + widget.time}'));
+          }
         } else {
-          arr.add(Text('${i + widget.time - 24}'));
+          arr.add(Text('0${i + widget.time - 24}'));
         }
       }
     } else {
       for (var i = 0; i < 60; i++) {
         if (i + widget.time <= 59) {
-          arr.add(Text('${i + widget.time}'));
+          if (i + widget.time < 10) {
+            arr.add(Text('0${i + widget.time}'));
+          } else {
+            arr.add(Text('${i + widget.time}'));
+          }
         } else {
           arr.add(Text('${i + widget.time - 60}'));
         }

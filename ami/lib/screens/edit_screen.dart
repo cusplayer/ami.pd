@@ -194,6 +194,7 @@ class _EditScreenState extends State<EditScreen> {
                         children: [
                           Picker(this.callbackh1, true,
                               timeConverter(widget.activity.start)[0]),
+                          Text(':'),
                           Picker(this.callbackm1, false,
                               timeConverter(widget.activity.start)[1]),
                         ],

@@ -42,7 +42,6 @@ class _DayContainerState extends State<DayContainer> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(top: widget.mediaQuery.size.height / 40),
       child: InteractiveViewer(
         child: Stack(
           children: [
