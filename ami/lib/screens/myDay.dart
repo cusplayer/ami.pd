@@ -117,7 +117,11 @@ class _MyDayState extends State<MyDay> {
                                   top: mediaQuery.size.height / 40),
                               child: Text(time, style: TextStyle(fontSize: 30)),
                             ),
-                            DayContainer(mediaQuery, activities),
+                            DayContainer(
+                                mediaQuery,
+                                Provider.of<Activities>(this.context,
+                                        listen: true)
+                                    .sortForArc(activities.activities)),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [

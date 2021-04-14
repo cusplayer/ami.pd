@@ -21,15 +21,25 @@ class ActivityArc extends CustomPainter {
     var shift = angle * pi * 2;
     var center = Offset(centerX, centerY);
     var radius = min(centerX, centerY) * 0.9;
-    canvas.drawArc(
-        new Rect.fromCenter(
-            center: center, width: radius * 2, height: radius * 2),
-        (startActivity * 2 * pi - pi / 2) - shift,
-        ((2 * pi * (endActivity - startActivity)) < 0)
-            ? (2 * pi * (endActivity - startActivity) + pi * 2)
-            : (2 * pi * (endActivity - startActivity)),
-        false,
-        activityPaint);
+    endActivity == 2
+        ? canvas.drawArc(
+            new Rect.fromCenter(
+                center: center, width: radius * 2, height: radius * 2),
+            (startActivity * 2 * pi - pi / 2) - shift,
+            ((2 * pi * (startActivity + 0.01 - startActivity)) < 0)
+                ? (2 * pi * (startActivity + 0.01 - startActivity) + pi * 2)
+                : (2 * pi * (startActivity + 0.01 - startActivity)),
+            false,
+            activityPaint)
+        : canvas.drawArc(
+            new Rect.fromCenter(
+                center: center, width: radius * 2, height: radius * 2),
+            (startActivity * 2 * pi - pi / 2) - shift,
+            ((2 * pi * (endActivity - startActivity)) < 0)
+                ? (2 * pi * (endActivity - startActivity) + pi * 2)
+                : (2 * pi * (endActivity - startActivity)),
+            false,
+            activityPaint);
   }
 
   @override

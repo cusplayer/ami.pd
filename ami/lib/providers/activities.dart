@@ -9,11 +9,14 @@ import '../models/activity.dart';
 
 class Activities with ChangeNotifier {
   List<Activity> _activities = [];
+
   final commentWidgets = <Widget>[];
 
   DateFormat formatter = DateFormat('yyyy-MM-dd');
 
   String date = DateFormat('yyyy-MM-dd').format(DateTime.now());
+
+  List<Activity> sortedActivities;
 
   List<Activity> get activities {
     return [..._activities];
@@ -24,6 +27,21 @@ class Activities with ChangeNotifier {
   void clear() {
     commentWidgets.clear();
     notifyListeners();
+  }
+
+  int sortFunction(a, b) {
+    if (a == 2 && b == 2 || a != 2 && b != 2) {
+      return 0;
+    } else if (a == 2 && b != 2) {
+      return 1;
+    } else {
+      return -1;
+    }
+  }
+
+  List<Activity> sortForArc(activity) {
+    activity.sort((a, b) => sortFunction(a.end, b.end));
+    return activity;
   }
 
   void returnAdd() {
@@ -50,6 +68,10 @@ class Activities with ChangeNotifier {
     calendar();
     fetchAndSet();
     notifyListeners();
+  }
+
+  void sortActivities() {
+    _activities.sort((a, b) => a.start.compareTo(b.start));
   }
 
   void addActivity(String id, String name, num start, num end, Color color) {
@@ -102,23 +124,36 @@ class Activities with ChangeNotifier {
     var isAllowedVar = true;
     _activities.forEach((element) {
       if (id != element.id) {
-        if (element.start > element.end) {
-          if (activityStart > element.start ||
-              activityEnd > element.start ||
-              activityStart < element.end ||
-              activityEnd < element.end ||
-              (activityStart < element.start &&
-                  activityEnd > element.end &&
-                  activityStart > activityEnd) ||
-              activityStart == element.start) {
-            isAllowedVar = false;
+        if (element.end != 2) {
+          if (element.start > element.end) {
+            if (activityStart > element.start ||
+                activityEnd > element.start ||
+                activityStart < element.end ||
+                activityEnd < element.end ||
+                (activityStart < element.start &&
+                    activityEnd > element.end &&
+                    activityStart > activityEnd) ||
+                activityStart == element.start) {
+              isAllowedVar = false;
+            }
+          } else if (element.start < element.end) {
+            if (activityStart > element.start && activityStart < element.end ||
+                activityEnd < element.end && activityEnd > element.start ||
+                (activityStart < element.start && activityEnd > element.end) ||
+                activityStart == element.start) {
+              isAllowedVar = false;
+            }
           }
-        } else if (element.start < element.end) {
-          if (activityStart > element.start && activityStart < element.end ||
-              activityEnd < element.end && activityEnd > element.start ||
-              (activityStart < element.start && activityEnd > element.end) ||
-              activityStart == element.start) {
-            isAllowedVar = false;
+        } else {
+          if (activityStart < activityEnd) {
+            if (activityStart < element.start && activityEnd > element.start) {
+              isAllowedVar = false;
+            }
+          }
+          if (activityStart > activityEnd) {
+            if (activityStart < element.start || element.start < activityEnd) {
+              isAllowedVar = false;
+            }
           }
         }
       }
@@ -141,6 +176,7 @@ class Activities with ChangeNotifier {
         .toList();
     _activities.removeWhere((activity) =>
         (activity.id.substring(activity.id.indexOf(' ') + 1)) != date);
+    sortActivities();
     notifyListeners();
   }
 }

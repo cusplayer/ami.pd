@@ -113,10 +113,13 @@ class _CommonPickerState extends State<CommonPicker> {
                   widget.activity.name,
                   style: TextStyle(color: Colors.black, fontSize: 20),
                 ),
-                subtitle: Text(
-                  '${timeConverter(widget.activity.start)[0]}:${timeConverter(widget.activity.start)[1]} - ${timeConverter(widget.activity.end)[0]}:${timeConverter(widget.activity.end)[1]}',
-                  style: TextStyle(color: Colors.black, fontSize: 13),
-                ),
+                subtitle: widget.activity.end == 2
+                    ? Text(
+                        '${timeConverter(widget.activity.start)[0]}:${timeConverter(widget.activity.start)[1]}',
+                        style: TextStyle(color: Colors.black, fontSize: 13))
+                    : Text(
+                        '${timeConverter(widget.activity.start)[0]}:${timeConverter(widget.activity.start)[1]} - ${timeConverter(widget.activity.end)[0]}:${timeConverter(widget.activity.end)[1]}',
+                        style: TextStyle(color: Colors.black, fontSize: 13)),
                 trailing: Provider.of<Activities>(this.context, listen: false)
                         .isEditable
                     ? GestureDetector(
