@@ -144,7 +144,7 @@ class _EditScreenState extends State<EditScreen> {
               ),
               Container(
                 margin: EdgeInsets.only(
-                  right: MediaQuery.of(context).size.width / 10,
+                  right: MediaQuery.of(context).size.width / 15,
                 ),
                 alignment: Alignment.centerRight,
                 child: GestureDetector(
@@ -154,8 +154,8 @@ class _EditScreenState extends State<EditScreen> {
                       border: Border.all(color: Colors.black),
                       borderRadius: BorderRadius.circular(50.0),
                     ),
-                    height: 20,
-                    width: 20,
+                    height: MediaQuery.of(context).size.width / 10,
+                    width: MediaQuery.of(context).size.width / 10,
                   ),
                   onTap: () => showModalBottomSheet(
                       context: context,
@@ -195,8 +195,8 @@ class _EditScreenState extends State<EditScreen> {
                         listen: false)
                     .isAllowed(
                         double.parse(hour1) / 24 + double.parse(minute1) / 1440,
-                        double.parse(hour2) / 24 +
-                            double.parse(minute2) / 1440);
+                        double.parse(hour2) / 24 + double.parse(minute2) / 1440,
+                        widget.activity.id);
                 if (isAllowed) {
                   Provider.of<Activities>(this.context, listen: false)
                       .editActivity(

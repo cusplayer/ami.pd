@@ -134,7 +134,7 @@ class _AddScreenState extends State<AddScreen> {
                     ),
                     Container(
                       margin: EdgeInsets.only(
-                        right: MediaQuery.of(context).size.width / 10,
+                        right: MediaQuery.of(context).size.width / 15,
                       ),
                       alignment: Alignment.centerRight,
                       child: GestureDetector(
@@ -144,8 +144,8 @@ class _AddScreenState extends State<AddScreen> {
                             color: color,
                             borderRadius: BorderRadius.circular(50.0),
                           ),
-                          height: 20,
-                          width: 20,
+                          height: MediaQuery.of(context).size.width / 10,
+                          width: MediaQuery.of(context).size.width / 10,
                         ),
                         onTap: () => showModalBottomSheet(
                             context: context,
@@ -181,13 +181,14 @@ class _AddScreenState extends State<AddScreen> {
                       MaterialStateProperty.all<Color>(Colors.deepPurple),
                 ),
                 onPressed: () async {
-                  isAllowed =
-                      await Provider.of<Activities>(this.context, listen: false)
-                          .isAllowed(
-                              double.parse(hour1) / 24 +
-                                  double.parse(minute1) / 1440,
-                              double.parse(hour2) / 24 +
-                                  double.parse(minute2) / 1440);
+                  isAllowed = await Provider.of<Activities>(this.context,
+                          listen: false)
+                      .isAllowed(
+                          double.parse(hour1) / 24 +
+                              double.parse(minute1) / 1440,
+                          double.parse(hour2) / 24 +
+                              double.parse(minute2) / 1440,
+                          '${_textController.text} ${DateTime.now().year}-$month-$day');
 
                   if (isAllowed) {
                     if (_textController.text == '') {

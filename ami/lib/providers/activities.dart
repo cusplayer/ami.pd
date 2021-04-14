@@ -95,20 +95,26 @@ class Activities with ChangeNotifier {
         (activity.id.substring(activity.id.indexOf(' ') + 1)) != date);
   }
 
-  Future isAllowed(num activityStart, num activityEnd) async {
+  Future isAllowed(num activityStart, num activityEnd, id) async {
     var isAllowedVar = true;
     _activities.forEach((element) {
-      if (element.start > element.end) {
-        if (activityStart > element.start && activityEnd < element.start ||
-            activityEnd > element.start && activityStart < element.end ||
-            activityStart < element.start && activityEnd > element.end) {
-          isAllowedVar = false;
-        }
-      } else if (element.start < element.end) {
-        if (activityStart > element.start && activityStart < element.end ||
-            activityEnd < element.end && activityEnd > element.start ||
-            (activityStart < element.start && activityEnd > element.end)) {
-          isAllowedVar = false;
+      if (id != element.id) {
+        if (element.start > element.end) {
+          if (activityStart > element.start ||
+              activityEnd > element.start ||
+              activityStart < element.end ||
+              activityEnd < element.end ||
+              (activityStart < element.start &&
+                  activityEnd > element.end &&
+                  activityStart > activityEnd)) {
+            isAllowedVar = false;
+          }
+        } else if (element.start < element.end) {
+          if (activityStart > element.start && activityStart < element.end ||
+              activityEnd < element.end && activityEnd > element.start ||
+              (activityStart < element.start && activityEnd > element.end)) {
+            isAllowedVar = false;
+          }
         }
       }
     });
