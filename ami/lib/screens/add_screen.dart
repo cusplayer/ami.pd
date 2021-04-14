@@ -5,6 +5,9 @@ import 'package:ami/widgets/cupertino_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'dart:math';
+
+import 'package:uuid/uuid.dart';
 
 class AddScreen extends StatefulWidget {
   @override
@@ -20,6 +23,7 @@ class _AddScreenState extends State<AddScreen> {
   var nightStart1;
   var nightEnd1;
   bool isAllowed;
+  var uuid = Uuid();
   final _textController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   final month = DateTime.now().month < 10
@@ -188,7 +192,7 @@ class _AddScreenState extends State<AddScreen> {
                               double.parse(minute1) / 1440,
                           double.parse(hour2) / 24 +
                               double.parse(minute2) / 1440,
-                          '${_textController.text} ${DateTime.now().year}-$month-$day');
+                          '${uuid.v1()} ${DateTime.now().year}-$month-$day');
 
                   if (isAllowed) {
                     if (_textController.text == '') {
@@ -202,7 +206,7 @@ class _AddScreenState extends State<AddScreen> {
                     } else
                       Provider.of<Activities>(this.context, listen: false)
                           .addActivity(
-                              '${_textController.text} ${DateTime.now().year}-$month-$day',
+                              '${Random().nextInt(1000000)} ${DateTime.now().year}-$month-$day',
                               _textController.text,
                               double.parse(hour1) / 24 +
                                   double.parse(minute1) / 1440,

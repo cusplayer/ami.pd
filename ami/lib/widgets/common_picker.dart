@@ -35,8 +35,16 @@ class _CommonPickerState extends State<CommonPicker> {
 
   timeConverter(double time) {
     int hours = time ~/ (1 / 24);
+    String strHours = hours.toString();
+    if (strHours.length < 2) {
+      strHours = '0' + strHours;
+    }
     int minutes = ((time % (1 / 24)) * 1442).toInt();
-    return [hours, minutes];
+    String strMinutes = minutes.toString();
+    if (strMinutes.length < 2) {
+      strMinutes = '0' + strMinutes;
+    }
+    return [strHours, strMinutes];
   }
 
   toColor(colorString) {
@@ -45,29 +53,32 @@ class _CommonPickerState extends State<CommonPicker> {
     return Color(value);
   }
 
-  void callbackh1(String time) {
-    setState(() {
-      this.hour1 = time;
-    });
-  }
+  // void callbackh1(String time) {
+  //   setState(() {
+  //     this.hour1 = time;
+  //   });
+  // }
 
-  void callbackm1(String time) {
-    setState(() {
-      this.minute1 = time;
-    });
-  }
+  // void callbackm1(String time) {
+  //   setState(() {
+  //     if (time.length < 2) {
+  //       this.minute1 = '0' + time;
+  //     }
+  //     this.minute1 = time;
+  //   });
+  // }
 
-  void callbackh2(String time) {
-    setState(() {
-      this.hour2 = time;
-    });
-  }
+  // void callbackh2(String time) {
+  //   setState(() {
+  //     this.hour2 = time;
+  //   });
+  // }
 
-  void callbackm2(String time) {
-    setState(() {
-      this.minute2 = time;
-    });
-  }
+  // void callbackm2(String time) {
+  //   setState(() {
+  //     this.minute2 = time;
+  //   });
+  // }
 
   @override
   void initState() {
@@ -86,47 +97,63 @@ class _CommonPickerState extends State<CommonPicker> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        color: Colors.white,
-        height: widget.size.size.height / 15,
-        child: Stack(
+      child: Card(
+        child: Column(
           children: [
-            Positioned(
-              top: MediaQuery.of(context).size.height / 100,
-              left: MediaQuery.of(context).size.width / 10,
-              child: Text(
-                widget.activity.name,
-                style: TextStyle(color: Colors.black, fontSize: 20),
-              ),
-            ),
-            Provider.of<Activities>(this.context, listen: false).isEditable
-                ? Positioned(
-                    top: MediaQuery.of(context).size.height / 100,
-                    right: MediaQuery.of(context).size.width / 13,
-                    child: GestureDetector(
-                      child: Image.asset(
-                        'assets/images/vector.png',
-                        width: MediaQuery.of(context).size.width / 15,
-                      ),
-                      onTap: () =>
-                          Provider.of<Activities>(this.context, listen: false)
-                              .returnEdit(widget.activity),
-                    ),
-                  )
-                : Container(),
-            Positioned(
-              top: MediaQuery.of(context).size.height / 100,
-              right: MediaQuery.of(context).size.width / 5,
-              child: Container(
-                decoration: BoxDecoration(
-                  color: toColor(widget.activity.color),
-                  border: Border.all(color: Colors.black),
-                  borderRadius: BorderRadius.circular(50.0),
+            ListTile(
+                leading: Container(
+                    height: MediaQuery.of(context).size.width / 15,
+                    width: MediaQuery.of(context).size.width / 15,
+                    decoration: BoxDecoration(
+                      color: toColor(widget.activity.color),
+                      border: Border.all(color: Colors.black),
+                      borderRadius: BorderRadius.circular(50.0),
+                    )),
+                title: Text(
+                  widget.activity.name,
+                  style: TextStyle(color: Colors.black, fontSize: 20),
                 ),
-                height: 20,
-                width: 20,
-              ),
-            )
+                subtitle: Text(
+                  '${timeConverter(widget.activity.start)[0]}:${timeConverter(widget.activity.start)[1]} - ${timeConverter(widget.activity.end)[0]}:${timeConverter(widget.activity.end)[1]}',
+                  style: TextStyle(color: Colors.black, fontSize: 13),
+                ),
+                trailing: Provider.of<Activities>(this.context, listen: false)
+                        .isEditable
+                    ? GestureDetector(
+                        child: Image.asset(
+                          'assets/images/vector.png',
+                          width: MediaQuery.of(context).size.width / 15,
+                        ),
+                        onTap: () =>
+                            Provider.of<Activities>(this.context, listen: false)
+                                .returnEdit(widget.activity),
+                      )
+                    : Container(
+                        width: MediaQuery.of(context).size.width / 15,
+                        height: MediaQuery.of(context).size.width / 15,
+                      )),
+            // Stack(
+            //   children: [
+            //     // Positioned(
+            //     //   top: MediaQuery.of(context).size.height / 100,
+            //     //   left: MediaQuery.of(context).size.width / 10,
+            //     //   child: ,
+            //     // ),
+            //     // Positioned(
+            //     //   top: MediaQuery.of(context).size.height / 20,
+            //     //   left: MediaQuery.of(context).size.width / 10,
+            //     //   child:
+            //     // ),
+            //     Positioned(
+            //       top: MediaQuery.of(context).size.height / 100,
+            //       right: MediaQuery.of(context).size.width / 5,
+            //         height: 20,
+            //         width: 20,
+            //       ),
+            //     )
           ],
-        ));
+        ),
+      ),
+    );
   }
 }

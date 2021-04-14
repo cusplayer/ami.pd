@@ -67,6 +67,9 @@ class Activities with ChangeNotifier {
       'color': newActivity.color
     });
     fetchAndSet();
+    _activities.forEach((element) {
+      print('this is id ${element.id}, name ${element.name}');
+    });
   }
 
   void editActivity(String id, String name, num start, num end, Color color) {
@@ -106,13 +109,15 @@ class Activities with ChangeNotifier {
               activityEnd < element.end ||
               (activityStart < element.start &&
                   activityEnd > element.end &&
-                  activityStart > activityEnd)) {
+                  activityStart > activityEnd) ||
+              activityStart == element.start) {
             isAllowedVar = false;
           }
         } else if (element.start < element.end) {
           if (activityStart > element.start && activityStart < element.end ||
               activityEnd < element.end && activityEnd > element.start ||
-              (activityStart < element.start && activityEnd > element.end)) {
+              (activityStart < element.start && activityEnd > element.end) ||
+              activityStart == element.start) {
             isAllowedVar = false;
           }
         }
