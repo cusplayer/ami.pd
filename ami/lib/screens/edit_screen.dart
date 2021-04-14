@@ -176,15 +176,28 @@ class _EditScreenState extends State<EditScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Picker(this.callbackh1, true,
-                    timeConverter(widget.activity.start)[0]),
-                Picker(this.callbackm1, false,
-                    timeConverter(widget.activity.start)[1]),
-                Text(':'),
-                Picker(this.callbackh2, true,
-                    timeConverter(widget.activity.end)[0]),
-                Picker(this.callbackm2, false,
-                    timeConverter(widget.activity.end)[1]),
+                widget.activity.end != 2
+                    ? Row(
+                        children: [
+                          Picker(this.callbackh1, true,
+                              timeConverter(widget.activity.start)[0]),
+                          Picker(this.callbackm1, false,
+                              timeConverter(widget.activity.start)[1]),
+                          Text(':'),
+                          Picker(this.callbackh2, true,
+                              timeConverter(widget.activity.end)[0]),
+                          Picker(this.callbackm2, false,
+                              timeConverter(widget.activity.end)[1]),
+                        ],
+                      )
+                    : Row(
+                        children: [
+                          Picker(this.callbackh1, true,
+                              timeConverter(widget.activity.start)[0]),
+                          Picker(this.callbackm1, false,
+                              timeConverter(widget.activity.start)[1]),
+                        ],
+                      )
               ],
             ),
           ),
