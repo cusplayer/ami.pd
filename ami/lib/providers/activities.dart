@@ -13,9 +13,9 @@ class Activities with ChangeNotifier {
   final commentWidgets = <Widget>[];
   DateFormat formatter = DateFormat('yyyy-MM-dd');
   DateFormat formatterView = DateFormat('MMMd');
-
   String date = DateFormat('yyyy-MM-dd').format(DateTime.now());
   String dateView = DateFormat('MMMd').format(DateTime.now());
+  var time = DateFormat('HH:mm').format(DateTime.now());
 
   late List<Activity> sortedActivities;
 
@@ -27,6 +27,11 @@ class Activities with ChangeNotifier {
 
   void clear() {
     commentWidgets.clear();
+    notifyListeners();
+  }
+
+  Future refreshTime() async {
+    time = DateFormat('HH:mm').format(DateTime.now());
     notifyListeners();
   }
 
@@ -69,6 +74,7 @@ class Activities with ChangeNotifier {
     this.dateView = formatterView.format(newDate);
     calendar();
     fetchAndSet();
+    refreshTime();
     notifyListeners();
   }
 
@@ -96,6 +102,7 @@ class Activities with ChangeNotifier {
       'color': newActivity.color
     });
     fetchAndSet();
+    refreshTime();
     _activities.forEach((element) {
       print('this is id ${element.id}, name ${element.name}');
     });
@@ -114,6 +121,7 @@ class Activities with ChangeNotifier {
           'isDone': isDone
         },
         id);
+    refreshTime();
     fetchAndSet();
     notifyListeners();
   }
@@ -121,6 +129,7 @@ class Activities with ChangeNotifier {
   void deleteActivity(String id) {
     _activities.removeWhere((act) => act.id == id);
     DBHelper.delete(id);
+    refreshTime();
     notifyListeners();
   }
 
