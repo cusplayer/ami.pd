@@ -180,7 +180,7 @@ class _AddScreenState extends State<AddScreen> {
                     ),
                     Container(
                       padding: EdgeInsets.all(10),
-                      child: Text('Привычка'),
+                      child: Text('Задача'),
                     ),
                   ],
                   onPressed: (int index) {
@@ -230,7 +230,10 @@ class _AddScreenState extends State<AddScreen> {
                         listen: false)
                     .isAllowed(
                         double.parse(hour1) / 24 + double.parse(minute1) / 1440,
-                        double.parse(hour2) / 24 + double.parse(minute2) / 1440,
+                        isSelected[0]
+                            ? 2
+                            : double.parse(hour2) / 24 +
+                                double.parse(minute2) / 1440,
                         '${uuid.v1()} ${DateTime.now().year}-$month-$day');
 
                 if (isAllowed) {
@@ -250,7 +253,7 @@ class _AddScreenState extends State<AddScreen> {
                               _textController.text,
                               double.parse(hour1) / 24 +
                                   double.parse(minute1) / 1440,
-                              2.0,
+                              2,
                               color);
                       Provider.of<Activities>(this.context, listen: false)
                           .clear();
