@@ -27,7 +27,7 @@ class _EditScreenState extends State<EditScreen> {
     return Color(value);
   }
 
-  timeConverter(int time) {
+  timeConverter(double time) {
     int hours = time ~/ (1 / 24);
     int minutes = ((time % (1 / 24)) * 1442).toInt();
     return [hours, minutes];
@@ -67,10 +67,11 @@ class _EditScreenState extends State<EditScreen> {
   @override
   void initState() {
     this._textController = TextEditingController(text: widget.activity.name);
-    this.hour1 = timeConverter(widget.activity.start.toInt())[0].toString();
-    this.minute1 = timeConverter(widget.activity.start.toInt())[1].toString();
-    this.hour2 = timeConverter(widget.activity.end.toInt())[0].toString();
-    this.minute2 = timeConverter(widget.activity.end.toInt())[1].toString();
+    this.hour1 = timeConverter(widget.activity.start.toDouble())[0].toString();
+    this.minute1 =
+        timeConverter(widget.activity.start.toDouble())[1].toString();
+    this.hour2 = timeConverter(widget.activity.end.toDouble())[0].toString();
+    this.minute2 = timeConverter(widget.activity.end.toDouble())[1].toString();
     color = toColor(widget.activity.color);
     // print(widget.activity.id);
     super.initState();
@@ -179,24 +180,36 @@ class _EditScreenState extends State<EditScreen> {
                 widget.activity.end != 2
                     ? Row(
                         children: [
-                          Picker(this.callbackh1, true,
-                              timeConverter(widget.activity.start.toInt())[0]),
-                          Picker(this.callbackm1, false,
-                              timeConverter(widget.activity.start.toInt())[1]),
+                          Picker(
+                              this.callbackh1,
+                              true,
+                              timeConverter(
+                                  widget.activity.start.toDouble())[0]),
+                          Picker(
+                              this.callbackm1,
+                              false,
+                              timeConverter(
+                                  widget.activity.start.toDouble())[1]),
                           Text(':'),
                           Picker(this.callbackh2, true,
-                              timeConverter(widget.activity.end.toInt())[0]),
+                              timeConverter(widget.activity.end.toDouble())[0]),
                           Picker(this.callbackm2, false,
-                              timeConverter(widget.activity.end.toInt())[1]),
+                              timeConverter(widget.activity.end.toDouble())[1]),
                         ],
                       )
                     : Row(
                         children: [
-                          Picker(this.callbackh1, true,
-                              timeConverter(widget.activity.start.toInt())[0]),
+                          Picker(
+                              this.callbackh1,
+                              true,
+                              timeConverter(
+                                  widget.activity.start.toDouble())[0]),
                           Text(':'),
-                          Picker(this.callbackm1, false,
-                              timeConverter(widget.activity.start.toInt())[1]),
+                          Picker(
+                              this.callbackm1,
+                              false,
+                              timeConverter(
+                                  widget.activity.start.toDouble())[1]),
                         ],
                       )
               ],
