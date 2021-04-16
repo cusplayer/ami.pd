@@ -234,37 +234,46 @@ class _AddScreenState extends State<AddScreen> {
                         '${uuid.v1()} ${DateTime.now().year}-$month-$day');
 
                 if (isAllowed) {
-                  if (_textController.text == '') {
+                  if (color != Colors.white) {
+                    if (_textController.text == '') {
+                      showDialog(
+                        context: context,
+                        builder: (ctx) => AlertDialog(
+                          title: Text('Введите название'),
+                        ),
+                      );
+                      return;
+                    } else if (isSelected[0]) {
+                      Provider.of<Activities>(this.context, listen: false)
+                          .addActivity(
+                              '${Random().nextInt(1000000)} ${DateTime.now().year}-$month-$day',
+                              _textController.text,
+                              double.parse(hour1) / 24 +
+                                  double.parse(minute1) / 1440,
+                              2.0,
+                              color);
+                      Provider.of<Activities>(this.context, listen: false)
+                          .clear();
+                    } else if (isSelected[1]) {
+                      Provider.of<Activities>(this.context, listen: false)
+                          .addActivity(
+                              '${Random().nextInt(1000000)} ${DateTime.now().year}-$month-$day',
+                              _textController.text,
+                              double.parse(hour1) / 24 +
+                                  double.parse(minute1) / 1440,
+                              double.parse(hour2) / 24 +
+                                  double.parse(minute2) / 1440,
+                              color);
+                      Provider.of<Activities>(this.context, listen: false)
+                          .clear();
+                    }
+                  } else {
                     showDialog(
                       context: context,
                       builder: (ctx) => AlertDialog(
-                        title: Text('Введите название'),
+                        title: Text('Выберите цвет'),
                       ),
                     );
-                    return;
-                  } else if (isSelected[0]) {
-                    Provider.of<Activities>(this.context, listen: false)
-                        .addActivity(
-                            '${Random().nextInt(1000000)} ${DateTime.now().year}-$month-$day',
-                            _textController.text,
-                            double.parse(hour1) / 24 +
-                                double.parse(minute1) / 1440,
-                            2.0,
-                            color);
-                    Provider.of<Activities>(this.context, listen: false)
-                        .clear();
-                  } else if (isSelected[1]) {
-                    Provider.of<Activities>(this.context, listen: false)
-                        .addActivity(
-                            '${Random().nextInt(1000000)} ${DateTime.now().year}-$month-$day',
-                            _textController.text,
-                            double.parse(hour1) / 24 +
-                                double.parse(minute1) / 1440,
-                            double.parse(hour2) / 24 +
-                                double.parse(minute2) / 1440,
-                            color);
-                    Provider.of<Activities>(this.context, listen: false)
-                        .clear();
                   }
                 } else {
                   showDialog(

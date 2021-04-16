@@ -54,23 +54,6 @@ class _MyDayState extends State<MyDay> {
     );
   }
 
-  void _showAction(BuildContext context, int index) {
-    showDialog<void>(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          content: Text('TTTT'),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: const Text('CLOSE'),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
   void _presentDatePicker() {
     showDatePicker(
             helpText: '',
@@ -78,7 +61,7 @@ class _MyDayState extends State<MyDay> {
             locale: const Locale("ru", "RU"),
             initialDate: this.initialDate,
             firstDate: DateTime(2020),
-            lastDate: DateTime.now())
+            lastDate: DateTime.now().add(const Duration(days: 365)))
         .then((pickedDate) {
       if (pickedDate == null) {
         return;
@@ -225,24 +208,6 @@ class _MyDayState extends State<MyDay> {
             ),
             ...Provider.of<Activities>(this.context, listen: false)
                 .commentWidgets,
-            // child: ExpandableFab(
-            //   distance: 112.0,
-            //   children: [
-            //     ActionButton(
-            //       onPressed: () => _showAction(context, 0),
-            //       icon: const Icon(Icons.format_size),
-            //     ),
-            //     ActionButton(
-            //       onPressed: () => _showAction(context, 1),
-            //       icon: const Icon(Icons.insert_photo),
-            //     ),
-            //     ActionButton(
-            //       onPressed: () => _showAction(context, 2),
-            //       icon: const Icon(Icons.videocam),
-            //     ),
-            //   ],
-            // ),
-            // )
           ],
         ));
   }
