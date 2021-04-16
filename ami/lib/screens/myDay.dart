@@ -198,11 +198,14 @@ class _MyDayState extends State<MyDay> {
             Positioned(
               top: MediaQuery.of(context).size.height / 1.12,
               left: MediaQuery.of(context).size.width / 1.25,
-              child: FloatingActionButton(
-                onPressed: () =>
-                    Provider.of<Activities>(this.context, listen: false)
-                        .returnAdd(),
-                child: Icon(Icons.add),
+              child: Transform.scale(
+                scale: 1.2,
+                child: FloatingActionButton(
+                  onPressed: () =>
+                      Provider.of<Activities>(this.context, listen: false)
+                          .returnAdd(),
+                  child: Transform.scale(scale: 1.5, child: Icon(Icons.add)),
+                ),
               ),
             ),
             ...Provider.of<Activities>(this.context, listen: false)
