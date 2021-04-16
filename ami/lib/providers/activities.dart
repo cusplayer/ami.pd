@@ -17,7 +17,7 @@ class Activities with ChangeNotifier {
   String date = DateFormat('yyyy-MM-dd').format(DateTime.now());
   String dateView = DateFormat('MMMd').format(DateTime.now());
 
-  List<Activity> sortedActivities;
+  late List<Activity> sortedActivities;
 
   List<Activity> get activities {
     return [..._activities];
@@ -147,12 +147,12 @@ class Activities with ChangeNotifier {
             }
           }
         } else {
-          if (activityStart < activityEnd) {
+          if (element.start < element.end) {
             if (activityStart < element.start && activityEnd > element.start) {
               isAllowedVar = false;
             }
           }
-          if (activityStart > activityEnd) {
+          if (element.start > element.end) {
             if (activityStart < element.start || element.start < activityEnd) {
               isAllowedVar = false;
             }

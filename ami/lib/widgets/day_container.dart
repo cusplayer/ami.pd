@@ -34,7 +34,8 @@ class _DayContainerState extends State<DayContainer> {
   double size = 300;
   listEl(Activity act) {
     return CustomPaint(
-      painter: ActivityArc(act.start, act.end, toColor(act.color)),
+      painter: ActivityArc(
+          act.start.toDouble(), act.end.toDouble(), toColor(act.color)),
       size: Size(size, size),
     );
   }

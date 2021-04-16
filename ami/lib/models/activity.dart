@@ -8,9 +8,9 @@ class Activity {
   final String color;
 
   const Activity(
-      {@required this.id,
-      @required this.name,
-      @required this.start,
-      @required this.end,
-      @required this.color});
+      {required this.id,
+      required this.name,
+      required this.start,
+      required this.end,
+      required this.color});
 }

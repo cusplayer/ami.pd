@@ -1,10 +1,12 @@
 import 'package:ami/models/activity.dart';
 import 'package:ami/providers/activities.dart';
 import 'package:ami/screens/add_screen.dart';
+import 'package:ami/widgets/actionButton.dart';
 import 'package:ami/widgets/activity_arc.dart';
 import 'package:ami/widgets/common_picker.dart';
 import 'package:ami/widgets/day_container.dart';
 import 'package:ami/widgets/element_picker.dart';
+import 'package:ami/widgets/expandable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -19,13 +21,13 @@ class MyDay extends StatefulWidget {
 }
 
 class _MyDayState extends State<MyDay> {
-  num nightStart1;
-  num nightEnd1;
+  late num nightStart1;
+  late num nightEnd1;
   var activityStart;
   var activityEnd;
   DateTime initialDate = DateTime.now();
   List<Widget> widgetList = [];
-  Future fetchAndSetFuture;
+  late Future fetchAndSetFuture;
 
   // Future<void> callbackN(num ns1, num ne1) async {
   //   setState(() {
@@ -44,11 +46,28 @@ class _MyDayState extends State<MyDay> {
   listEl(Activity act) {
     return CustomPaint(
       painter: ActivityArc(
-          act.start,
-          act.end,
+          act.start.toDouble(),
+          act.end.toDouble(),
           Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
               .withOpacity(1.0)),
       size: Size(300, 300),
+    );
+  }
+
+  void _showAction(BuildContext context, int index) {
+    showDialog<void>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          content: Text('TTTT'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('CLOSE'),
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -83,9 +102,9 @@ class _MyDayState extends State<MyDay> {
     super.initState();
   }
 
-  MediaQueryData mediaQuery;
+  late MediaQueryData mediaQuery;
   var time = DateFormat('HH:mm').format(DateTime.now());
-  int selectedValue;
+  late int selectedValue;
   showPicker() {}
 
   @override
@@ -206,6 +225,24 @@ class _MyDayState extends State<MyDay> {
             ),
             ...Provider.of<Activities>(this.context, listen: false)
                 .commentWidgets,
+            // child: ExpandableFab(
+            //   distance: 112.0,
+            //   children: [
+            //     ActionButton(
+            //       onPressed: () => _showAction(context, 0),
+            //       icon: const Icon(Icons.format_size),
+            //     ),
+            //     ActionButton(
+            //       onPressed: () => _showAction(context, 1),
+            //       icon: const Icon(Icons.insert_photo),
+            //     ),
+            //     ActionButton(
+            //       onPressed: () => _showAction(context, 2),
+            //       icon: const Icon(Icons.videocam),
+            //     ),
+            //   ],
+            // ),
+            // )
           ],
         ));
   }

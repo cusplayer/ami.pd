@@ -24,7 +24,7 @@ class _AddScreenState extends State<AddScreen> {
   var minute2 = '0';
   var nightStart1;
   var nightEnd1;
-  bool isAllowed;
+  late bool isAllowed;
   bool isOneTime = true;
   var uuid = Uuid();
   final _textController = TextEditingController();

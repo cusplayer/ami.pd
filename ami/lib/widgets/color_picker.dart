@@ -10,7 +10,7 @@ class ColorPickerWidget extends StatefulWidget {
 }
 
 class _ColorPickerWidgetState extends State<ColorPickerWidget> {
-  Color screenPickerColor;
+  late Color screenPickerColor;
   @override
   void initState() {
     super.initState();

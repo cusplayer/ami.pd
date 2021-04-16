@@ -25,7 +25,7 @@ class _CommonPickerState extends State<CommonPicker> {
   var minute2;
   var nightStart1;
   var nightEnd1;
-  Color color;
+  late Color color;
 
   final month = DateTime.now().month < 10
       ? '0${DateTime.now().month}'
@@ -55,10 +55,11 @@ class _CommonPickerState extends State<CommonPicker> {
 
   @override
   void initState() {
-    this.hour1 = timeConverter(widget.activity.start)[0].toString();
-    this.minute1 = timeConverter(widget.activity.start)[1].toString();
-    this.hour2 = timeConverter(widget.activity.end)[0].toString();
-    this.minute2 = timeConverter(widget.activity.end)[1].toString();
+    this.hour1 = timeConverter(widget.activity.start.toDouble())[0].toString();
+    this.minute1 =
+        timeConverter(widget.activity.start.toDouble())[1].toString();
+    this.hour2 = timeConverter(widget.activity.end.toDouble())[0].toString();
+    this.minute2 = timeConverter(widget.activity.end.toDouble())[1].toString();
 
     super.initState();
   }
@@ -85,13 +86,13 @@ class _CommonPickerState extends State<CommonPicker> {
                 ),
                 subtitle: widget.activity.end == 2
                     ? Text(
-                        '${timeConverter(widget.activity.start)[0]}:${timeConverter(widget.activity.start)[1]}',
+                        '${timeConverter(widget.activity.start.toDouble())[0]}:${timeConverter(widget.activity.start.toDouble())[1]}',
                         style: TextStyle(
                           color: toColor(widget.activity.color),
                           fontSize: 13,
                         ))
                     : Text(
-                        '${timeConverter(widget.activity.start)[0]}:${timeConverter(widget.activity.start)[1]} - ${timeConverter(widget.activity.end)[0]}:${timeConverter(widget.activity.end)[1]}',
+                        '${timeConverter(widget.activity.start.toDouble())[0]}:${timeConverter(widget.activity.start.toDouble())[1]} - ${timeConverter(widget.activity.end.toDouble())[0]}:${timeConverter(widget.activity.end.toDouble())[1]}',
                         style: TextStyle(
                             color: toColor(widget.activity.color),
                             fontSize: 13)),

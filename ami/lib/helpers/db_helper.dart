@@ -31,7 +31,7 @@ class DBHelper {
     return db.query(table);
   }
 
-  static Future<void> delete(String id) async {
+  static Future<int> delete(String id) async {
     final db = await DBHelper.database();
     return db.delete('activities', where: 'id = ?', whereArgs: [id]);
   }
