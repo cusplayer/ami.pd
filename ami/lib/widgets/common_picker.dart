@@ -80,6 +80,18 @@ class _CommonPickerState extends State<CommonPicker> {
                 //       border: Border.all(color: Colors.black),
                 //       borderRadius: BorderRadius.circular(50.0),
                 //     )),
+                leading: Checkbox(
+                  value: widget.activity.isDone == 1 ? true : false,
+                  onChanged: (_) =>
+                      Provider.of<Activities>(this.context, listen: false)
+                          .editActivity(
+                              widget.activity.id,
+                              widget.activity.name,
+                              widget.activity.start,
+                              widget.activity.end,
+                              toColor(widget.activity.color),
+                              widget.activity.isDone == 0 ? 1 : 0),
+                ),
                 title: Text(
                   widget.activity.name,
                   style: TextStyle(color: Colors.black, fontSize: 20),

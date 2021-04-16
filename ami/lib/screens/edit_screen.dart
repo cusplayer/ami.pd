@@ -235,7 +235,8 @@ class _EditScreenState extends State<EditScreen> {
                               double.parse(minute1) / 1440,
                           double.parse(hour2) / 24 +
                               double.parse(minute2) / 1440,
-                          color);
+                          color,
+                          0);
                   Provider.of<Activities>(this.context, listen: false)
                       .fetchAndSet();
                   Provider.of<Activities>(this.context, listen: false).clear();

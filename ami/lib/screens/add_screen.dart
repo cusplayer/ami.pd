@@ -25,8 +25,8 @@ class _AddScreenState extends State<AddScreen> {
   var nightStart1;
   var nightEnd1;
   late bool isAllowed;
-  bool isOneTime = true;
   var uuid = Uuid();
+  var isSelected = [true, false];
   final _textController = TextEditingController();
   final month = DateTime.now().month < 10
       ? '0${DateTime.now().month}'
@@ -172,23 +172,47 @@ class _AddScreenState extends State<AddScreen> {
             Container(
               margin: EdgeInsets.only(
                   bottom: MediaQuery.of(context).size.width / 8),
+              child: ToggleButtons(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.all(10),
+                      child: Text('Активность'),
+                    ),
+                    Container(
+                      padding: EdgeInsets.all(10),
+                      child: Text('Привычка'),
+                    ),
+                  ],
+                  onPressed: (int index) {
+                    setState(() {
+                      for (int buttonIndex = 0;
+                          buttonIndex < isSelected.length;
+                          buttonIndex++) {
+                        if (buttonIndex == index) {
+                          isSelected[buttonIndex] = true;
+                        } else {
+                          isSelected[buttonIndex] = false;
+                        }
+                      }
+                    });
+                  },
+                  isSelected: isSelected),
+            ),
+            Container(
+              margin: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).size.width / 8),
               height: 100,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Picker(this.callbackh1, true, 0),
                   Picker(this.callbackm1, false, 0),
-                  GestureDetector(
-                    child: Text(
-                      ':',
-                      style: TextStyle(fontSize: 20),
-                    ),
-                    onTap: () => setState(() {
-                      isOneTime = !isOneTime;
-                    }),
-                  ),
-                  !isOneTime
+                  !isSelected[0]
                       ? Row(children: [
+                          Text(
+                            ':',
+                            style: TextStyle(fontSize: 20),
+                          ),
                           Picker(this.callbackh2, true, 0),
                           Picker(this.callbackm2, false, 0)
                         ])
@@ -218,7 +242,7 @@ class _AddScreenState extends State<AddScreen> {
                       ),
                     );
                     return;
-                  } else if (isOneTime) {
+                  } else if (isSelected[0]) {
                     Provider.of<Activities>(this.context, listen: false)
                         .addActivity(
                             '${Random().nextInt(1000000)} ${DateTime.now().year}-$month-$day',
@@ -229,7 +253,7 @@ class _AddScreenState extends State<AddScreen> {
                             color);
                     Provider.of<Activities>(this.context, listen: false)
                         .clear();
-                  } else if (!isOneTime) {
+                  } else if (isSelected[1]) {
                     Provider.of<Activities>(this.context, listen: false)
                         .addActivity(
                             '${Random().nextInt(1000000)} ${DateTime.now().year}-$month-$day',

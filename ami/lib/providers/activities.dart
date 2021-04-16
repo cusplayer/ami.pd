@@ -78,7 +78,12 @@ class Activities with ChangeNotifier {
 
   void addActivity(String id, String name, num start, num end, Color color) {
     final newActivity = Activity(
-        id: id, name: name, start: start, end: end, color: color.toString());
+        id: id,
+        name: name,
+        start: start,
+        end: end,
+        color: color.toString(),
+        isDone: 0);
     // if ((_activities.contains((el) => el.id == newActivity.id))) {
     //   _activities.add(newActivity);
     // }
@@ -96,7 +101,8 @@ class Activities with ChangeNotifier {
     });
   }
 
-  void editActivity(String id, String name, num start, num end, Color color) {
+  void editActivity(
+      String id, String name, num start, num end, Color color, int isDone) {
     DBHelper.update(
         'activities',
         {
@@ -104,7 +110,8 @@ class Activities with ChangeNotifier {
           'name': name,
           'start': start,
           'end': end,
-          'color': color.toString()
+          'color': color.toString(),
+          'isDone': isDone
         },
         id);
     fetchAndSet();
@@ -173,6 +180,7 @@ class Activities with ChangeNotifier {
             start: activity['start'],
             end: activity['end'],
             color: activity['color'],
+            isDone: activity['isDone'],
           ),
         )
         .toList();

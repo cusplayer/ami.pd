@@ -6,11 +6,14 @@ class Activity {
   final num start;
   final num end;
   final String color;
+  final int isDone;
 
-  const Activity(
-      {required this.id,
-      required this.name,
-      required this.start,
-      required this.end,
-      required this.color});
+  const Activity({
+    required this.id,
+    required this.name,
+    required this.start,
+    required this.end,
+    required this.color,
+    required this.isDone,
+  });
 }
