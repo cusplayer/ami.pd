@@ -4,7 +4,6 @@ import 'package:ami/widgets/color_picker.dart';
 import 'package:ami/widgets/cupertino_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class EditScreen extends StatefulWidget {
   final Activity activity;
@@ -79,200 +78,179 @@ class _EditScreenState extends State<EditScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SlidingUpPanel(
-      onPanelClosed: () =>
-          Provider.of<Activities>(this.context, listen: false).clear(),
-      defaultPanelState: PanelState.OPEN,
-      backdropEnabled: true,
-      maxHeight: MediaQuery.of(context).size.height * 0.7,
-      panel: SingleChildScrollView(
-        child: Column(children: [
-          Container(
-            margin: EdgeInsets.symmetric(
-                vertical: MediaQuery.of(context).size.width / 8),
-            width: MediaQuery.of(context).size.width,
-            child: Stack(alignment: AlignmentDirectional.center, children: [
-              Positioned(
-                child: GestureDetector(
-                  child: this._textController.text == ''
-                      ? Container(
-                          width: MediaQuery.of(context).size.width * 0.6,
-                          decoration: BoxDecoration(
-                            border: Border(
-                              bottom: BorderSide(width: 2, color: Colors.black),
-                            ),
-                          ),
-                          child: Text(
-                            widget.activity.name,
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 25,
-                              fontStyle: FontStyle.italic,
-                            ),
-                          ),
-                        )
-                      : Container(
-                          width: MediaQuery.of(context).size.width * 0.6,
-                          decoration: BoxDecoration(
-                            border: Border(
-                              bottom: BorderSide(width: 2, color: Colors.black),
-                            ),
-                          ),
-                          child: Text(
-                            _textController.text,
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 25,
-                              fontStyle: FontStyle.italic,
-                            ),
+    return SingleChildScrollView(
+      child: Column(children: [
+        Container(
+          margin: EdgeInsets.symmetric(
+              vertical: MediaQuery.of(context).size.width / 8),
+          width: MediaQuery.of(context).size.width,
+          child: Stack(alignment: AlignmentDirectional.center, children: [
+            Positioned(
+              child: GestureDetector(
+                child: this._textController.text == ''
+                    ? Container(
+                        width: MediaQuery.of(context).size.width * 0.6,
+                        decoration: BoxDecoration(
+                          border: Border(
+                            bottom: BorderSide(width: 2, color: Colors.black),
                           ),
                         ),
-                  onTap: () => showDialog(
-                    context: context,
-                    builder: (ctx) => AlertDialog(
-                        title: Text(
-                          'Изменить название',
-                          style: TextStyle(fontSize: 20),
+                        child: Text(
+                          widget.activity.name,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 25,
+                            fontStyle: FontStyle.italic,
+                          ),
                         ),
-                        content: TextField(
-                          autofocus: true,
-                          controller: _textController,
-                          onSubmitted: (_) => setState(() {}),
+                      )
+                    : Container(
+                        width: MediaQuery.of(context).size.width * 0.6,
+                        decoration: BoxDecoration(
+                          border: Border(
+                            bottom: BorderSide(width: 2, color: Colors.black),
+                          ),
                         ),
-                        actions: []),
-                  ),
+                        child: Text(
+                          _textController.text,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 25,
+                            fontStyle: FontStyle.italic,
+                          ),
+                        ),
+                      ),
+                onTap: () => showDialog(
+                  context: context,
+                  builder: (ctx) => AlertDialog(
+                      title: Text(
+                        'Изменить название',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      content: TextField(
+                        autofocus: true,
+                        controller: _textController,
+                        onSubmitted: (_) => setState(() {}),
+                      ),
+                      actions: []),
                 ),
               ),
-              Container(
-                margin: EdgeInsets.only(
-                  right: MediaQuery.of(context).size.width / 15,
-                ),
-                alignment: Alignment.centerRight,
-                child: GestureDetector(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: this.color,
-                      border: Border.all(color: Colors.black),
-                      borderRadius: BorderRadius.circular(50.0),
-                    ),
-                    height: MediaQuery.of(context).size.width / 10,
-                    width: MediaQuery.of(context).size.width / 10,
-                  ),
-                  onTap: () => showModalBottomSheet(
-                      context: context,
-                      builder: (_) {
-                        return Container(
-                          height: MediaQuery.of(context).size.height,
-                          child: ColorPickerWidget(this.callbackColor),
-                        );
-                      }),
-                ),
-              ),
-            ]),
-          ),
-          Container(
-            margin:
-                EdgeInsets.only(bottom: MediaQuery.of(context).size.width / 8),
-            height: 100,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                widget.activity.end != 2
-                    ? Row(
-                        children: [
-                          Picker(
-                              this.callbackh1,
-                              true,
-                              timeConverter(
-                                  widget.activity.start.toDouble())[0]),
-                          Picker(
-                              this.callbackm1,
-                              false,
-                              timeConverter(
-                                  widget.activity.start.toDouble())[1]),
-                          Text(':'),
-                          Picker(this.callbackh2, true,
-                              timeConverter(widget.activity.end.toDouble())[0]),
-                          Picker(this.callbackm2, false,
-                              timeConverter(widget.activity.end.toDouble())[1]),
-                        ],
-                      )
-                    : Row(
-                        children: [
-                          Picker(
-                              this.callbackh1,
-                              true,
-                              timeConverter(
-                                  widget.activity.start.toDouble())[0]),
-                          Text(':'),
-                          Picker(
-                              this.callbackm1,
-                              false,
-                              timeConverter(
-                                  widget.activity.start.toDouble())[1]),
-                        ],
-                      )
-              ],
             ),
+            Container(
+              margin: EdgeInsets.only(
+                right: MediaQuery.of(context).size.width / 15,
+              ),
+              alignment: Alignment.centerRight,
+              child: GestureDetector(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: this.color,
+                    border: Border.all(color: Colors.black),
+                    borderRadius: BorderRadius.circular(50.0),
+                  ),
+                  height: MediaQuery.of(context).size.width / 10,
+                  width: MediaQuery.of(context).size.width / 10,
+                ),
+                onTap: () => showModalBottomSheet(
+                    context: context,
+                    builder: (_) {
+                      return Container(
+                        height: MediaQuery.of(context).size.height,
+                        child: ColorPickerWidget(this.callbackColor),
+                      );
+                    }),
+              ),
+            ),
+          ]),
+        ),
+        Container(
+          margin:
+              EdgeInsets.only(bottom: MediaQuery.of(context).size.width / 8),
+          height: 100,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              widget.activity.end != 2
+                  ? Row(
+                      children: [
+                        Picker(this.callbackh1, true,
+                            timeConverter(widget.activity.start.toDouble())[0]),
+                        Picker(this.callbackm1, false,
+                            timeConverter(widget.activity.start.toDouble())[1]),
+                        Text(':'),
+                        Picker(this.callbackh2, true,
+                            timeConverter(widget.activity.end.toDouble())[0]),
+                        Picker(this.callbackm2, false,
+                            timeConverter(widget.activity.end.toDouble())[1]),
+                      ],
+                    )
+                  : Row(
+                      children: [
+                        Picker(this.callbackh1, true,
+                            timeConverter(widget.activity.start.toDouble())[0]),
+                        Text(':'),
+                        Picker(this.callbackm1, false,
+                            timeConverter(widget.activity.start.toDouble())[1]),
+                      ],
+                    )
+            ],
           ),
-          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            TextButton(
-              onPressed: () async {
-                isAllowed = await Provider.of<Activities>(this.context,
-                        listen: false)
-                    .isAllowed(
+        ),
+        Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+          TextButton(
+            onPressed: () async {
+              isAllowed = await Provider.of<Activities>(this.context,
+                      listen: false)
+                  .isAllowed(
+                      double.parse(hour1) / 24 + double.parse(minute1) / 1440,
+                      double.parse(hour2) / 24 + double.parse(minute2) / 1440,
+                      widget.activity.id);
+              if (isAllowed) {
+                Provider.of<Activities>(this.context, listen: false)
+                    .editActivity(
+                        widget.activity.id,
+                        _textController.text != ''
+                            ? _textController.text
+                            : widget.activity.name,
                         double.parse(hour1) / 24 + double.parse(minute1) / 1440,
                         double.parse(hour2) / 24 + double.parse(minute2) / 1440,
-                        widget.activity.id);
-                if (isAllowed) {
-                  Provider.of<Activities>(this.context, listen: false)
-                      .editActivity(
-                          widget.activity.id,
-                          _textController.text != ''
-                              ? _textController.text
-                              : widget.activity.name,
-                          double.parse(hour1) / 24 +
-                              double.parse(minute1) / 1440,
-                          double.parse(hour2) / 24 +
-                              double.parse(minute2) / 1440,
-                          color,
-                          widget.activity.isDone);
-                  Provider.of<Activities>(this.context, listen: false)
-                      .fetchAndSet();
-                  Provider.of<Activities>(this.context, listen: false).clear();
-                } else {
-                  showDialog(
-                    context: context,
-                    builder: (ctx) => AlertDialog(
-                      title: Text('Выбранный промежуток недопустим'),
-                    ),
-                  );
-                }
-              },
-              child: Text(
-                'Изменить',
-                style: TextStyle(fontSize: 20),
-              ),
+                        color,
+                        widget.activity.isDone ?? 0);
+                Provider.of<Activities>(this.context, listen: false)
+                    .fetchAndSet();
+                Navigator.pop(context);
+              } else {
+                showDialog(
+                  context: context,
+                  builder: (ctx) => AlertDialog(
+                    title: Text('Выбранный промежуток недопустим'),
+                  ),
+                );
+              }
+            },
+            child: Text(
+              'Изменить',
+              style: TextStyle(fontSize: 20),
             ),
-            TextButton(
-                style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateColor.resolveWith((states) => Colors.red)),
-                // shape: new RoundedRectangleBorder(
-                //     borderRadius:
-                //         new BorderRadius.circular(30.0)),
-                child: Text(
-                  'Удалить',
-                  style: TextStyle(color: Colors.white, fontSize: 20),
-                ),
-                onPressed: () {
-                  Provider.of<Activities>(this.context, listen: false)
-                      .deleteActivity(widget.activity.id);
-                  Provider.of<Activities>(this.context, listen: false).clear();
-                })
-          ])
-        ]),
-      ),
+          ),
+          TextButton(
+              style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateColor.resolveWith((states) => Colors.red)),
+              // shape: new RoundedRectangleBorder(
+              //     borderRadius:
+              //         new BorderRadius.circular(30.0)),
+              child: Text(
+                'Удалить',
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+              onPressed: () {
+                Provider.of<Activities>(this.context, listen: false)
+                    .deleteActivity(widget.activity.id);
+                Navigator.pop(context);
+              })
+        ])
+      ]),
     );
   }
 }

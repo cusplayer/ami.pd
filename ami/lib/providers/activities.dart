@@ -25,10 +25,10 @@ class Activities with ChangeNotifier {
 
   bool isEditable = false;
 
-  void clear() {
-    commentWidgets.clear();
-    notifyListeners();
-  }
+  // void clear() {
+  //   commentWidgets.clear();
+  //   notifyListeners();
+  // }
 
   Future refreshTime() async {
     time = DateFormat('HH:mm').format(DateTime.now());
@@ -50,19 +50,19 @@ class Activities with ChangeNotifier {
     return activity;
   }
 
-  void returnAdd() {
-    if (commentWidgets.isEmpty) {
-      commentWidgets.add(AddScreen());
-    }
-    notifyListeners();
-  }
+  // void returnAdd() {
+  //   if (commentWidgets.isEmpty) {
+  //     commentWidgets.add(AddScreen());
+  //   }
+  //   notifyListeners();
+  // }
 
-  void returnEdit(activity) {
-    if (commentWidgets.isEmpty) {
-      commentWidgets.add(EditScreen(activity));
-    }
-    notifyListeners();
-  }
+  // void returnEdit(activity) {
+  //   if (commentWidgets.isEmpty) {
+  //     commentWidgets.add(EditScreen(activity));
+  //   }
+  //   notifyListeners();
+  // }
 
   void changeEditable() {
     isEditable = !isEditable;
@@ -90,22 +90,17 @@ class Activities with ChangeNotifier {
         end: end,
         color: color.toString(),
         isDone: 0);
-    // if ((_activities.contains((el) => el.id == newActivity.id))) {
-    //   _activities.add(newActivity);
-    // }
     notifyListeners();
     DBHelper.insert('activities', {
       'id': newActivity.id,
       'name': newActivity.name,
       'start': newActivity.start,
       'end': newActivity.end,
-      'color': newActivity.color
+      'color': newActivity.color,
+      'isDone': 0
     });
     fetchAndSet();
     refreshTime();
-    _activities.forEach((element) {
-      print('this is id ${element.id}, name ${element.name}');
-    });
   }
 
   void editActivity(

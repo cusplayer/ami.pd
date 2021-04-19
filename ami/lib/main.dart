@@ -1,6 +1,4 @@
 import 'package:ami/providers/activities.dart';
-import 'package:ami/screens/add_screen.dart';
-import 'package:ami/screens/edit_screen.dart';
 import 'package:ami/screens/myDay.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -11,7 +9,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  Map<int, Color> color = {
+  static Map<int, Color> color = {
     50: Color.fromRGBO(233, 118, 91, 1),
     100: Color.fromRGBO(233, 118, 91, 1),
     200: Color.fromRGBO(233, 118, 91, 1),
@@ -28,7 +26,6 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider.value(
       value: Activities(),
       child: MaterialApp(
-        title: 'Flutter Demo',
         localizationsDelegates: [GlobalMaterialLocalizations.delegate],
         supportedLocales: [const Locale('en'), const Locale('ru')],
         theme: ThemeData(

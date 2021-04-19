@@ -1,12 +1,10 @@
-import 'package:flutter/material.dart';
-
 class Activity {
   final String id;
   final String name;
   final num start;
   final num end;
   final String color;
-  final int isDone;
+  final int? isDone;
 
   const Activity({
     required this.id,

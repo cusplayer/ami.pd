@@ -1,16 +1,13 @@
 import 'package:ami/models/activity.dart';
 import 'package:ami/providers/activities.dart';
+import 'package:ami/screens/add_screen.dart';
 import 'package:ami/widgets/activity_arc.dart';
 import 'package:ami/widgets/common_picker.dart';
 import 'package:ami/widgets/day_container.dart';
-import 'package:ami/widgets/element_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'dart:math' as math;
-
-import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class MyDay extends StatefulWidget {
   @override
@@ -94,7 +91,7 @@ class _MyDayState extends State<MyDay> {
                   ? Center(child: CircularProgressIndicator())
                   : Consumer<Activities>(
                       child: Center(
-                        child: const Text('ниче нет'),
+                        child: const Text(''),
                       ),
                       builder: (context, activities, ch) => RefreshIndicator(
                         onRefresh: () =>
@@ -202,8 +199,19 @@ class _MyDayState extends State<MyDay> {
                 scale: 1.2,
                 child: FloatingActionButton(
                   onPressed: () =>
-                      Provider.of<Activities>(this.context, listen: false)
-                          .returnAdd(),
+                      // Provider.of<Activities>(this.context, listen: false)
+                      //     .returnAdd(),
+                      showModalBottomSheet(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(30),
+                                topRight: Radius.circular(30)),
+                          ),
+                          elevation: 20.0,
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AddScreen();
+                          }),
                   child: Transform.scale(scale: 1.5, child: Icon(Icons.add)),
                 ),
               ),

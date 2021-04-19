@@ -1,12 +1,10 @@
-import 'dart:ffi';
-
 import 'package:ami/models/activity.dart';
 import 'package:ami/providers/activities.dart';
 import 'package:ami/widgets/color_picker.dart';
 import 'package:ami/widgets/cupertino_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sliding_up_panel/sliding_up_panel.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'dart:math';
 
 import 'package:uuid/uuid.dart';
@@ -76,25 +74,34 @@ class _AddScreenState extends State<AddScreen> {
     });
   }
 
+  // void showModal() {
+  //   showModalBottomSheet<void>(
+  //       isDismissible: false,
+  //       context: context,
+  //       builder: (BuildContext context) {
+  //       });
+  // }
+
+  // @override
+  // void initState() {
+  //   Future.delayed(Duration.zero, () {
+  //     showModal();
+  //   });
+  //   super.initState();
+  // }
+
   @override
   Widget build(BuildContext context) {
-    BorderRadiusGeometry radius = BorderRadius.only(
-      topLeft: Radius.circular(30.0),
-      topRight: Radius.circular(30.0),
-    );
-    return SlidingUpPanel(
-      borderRadius: radius,
-      onPanelClosed: () =>
-          Provider.of<Activities>(this.context, listen: false).clear(),
-      defaultPanelState: PanelState.OPEN,
-      backdropEnabled: true,
-      maxHeight: MediaQuery.of(context).size.height * 0.7,
-      panel: SingleChildScrollView(
+    return Container(
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(30), topRight: Radius.circular(30))),
+      child: SingleChildScrollView(
         child: Column(
           children: [
             Container(
               margin: EdgeInsets.symmetric(
-                  vertical: MediaQuery.of(context).size.width / 8),
+                  vertical: MediaQuery.of(context).size.width / 15),
               width: MediaQuery.of(context).size.width,
               child: Stack(
                 alignment: AlignmentDirectional.center,
@@ -160,7 +167,7 @@ class _AddScreenState extends State<AddScreen> {
                           context: context,
                           builder: (_) {
                             return Container(
-                              height: 500,
+                              height: 300,
                               child: ColorPickerWidget(this.callbackColor),
                             );
                           }),
@@ -171,16 +178,22 @@ class _AddScreenState extends State<AddScreen> {
             ),
             Container(
               margin: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).size.width / 8),
+                  bottom: MediaQuery.of(context).size.width / 16),
               child: ToggleButtons(
                   children: [
                     Container(
-                      padding: EdgeInsets.all(10),
-                      child: Text('Активность'),
+                      padding: EdgeInsets.all(3),
+                      child: Text(
+                        'Активность',
+                        style: TextStyle(fontSize: 12),
+                      ),
                     ),
                     Container(
-                      padding: EdgeInsets.all(10),
-                      child: Text('Задача'),
+                      padding: EdgeInsets.all(3),
+                      child: Text(
+                        'Задача',
+                        style: TextStyle(fontSize: 12),
+                      ),
                     ),
                   ],
                   onPressed: (int index) {
@@ -200,7 +213,7 @@ class _AddScreenState extends State<AddScreen> {
             ),
             Container(
               margin: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).size.width / 8),
+                  bottom: MediaQuery.of(context).size.width / 16),
               height: 100,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -247,6 +260,7 @@ class _AddScreenState extends State<AddScreen> {
                       );
                       return;
                     } else if (isSelected[0]) {
+                      Navigator.pop(context);
                       Provider.of<Activities>(this.context, listen: false)
                           .addActivity(
                               '${Random().nextInt(1000000)} ${DateTime.now().year}-$month-$day',
@@ -255,9 +269,10 @@ class _AddScreenState extends State<AddScreen> {
                                   double.parse(minute1) / 1440,
                               2,
                               color);
-                      Provider.of<Activities>(this.context, listen: false)
-                          .clear();
+                      // Provider.of<Activities>(this.context, listen: false)
+                      //     .clear();
                     } else if (isSelected[1]) {
+                      Navigator.pop(context);
                       Provider.of<Activities>(this.context, listen: false)
                           .addActivity(
                               '${Random().nextInt(1000000)} ${DateTime.now().year}-$month-$day',
@@ -267,8 +282,8 @@ class _AddScreenState extends State<AddScreen> {
                               double.parse(hour2) / 24 +
                                   double.parse(minute2) / 1440,
                               color);
-                      Provider.of<Activities>(this.context, listen: false)
-                          .clear();
+                      // Provider.of<Activities>(this.context, listen: false)
+                      //     .clear();
                     }
                   } else {
                     showDialog(
@@ -282,7 +297,7 @@ class _AddScreenState extends State<AddScreen> {
                   showDialog(
                     context: context,
                     builder: (ctx) => AlertDialog(
-                      title: Text('Выбранный промежуток недопустим'),
+                      title: Text('Выбранное время недопустимо'),
                     ),
                   );
                 }

@@ -27,8 +27,8 @@ class _ColorPickerWidgetState extends State<ColorPickerWidget> {
       },
       enableShadesSelection: false,
       onColorChanged: (Color color) => setState(() {
-        widget.callback(color);
         screenPickerColor = color;
+        widget.callback(color);
       }),
       color: screenPickerColor,
       heading: Text(

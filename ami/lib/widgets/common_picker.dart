@@ -118,9 +118,20 @@ class _CommonPickerState extends State<CommonPicker> {
                           'assets/images/vector.png',
                           width: MediaQuery.of(context).size.width / 15,
                         ),
-                        onTap: () =>
-                            Provider.of<Activities>(this.context, listen: false)
-                                .returnEdit(widget.activity),
+                        onTap: () => showModalBottomSheet(
+                            elevation: 20.0,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(30),
+                                  topRight: Radius.circular(30)),
+                            ),
+                            context: context,
+                            builder: (BuildContext context) {
+                              return EditScreen(widget.activity);
+                            }),
+                        // onTap: () =>
+                        //     Provider.of<Activities>(this.context, listen: false)
+                        //         .returnEdit(widget.activity),
                       )
                     : Container(
                         width: MediaQuery.of(context).size.width / 15,
