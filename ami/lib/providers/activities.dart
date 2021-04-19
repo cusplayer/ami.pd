@@ -3,6 +3,7 @@ import 'package:ami/screens/add_screen.dart';
 import 'package:ami/screens/edit_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import '../models/activity.dart';
@@ -16,6 +17,7 @@ class Activities with ChangeNotifier {
   String date = DateFormat('yyyy-MM-dd').format(DateTime.now());
   String dateView = DateFormat('MMMd').format(DateTime.now());
   var time = DateFormat('HH:mm').format(DateTime.now());
+  DateTime initialDate = DateTime.now();
 
   late List<Activity> sortedActivities;
 
@@ -29,6 +31,7 @@ class Activities with ChangeNotifier {
   //   commentWidgets.clear();
   //   notifyListeners();
   // }
+  //
 
   Future refreshTime() async {
     time = DateFormat('HH:mm').format(DateTime.now());
@@ -70,6 +73,7 @@ class Activities with ChangeNotifier {
   }
 
   void updateDate(newDate) {
+    initialDate = newDate;
     this.date = formatter.format(newDate);
     this.dateView = formatterView.format(newDate);
     calendar();
@@ -78,18 +82,35 @@ class Activities with ChangeNotifier {
     notifyListeners();
   }
 
+  presentDatePicker(context, initialDate, dateCallback) {
+    showDatePicker(
+            helpText: '',
+            context: context,
+            locale: const Locale("ru", "RU"),
+            initialDate: initialDate,
+            firstDate: DateTime.now().subtract(const Duration(days: 5000)),
+            lastDate: DateTime.now().add(const Duration(days: 365)))
+        .then((pickedDate) {
+      if (pickedDate != null) {
+        return dateCallback(pickedDate);
+      }
+    });
+  }
+
   void sortActivities() {
     _activities.sort((a, b) => a.start.compareTo(b.start));
   }
 
-  void addActivity(String id, String name, num start, num end, Color color) {
+  void addActivity(
+      String id, String name, num start, num end, Color color, String date) {
     final newActivity = Activity(
         id: id,
         name: name,
         start: start,
         end: end,
         color: color.toString(),
-        isDone: 0);
+        isDone: 0,
+        date: date);
     notifyListeners();
     DBHelper.insert('activities', {
       'id': newActivity.id,
@@ -97,14 +118,15 @@ class Activities with ChangeNotifier {
       'start': newActivity.start,
       'end': newActivity.end,
       'color': newActivity.color,
-      'isDone': 0
+      'isDone': 0,
+      'date': newActivity.date
     });
     fetchAndSet();
     refreshTime();
   }
 
-  void editActivity(
-      String id, String name, num start, num end, Color color, int isDone) {
+  void editActivity(String id, String name, num start, num end, Color color,
+      int isDone, String date) {
     DBHelper.update(
         'activities',
         {
@@ -113,7 +135,8 @@ class Activities with ChangeNotifier {
           'start': start,
           'end': end,
           'color': color.toString(),
-          'isDone': isDone
+          'isDone': isDone,
+          'date': date
         },
         id);
     refreshTime();
@@ -129,8 +152,7 @@ class Activities with ChangeNotifier {
   }
 
   void calendar() {
-    _activities.removeWhere((activity) =>
-        (activity.id.substring(activity.id.indexOf(' ') + 1)) != date);
+    _activities.removeWhere((activity) => (activity.date) != date);
   }
 
   Future isAllowed(num activityStart, num activityEnd, id) async {
@@ -203,17 +225,16 @@ class Activities with ChangeNotifier {
     _activities = datalist
         .map(
           (activity) => Activity(
-            id: activity['id'],
-            name: activity['name'],
-            start: activity['start'],
-            end: activity['end'],
-            color: activity['color'],
-            isDone: activity['isDone'],
-          ),
+              id: activity['id'],
+              name: activity['name'],
+              start: activity['start'],
+              end: activity['end'],
+              color: activity['color'],
+              isDone: activity['isDone'],
+              date: activity['date']),
         )
         .toList();
-    _activities.removeWhere((activity) =>
-        (activity.id.substring(activity.id.indexOf(' ') + 1)) != date);
+    calendar();
     sortActivities();
     notifyListeners();
   }

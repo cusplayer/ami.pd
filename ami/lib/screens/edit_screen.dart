@@ -19,6 +19,11 @@ class _EditScreenState extends State<EditScreen> {
   var minute2;
   late bool isAllowed;
   late TextEditingController _textController;
+  final month = DateTime.now().month < 10
+      ? '0${DateTime.now().month}'
+      : DateTime.now().month;
+  final day =
+      DateTime.now().day < 10 ? '0${DateTime.now().day}' : DateTime.now().day;
   toColor(colorString) {
     String valueString =
         colorString.split('(0x')[1].split(')')[0]; // kind of hacky..
@@ -215,7 +220,8 @@ class _EditScreenState extends State<EditScreen> {
                         double.parse(hour1) / 24 + double.parse(minute1) / 1440,
                         double.parse(hour2) / 24 + double.parse(minute2) / 1440,
                         color,
-                        widget.activity.isDone ?? 0);
+                        widget.activity.isDone ?? 0,
+                        widget.activity.date);
                 Provider.of<Activities>(this.context, listen: false)
                     .fetchAndSet();
                 Navigator.pop(context);

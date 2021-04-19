@@ -3,6 +3,7 @@ import 'package:ami/providers/activities.dart';
 import 'package:ami/widgets/color_picker.dart';
 import 'package:ami/widgets/cupertino_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'dart:math';
@@ -26,15 +27,19 @@ class _AddScreenState extends State<AddScreen> {
   var uuid = Uuid();
   var isSelected = [true, false];
   final _textController = TextEditingController();
-  final month = DateTime.now().month < 10
-      ? '0${DateTime.now().month}'
-      : DateTime.now().month;
-  final day =
-      DateTime.now().day < 10 ? '0${DateTime.now().day}' : DateTime.now().day;
+  DateTime date = DateTime.now();
   void callbackColor(Color color) {
     setState(() {
       this.color = color;
     });
+  }
+
+  month(DateTime date) {
+    return date.month < 10 ? '0${date.month}' : date.month;
+  }
+
+  day(DateTime date) {
+    return date.day < 10 ? '0${date.day}' : date.day;
   }
 
   timeConverter(double time) {
@@ -74,6 +79,12 @@ class _AddScreenState extends State<AddScreen> {
     });
   }
 
+  void dateCallback(DateTime date) {
+    setState(() {
+      this.date = date;
+    });
+  }
+
   // void showModal() {
   //   showModalBottomSheet<void>(
   //       isDismissible: false,
@@ -82,13 +93,12 @@ class _AddScreenState extends State<AddScreen> {
   //       });
   // }
 
-  // @override
-  // void initState() {
-  //   Future.delayed(Duration.zero, () {
-  //     showModal();
-  //   });
-  //   super.initState();
-  // }
+  @override
+  void initState() {
+    this.date =
+        Provider.of<Activities>(this.context, listen: false).initialDate;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -176,40 +186,53 @@ class _AddScreenState extends State<AddScreen> {
                 ],
               ),
             ),
-            Container(
-              margin: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).size.width / 16),
-              child: ToggleButtons(
-                  children: [
-                    Container(
-                      padding: EdgeInsets.all(3),
-                      child: Text(
-                        'Активность',
-                        style: TextStyle(fontSize: 12),
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.all(3),
-                      child: Text(
-                        'Задача',
-                        style: TextStyle(fontSize: 12),
-                      ),
-                    ),
-                  ],
-                  onPressed: (int index) {
-                    setState(() {
-                      for (int buttonIndex = 0;
-                          buttonIndex < isSelected.length;
-                          buttonIndex++) {
-                        if (buttonIndex == index) {
-                          isSelected[buttonIndex] = true;
-                        } else {
-                          isSelected[buttonIndex] = false;
-                        }
-                      }
-                    });
-                  },
-                  isSelected: isSelected),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).size.width / 16),
+                  child: ToggleButtons(
+                      children: [
+                        Container(
+                          padding: EdgeInsets.all(3),
+                          child: Text(
+                            'Активность',
+                            style: TextStyle(fontSize: 12),
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.all(3),
+                          child: Text(
+                            'Задача',
+                            style: TextStyle(fontSize: 12),
+                          ),
+                        ),
+                      ],
+                      onPressed: (int index) {
+                        setState(() {
+                          for (int buttonIndex = 0;
+                              buttonIndex < isSelected.length;
+                              buttonIndex++) {
+                            if (buttonIndex == index) {
+                              isSelected[buttonIndex] = true;
+                            } else {
+                              isSelected[buttonIndex] = false;
+                            }
+                          }
+                        });
+                      },
+                      isSelected: isSelected),
+                ),
+                Container(
+                  padding: EdgeInsets.only(bottom: 20),
+                  child: TextButton(
+                      child: Text(DateFormat('MMMd').format(date).toString()),
+                      onPressed: () => Provider.of<Activities>(this.context,
+                              listen: false)
+                          .presentDatePicker(context, date, this.dateCallback)),
+                )
+              ],
             ),
             Container(
               margin: EdgeInsets.only(
@@ -239,15 +262,15 @@ class _AddScreenState extends State<AddScreen> {
                     MaterialStateProperty.all<Color>(Colors.deepPurple),
               ),
               onPressed: () async {
-                isAllowed = await Provider.of<Activities>(this.context,
-                        listen: false)
-                    .isAllowed(
-                        double.parse(hour1) / 24 + double.parse(minute1) / 1440,
-                        isSelected[0]
-                            ? 2
-                            : double.parse(hour2) / 24 +
-                                double.parse(minute2) / 1440,
-                        '${uuid.v1()} ${DateTime.now().year}-$month-$day');
+                isAllowed =
+                    await Provider.of<Activities>(this.context, listen: false)
+                        .isAllowed(
+                  double.parse(hour1) / 24 + double.parse(minute1) / 1440,
+                  isSelected[0]
+                      ? 2
+                      : double.parse(hour2) / 24 + double.parse(minute2) / 1440,
+                  '${uuid.v1()}',
+                );
 
                 if (isAllowed) {
                   if (color != Colors.white) {
@@ -263,25 +286,27 @@ class _AddScreenState extends State<AddScreen> {
                       Navigator.pop(context);
                       Provider.of<Activities>(this.context, listen: false)
                           .addActivity(
-                              '${Random().nextInt(1000000)} ${DateTime.now().year}-$month-$day',
+                              '${uuid.v1()}',
                               _textController.text,
                               double.parse(hour1) / 24 +
                                   double.parse(minute1) / 1440,
                               2,
-                              color);
+                              color,
+                              '${date.year}-${(month(date))}-${day(date)}');
                       // Provider.of<Activities>(this.context, listen: false)
                       //     .clear();
                     } else if (isSelected[1]) {
                       Navigator.pop(context);
                       Provider.of<Activities>(this.context, listen: false)
                           .addActivity(
-                              '${Random().nextInt(1000000)} ${DateTime.now().year}-$month-$day',
+                              '${uuid.v1()}',
                               _textController.text,
                               double.parse(hour1) / 24 +
                                   double.parse(minute1) / 1440,
                               double.parse(hour2) / 24 +
                                   double.parse(minute2) / 1440,
-                              color);
+                              color,
+                              '${date.year}-${(month(date))}-${day(date)}');
                       // Provider.of<Activities>(this.context, listen: false)
                       //     .clear();
                     }

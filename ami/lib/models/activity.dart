@@ -5,13 +5,14 @@ class Activity {
   final num end;
   final String color;
   final int? isDone;
+  final String date;
 
-  const Activity({
-    required this.id,
-    required this.name,
-    required this.start,
-    required this.end,
-    required this.color,
-    required this.isDone,
-  });
+  const Activity(
+      {required this.id,
+      required this.name,
+      required this.start,
+      required this.end,
+      required this.color,
+      required this.isDone,
+      required this.date});
 }

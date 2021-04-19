@@ -19,7 +19,6 @@ class _MyDayState extends State<MyDay> {
   late num nightEnd1;
   var activityStart;
   var activityEnd;
-  DateTime initialDate = DateTime.now();
   List<Widget> widgetList = [];
   late Future fetchAndSetFuture;
 
@@ -46,14 +45,12 @@ class _MyDayState extends State<MyDay> {
             helpText: '',
             context: context,
             locale: const Locale("ru", "RU"),
-            initialDate: this.initialDate,
+            initialDate: Provider.of<Activities>(this.context, listen: false)
+                .initialDate,
             firstDate: DateTime(2020),
             lastDate: DateTime.now().add(const Duration(days: 365)))
         .then((pickedDate) {
-      if (pickedDate == null) {
-        return;
-      } else {
-        this.initialDate = pickedDate;
+      if (pickedDate != null) {
         Provider.of<Activities>(this.context, listen: false)
             .updateDate(pickedDate);
       }
