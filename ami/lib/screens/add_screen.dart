@@ -3,6 +3,7 @@ import 'package:ami/providers/activities.dart';
 import 'package:ami/widgets/color_picker.dart';
 import 'package:ami/widgets/cupertino_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 // ignore: import_of_legacy_library_into_null_safe
@@ -23,6 +24,7 @@ class _AddScreenState extends State<AddScreen> {
   var minute2 = '0';
   var nightStart1;
   var nightEnd1;
+  var isTime = false;
   late bool isAllowed;
   var uuid = Uuid();
   var isSelected = [true, false];
@@ -97,6 +99,7 @@ class _AddScreenState extends State<AddScreen> {
   void initState() {
     this.date =
         Provider.of<Activities>(this.context, listen: false).initialDate;
+    initializeDateFormatting();
     super.initState();
   }
 
@@ -189,6 +192,20 @@ class _AddScreenState extends State<AddScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                Spacer(
+                  flex: 3,
+                ),
+                Container(
+                  padding: EdgeInsets.fromLTRB(0, 0, 15, 20),
+                  child: GestureDetector(
+                      child: Image.asset(
+                        'assets/images/watch.png',
+                        width: MediaQuery.of(context).size.width / 15,
+                      ),
+                      onTap: () => setState(() {
+                            isTime = !isTime;
+                          })),
+                ),
                 Container(
                   margin: EdgeInsets.only(
                       bottom: MediaQuery.of(context).size.width / 16),
@@ -227,35 +244,43 @@ class _AddScreenState extends State<AddScreen> {
                 Container(
                   padding: EdgeInsets.only(bottom: 20),
                   child: TextButton(
-                      child: Text(DateFormat('MMMd').format(date).toString()),
+                      child:
+                          Text(DateFormat.MMMd('ru').format(date).toString()),
                       onPressed: () => Provider.of<Activities>(this.context,
                               listen: false)
                           .presentDatePicker(context, date, this.dateCallback)),
-                )
+                ),
+                Spacer(
+                  flex: 2,
+                ),
               ],
             ),
-            Container(
-              margin: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).size.width / 16),
-              height: 100,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Picker(this.callbackh1, true, 0),
-                  Picker(this.callbackm1, false, 0),
-                  !isSelected[0]
-                      ? Row(children: [
-                          Text(
-                            ':',
-                            style: TextStyle(fontSize: 20),
-                          ),
-                          Picker(this.callbackh2, true, 0),
-                          Picker(this.callbackm2, false, 0)
-                        ])
-                      : Container()
-                ],
-              ),
-            ),
+            isTime
+                ? Container(
+                    margin: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).size.width / 16),
+                    height: 100,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Picker(this.callbackh1, true, 0),
+                        Picker(this.callbackm1, false, 0),
+                        !isSelected[0]
+                            ? Row(children: [
+                                Text(
+                                  ':',
+                                  style: TextStyle(fontSize: 20),
+                                ),
+                                Picker(this.callbackh2, true, 0),
+                                Picker(this.callbackm2, false, 0)
+                              ])
+                            : Container()
+                      ],
+                    ),
+                  )
+                : SizedBox(
+                    height: 100,
+                  ),
             TextButton(
               style: ButtonStyle(
                 backgroundColor:

@@ -93,7 +93,7 @@ class _CommonPickerState extends State<CommonPicker> {
                                 widget.activity.end,
                                 toColor(widget.activity.color),
                                 widget.activity.isDone == 0 ? 1 : 0,
-                                'date'),
+                                widget.activity.date),
                   ),
                 ),
                 title: Text(

@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 class DayWidget extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    print(DateTime.now());
     var centerX = size.width / 2;
     var centerY = size.height / 2;
     var center = Offset(centerX, centerY);

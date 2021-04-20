@@ -13,11 +13,11 @@ class Activities with ChangeNotifier {
 
   final commentWidgets = <Widget>[];
   DateFormat formatter = DateFormat('yyyy-MM-dd');
-  DateFormat formatterView = DateFormat('MMMd');
   String date = DateFormat('yyyy-MM-dd').format(DateTime.now());
-  String dateView = DateFormat('MMMd').format(DateTime.now());
+  String? dateView;
   var time = DateFormat('HH:mm').format(DateTime.now());
   DateTime initialDate = DateTime.now();
+  double rotation = 0.0;
 
   late List<Activity> sortedActivities;
 
@@ -32,9 +32,21 @@ class Activities with ChangeNotifier {
   //   notifyListeners();
   // }
   //
+  void updateRotation(newRotation) {
+    rotation = newRotation;
+  }
 
   Future refreshTime() async {
     time = DateFormat('HH:mm').format(DateTime.now());
+    rotation = 0.0;
+    notifyListeners();
+  }
+
+  void addTime(double timeToAdd) {
+    var temporaryTime = DateTime.now().add(Duration(
+        hours: (timeToAdd ~/ (1 / 24)),
+        minutes: ((timeToAdd % (1 / 24)) * 1442).toInt()));
+    time = DateFormat('HH:mm').format(temporaryTime);
     notifyListeners();
   }
 
@@ -72,7 +84,17 @@ class Activities with ChangeNotifier {
     notifyListeners();
   }
 
+  getDateView() {
+    initializeDateFormatting();
+    DateFormat formatterView = DateFormat.MMMd('ru');
+    this.dateView == null
+        ? this.dateView = formatterView.format(DateTime.now())
+        : this.dateView = this.dateView;
+    return this.dateView;
+  }
+
   void updateDate(newDate) {
+    DateFormat formatterView = DateFormat.MMMd('ru');
     initialDate = newDate;
     this.date = formatter.format(newDate);
     this.dateView = formatterView.format(newDate);
@@ -82,7 +104,7 @@ class Activities with ChangeNotifier {
     notifyListeners();
   }
 
-  presentDatePicker(context, initialDate, dateCallback) {
+  presentDatePicker(context, initialDate, dateCallback) async {
     showDatePicker(
             helpText: '',
             context: context,
@@ -95,6 +117,21 @@ class Activities with ChangeNotifier {
         return dateCallback(pickedDate);
       }
     });
+    final datalist = await DBHelper.getData('activities');
+    _activities = datalist
+        .map(
+          (activity) => Activity(
+              id: activity['id'],
+              name: activity['name'],
+              start: activity['start'],
+              end: activity['end'],
+              color: activity['color'],
+              isDone: activity['isDone'],
+              date: activity['date']),
+        )
+        .toList();
+    _activities.removeWhere((activity) => (activity.date) != initialDate);
+    notifyListeners();
   }
 
   void sortActivities() {

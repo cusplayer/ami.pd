@@ -29,17 +29,6 @@ class _MyDayState extends State<MyDay> {
     });
   }
 
-  listEl(Activity act) {
-    return CustomPaint(
-      painter: ActivityArc(
-          act.start.toDouble(),
-          act.end.toDouble(),
-          Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
-              .withOpacity(1.0)),
-      size: Size(300, 300),
-    );
-  }
-
   void _presentDatePicker() {
     showDatePicker(
             helpText: '',
@@ -106,11 +95,13 @@ class _MyDayState extends State<MyDay> {
                                         .time,
                                     style: TextStyle(fontSize: 40)),
                               ),
-                              DayContainer(
-                                  mediaQuery,
-                                  Provider.of<Activities>(this.context,
-                                          listen: true)
-                                      .sortForArc(activities.activities)),
+                              Container(
+                                child: DayContainer(
+                                    mediaQuery,
+                                    Provider.of<Activities>(this.context,
+                                            listen: true)
+                                        .sortForArc(activities.activities)),
+                              ),
                               Container(
                                 margin: EdgeInsets.only(
                                     top:
@@ -124,7 +115,7 @@ class _MyDayState extends State<MyDay> {
                                       child: Text(
                                         Provider.of<Activities>(this.context,
                                                 listen: true)
-                                            .dateView,
+                                            .getDateView(),
                                         style: TextStyle(fontSize: 32),
                                       ),
                                     ),

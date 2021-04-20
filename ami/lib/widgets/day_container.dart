@@ -6,6 +6,7 @@ import 'dart:math' as math;
 
 import 'activity_arc.dart';
 import 'dayWidget.dart';
+import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
 class DayContainer extends StatefulWidget {
   final MediaQueryData mediaQuery;
@@ -35,32 +36,61 @@ class _DayContainerState extends State<DayContainer> {
   listEl(Activity act) {
     return CustomPaint(
       painter: ActivityArc(
-          act.start.toDouble(), act.end.toDouble(), toColor(act.color)),
+          act.start.toDouble(),
+          act.end.toDouble(),
+          toColor(act.color),
+          Provider.of<Activities>(this.context, listen: false).rotation),
       size: Size(size, size),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: InteractiveViewer(
-        child: Stack(
-          children: [
-            CustomPaint(
-              painter: DayWidget(),
-              size: Size(size, size),
-            ),
-            widget.activities != null
-                ? Container(
-                    height: size,
-                    width: size,
-                    child: Stack(children: [
-                      for (var act in widget.activities) listEl(act)
-                    ]))
-                : Spacer(),
-          ],
+    return Column(children: [
+      Container(
+        child: InteractiveViewer(
+          child: Stack(
+            children: [
+              CustomPaint(
+                painter: DayWidget(),
+                size: Size(size, size),
+              ),
+              widget.activities != null
+                  ? Container(
+                      height: size,
+                      width: size,
+                      child: Stack(children: [
+                        for (var act in widget.activities) listEl(act)
+                      ]))
+                  : Spacer(),
+              SleekCircularSlider(
+                appearance: CircularSliderAppearance(
+                    customColors: CustomSliderColors(
+                      progressBarColor: Color(0x00000000),
+                      trackColor: Color(0x00000000),
+                      hideShadow: true,
+                    ),
+                    infoProperties: InfoProperties(modifier: (_) => ''),
+                    angleRange: 720,
+                    startAngle: 270,
+                    size: 300),
+                min: 0,
+                max: 2.0,
+                initialValue:
+                    Provider.of<Activities>(this.context, listen: false)
+                        .rotation,
+                onChange: (double value) {
+                  Provider.of<Activities>(this.context, listen: false)
+                      .updateRotation(value);
+                  Provider.of<Activities>(this.context, listen: false).addTime(
+                      Provider.of<Activities>(this.context, listen: false)
+                          .rotation);
+                },
+              ),
+            ],
+          ),
         ),
       ),
-    );
+    ]);
   }
 }

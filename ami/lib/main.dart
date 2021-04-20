@@ -26,6 +26,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider.value(
       value: Activities(),
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         localizationsDelegates: [GlobalMaterialLocalizations.delegate],
         supportedLocales: [const Locale('en'), const Locale('ru')],
         theme: ThemeData(

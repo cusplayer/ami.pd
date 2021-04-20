@@ -7,7 +7,9 @@ class ActivityArc extends CustomPainter {
   final double startActivity;
   final double endActivity;
   final Color color;
-  const ActivityArc(this.startActivity, this.endActivity, this.color);
+  final double rotation;
+  const ActivityArc(
+      this.startActivity, this.endActivity, this.color, this.rotation);
   @override
   void paint(Canvas canvas, Size size) {
     final activityPaint = Paint()
@@ -21,23 +23,25 @@ class ActivityArc extends CustomPainter {
     var shift = angle * pi * 2;
     var center = Offset(centerX, centerY);
     var radius = min(centerX, centerY) * 0.9;
+    final rotationStart = startActivity + rotation;
+    final rotationEnd = endActivity + rotation;
     endActivity == 2
         ? canvas.drawArc(
             new Rect.fromCenter(
                 center: center, width: radius * 2, height: radius * 2),
-            (startActivity * 2 * pi - pi / 2) - shift,
-            ((2 * pi * (startActivity + 0.01 - startActivity)) < 0)
-                ? (2 * pi * (startActivity + 0.01 - startActivity) + pi * 2)
-                : (2 * pi * (startActivity + 0.01 - startActivity)),
+            (rotationStart * 2 * pi - pi / 2) - shift,
+            ((2 * pi * (0.01)) < 0)
+                ? (2 * pi * (0.01) + pi * 2)
+                : (2 * pi * (0.01)),
             false,
             activityPaint)
         : canvas.drawArc(
             new Rect.fromCenter(
                 center: center, width: radius * 2, height: radius * 2),
-            (startActivity * 2 * pi - pi / 2) - shift,
-            ((2 * pi * (endActivity - startActivity)) < 0)
-                ? (2 * pi * (endActivity - startActivity) + pi * 2)
-                : (2 * pi * (endActivity - startActivity)),
+            (rotationStart * 2 * pi - pi / 2) - shift,
+            ((2 * pi * (rotationEnd - rotationStart)) < 0)
+                ? (2 * pi * (rotationEnd - rotationStart) + pi * 2)
+                : (2 * pi * (rotationEnd - rotationStart)),
             false,
             activityPaint);
   }
