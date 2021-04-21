@@ -65,27 +65,36 @@ class _DayContainerState extends State<DayContainer> {
                   : Spacer(),
               SleekCircularSlider(
                 appearance: CircularSliderAppearance(
+                    animationEnabled: false,
                     customColors: CustomSliderColors(
                       progressBarColor: Color(0x00000000),
                       trackColor: Color(0x00000000),
                       hideShadow: true,
                     ),
                     infoProperties: InfoProperties(modifier: (_) => ''),
-                    angleRange: 720,
+                    angleRange: 360,
                     startAngle: 270,
                     size: 300),
-                min: 0,
-                max: 2.0,
+                min: 0.0,
+                max: 1.0,
                 initialValue:
                     Provider.of<Activities>(this.context, listen: false)
                         .rotation,
-                onChange: (double value) {
-                  Provider.of<Activities>(this.context, listen: false)
-                      .updateRotation(value);
+                onChange: (double value) async => {
+                  await Provider.of<Activities>(this.context, listen: false)
+                      .updateRotation(value),
                   Provider.of<Activities>(this.context, listen: false).addTime(
                       Provider.of<Activities>(this.context, listen: false)
-                          .rotation);
+                          .rotation),
                 },
+                // onChangeStart: (double startValue) {
+                //   Provider.of<Activities>(this.context, listen: false)
+                //       .updateRotation(startValue);
+                // },
+                // onChangeEnd: (double endValue) {
+                //   Provider.of<Activities>(this.context, listen: false)
+                //       .updateRotation(endValue);
+                // },
               ),
             ],
           ),

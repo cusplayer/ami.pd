@@ -32,8 +32,9 @@ class Activities with ChangeNotifier {
   //   notifyListeners();
   // }
   //
-  void updateRotation(newRotation) {
+  Future updateRotation(newRotation) async {
     rotation = newRotation;
+    print('rotation $rotation');
   }
 
   Future refreshTime() async {
