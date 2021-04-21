@@ -1,9 +1,9 @@
 import 'package:ami/models/activity.dart';
 import 'package:ami/providers/activities.dart';
 import 'package:ami/screens/add_screen.dart';
-import 'package:ami/widgets/activity_arc.dart';
+import 'package:ami/widgets/diagram/activity_arc.dart';
 import 'package:ami/widgets/common_picker.dart';
-import 'package:ami/widgets/day_container.dart';
+import 'package:ami/widgets/diagram/day_container.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

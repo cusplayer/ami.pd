@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:ami/models/activity.dart';
 import 'package:ami/providers/activities.dart';
+import 'package:ami/widgets/diagram/midnight.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -47,13 +48,13 @@ class _DayContainerState extends State<DayContainer> {
     );
   }
 
-  // midnight() {
-  //   return CustomPaint(
-  //     painter: ActivityArc(0.0, 2.0, Colors.black,
-  //         Provider.of<Activities>(this.context, listen: false).rotation),
-  //     size: Size(size, size),
-  //   );
-  // }
+  midnight() {
+    return CustomPaint(
+      painter: ActivityArc(0.0, 2.0, Colors.black,
+          Provider.of<Activities>(this.context, listen: false).rotation),
+      size: Size(size, size),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,6 +75,10 @@ class _DayContainerState extends State<DayContainer> {
                         for (var act in widget.activities) listEl(act),
                       ]))
                   : Spacer(),
+              CustomPaint(
+                painter: Midnight(),
+                size: Size(size, size),
+              ),
               SleekCircularSlider(
                 appearance: CircularSliderAppearance(
                     animationEnabled: false,
