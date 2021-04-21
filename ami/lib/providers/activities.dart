@@ -1,4 +1,5 @@
 import 'package:ami/helpers/db_helper.dart';
+import 'package:ami/models/date.dart';
 import 'package:ami/screens/add_screen.dart';
 import 'package:ami/screens/edit_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -13,11 +14,13 @@ class Activities with ChangeNotifier {
 
   final commentWidgets = <Widget>[];
   DateFormat formatter = DateFormat('yyyy-MM-dd');
-  String date = DateFormat('yyyy-MM-dd').format(DateTime.now());
-  String? dateView;
+  Date date1 = Date(
+      DateTime.now(), null, DateFormat('yyyy-MM-dd').format(DateTime.now()));
   var time = DateFormat('HH:mm').format(DateTime.now());
   DateTime initialDate = DateTime.now();
   double rotation = 0.0;
+  bool subtract = false;
+  bool add = false;
 
   late List<Activity> sortedActivities;
 
@@ -33,8 +36,37 @@ class Activities with ChangeNotifier {
   // }
   //
   Future updateRotation(newRotation) async {
+    String operation = 'none';
+    print('rotation ${rotation}');
+    if (rotation < 0.2 && newRotation > 0.8) {
+      subtract = true;
+    }
+    if (newRotation < 0.2 && rotation > 0.8) {
+      add = true;
+    }
     rotation = newRotation;
-    print('rotation $rotation');
+    print('newrotation ${rotation}');
+    print('${date1.dateView}');
+    return (operation);
+    // notifyListeners();
+  }
+
+  void editDate() {
+    initializeDateFormatting();
+    DateFormat formatterView = DateFormat.MMMd('ru');
+    if (subtract) {
+      date1.date = date1.date.subtract(Duration(days: 1));
+      date1.dateLocalView = formatterView.format(date1.date);
+      date1.dateView = formatter.format(date1.date);
+      subtract = false;
+      fetchAndSet();
+    } else if (add) {
+      date1.date = date1.date.add(Duration(days: 1));
+      date1.dateLocalView = formatterView.format(date1.date);
+      date1.dateView = formatter.format(date1.date);
+      add = false;
+      fetchAndSet();
+    }
   }
 
   Future refreshTime() async {
@@ -88,17 +120,18 @@ class Activities with ChangeNotifier {
   getDateView() {
     initializeDateFormatting();
     DateFormat formatterView = DateFormat.MMMd('ru');
-    this.dateView == null
-        ? this.dateView = formatterView.format(DateTime.now())
-        : this.dateView = this.dateView;
-    return this.dateView;
+    this.date1.dateLocalView == null
+        ? this.date1.dateLocalView = formatterView.format(DateTime.now())
+        : print('ok');
+    return this.date1.dateLocalView;
   }
 
   void updateDate(newDate) {
     DateFormat formatterView = DateFormat.MMMd('ru');
     initialDate = newDate;
-    this.date = formatter.format(newDate);
-    this.dateView = formatterView.format(newDate);
+    this.date1.dateView = formatter.format(newDate);
+    this.date1.dateLocalView = formatterView.format(newDate);
+    this.date1.date = newDate;
     calendar();
     fetchAndSet();
     refreshTime();
@@ -190,7 +223,8 @@ class Activities with ChangeNotifier {
   }
 
   void calendar() {
-    _activities.removeWhere((activity) => (activity.date) != date);
+    _activities
+        .removeWhere((activity) => (activity.date) != this.date1.dateView);
   }
 
   Future isAllowed(num activityStart, num activityEnd, id) async {

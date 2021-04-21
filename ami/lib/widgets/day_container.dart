@@ -44,6 +44,14 @@ class _DayContainerState extends State<DayContainer> {
     );
   }
 
+  midnight() {
+    return CustomPaint(
+      painter: ActivityArc(0.0, 2.0, toColor(Colors.black),
+          Provider.of<Activities>(this.context, listen: false).rotation),
+      size: Size(size, size),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(children: [
@@ -60,7 +68,7 @@ class _DayContainerState extends State<DayContainer> {
                       height: size,
                       width: size,
                       child: Stack(children: [
-                        for (var act in widget.activities) listEl(act)
+                        for (var act in widget.activities) listEl(act),
                       ]))
                   : Spacer(),
               SleekCircularSlider(
@@ -80,20 +88,22 @@ class _DayContainerState extends State<DayContainer> {
                 initialValue:
                     Provider.of<Activities>(this.context, listen: false)
                         .rotation,
-                onChange: (double value) async => {
+                onChange: (double value) async {
                   await Provider.of<Activities>(this.context, listen: false)
-                      .updateRotation(value),
+                      .updateRotation(value);
+                  Provider.of<Activities>(this.context, listen: false)
+                      .editDate();
                   Provider.of<Activities>(this.context, listen: false).addTime(
                       Provider.of<Activities>(this.context, listen: false)
-                          .rotation),
+                          .rotation);
                 },
-                // onChangeStart: (double startValue) {
-                //   Provider.of<Activities>(this.context, listen: false)
-                //       .updateRotation(startValue);
+                // onChangeStart: (double startValue) async => {
+                //   await Provider.of<Activities>(this.context, listen: false)
+                //       .updateRotation(startValue)
                 // },
-                // onChangeEnd: (double endValue) {
-                //   Provider.of<Activities>(this.context, listen: false)
-                //       .updateRotation(endValue);
+                // onChangeEnd: (double endValue) async => {
+                //   await Provider.of<Activities>(this.context, listen: false)
+                //       .updateRotation(endValue)
                 // },
               ),
             ],
