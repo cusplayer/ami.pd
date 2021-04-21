@@ -36,19 +36,24 @@ class Activities with ChangeNotifier {
   // }
   //
   Future updateRotation(newRotation) async {
-    String operation = 'none';
-    print('rotation ${rotation}');
-    if (rotation < 0.2 && newRotation > 0.8) {
+    if (rotation + getRotation() > 1 &&
+        newRotation + getRotation() < 1 &&
+        rotation + getRotation() < 1.1) {
       subtract = true;
     }
-    if (newRotation < 0.2 && rotation > 0.8) {
+    if (newRotation + getRotation() > 1 &&
+        rotation + getRotation() < 1 &&
+        newRotation + getRotation() < 1.1) {
       add = true;
     }
     rotation = newRotation;
-    print('newrotation ${rotation}');
-    print('${date1.dateView}');
-    return (operation);
     // notifyListeners();
+  }
+
+  getRotation() {
+    var time = DateFormat('HH:mm').format(DateTime.now()).split(':');
+    var angle = int.parse(time[0]) / 24 + int.parse(time[1]) / 60 / 24;
+    return angle;
   }
 
   void editDate() {

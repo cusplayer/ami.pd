@@ -23,8 +23,8 @@ class ActivityArc extends CustomPainter {
     var shift = angle * pi * 2;
     var center = Offset(centerX, centerY);
     var radius = min(centerX, centerY) * 0.9;
-    final rotationStart = startActivity + rotation;
-    final rotationEnd = endActivity + rotation;
+    final rotationStart = startActivity - rotation;
+    final rotationEnd = endActivity - rotation;
     endActivity == 2
         ? canvas.drawArc(
             new Rect.fromCenter(

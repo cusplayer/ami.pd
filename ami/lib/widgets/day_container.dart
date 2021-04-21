@@ -1,6 +1,9 @@
+import 'dart:math';
+
 import 'package:ami/models/activity.dart';
 import 'package:ami/providers/activities.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'dart:math' as math;
 
@@ -44,13 +47,13 @@ class _DayContainerState extends State<DayContainer> {
     );
   }
 
-  midnight() {
-    return CustomPaint(
-      painter: ActivityArc(0.0, 2.0, toColor(Colors.black),
-          Provider.of<Activities>(this.context, listen: false).rotation),
-      size: Size(size, size),
-    );
-  }
+  // midnight() {
+  //   return CustomPaint(
+  //     painter: ActivityArc(0.0, 2.0, Colors.black,
+  //         Provider.of<Activities>(this.context, listen: false).rotation),
+  //     size: Size(size, size),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
