@@ -6,13 +6,13 @@ import 'package:intl/intl.dart';
 class Midnight extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    var centerX = size.width / 2;
-    var centerY = size.height / 2;
-    var center = Offset(centerX, centerY);
-    var radius = min(centerX, centerY) * 0.9;
-    var time = DateFormat('HH:mm').format(DateTime.now()).split(':');
-    var angle = int.parse(time[0]) / 24 + int.parse(time[1]) / 60 / 24;
-    var shift = angle * pi * 2;
+    var _centerX = size.width / 2;
+    var _centerY = size.height / 2;
+    var _center = Offset(_centerX, _centerY);
+    var _radius = min(_centerX, _centerY) * 0.9;
+    var _time = DateFormat('HH:mm').format(DateTime.now()).split(':');
+    var _angle = int.parse(_time[0]) / 24 + int.parse(_time[1]) / 60 / 24;
+    var _shift = _angle * pi * 2;
     final midnightPaint = Paint()
       ..color = Colors.black
       ..style = PaintingStyle.stroke
@@ -20,8 +20,8 @@ class Midnight extends CustomPainter {
 
     canvas.drawArc(
         new Rect.fromCenter(
-            center: center, width: radius * 2, height: radius * 2),
-        shift + pi - pi / 10,
+            center: _center, width: _radius * 2, height: _radius * 2),
+        pi * 3 / 2 - _shift,
         ((2 * pi * (0.01)) < 0)
             ? (2 * pi * (0.01) + pi * 2)
             : (2 * pi * (0.01)),
