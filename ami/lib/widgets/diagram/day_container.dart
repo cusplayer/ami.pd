@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:ami/models/activity.dart';
 import 'package:ami/providers/activities.dart';
+import 'package:ami/widgets/diagram/images.dart';
 import 'package:ami/widgets/diagram/midnight.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -48,6 +49,11 @@ class _DayContainerState extends State<DayContainer> {
     );
   }
 
+  imageList(Activity act) {
+    return Images(act, size,
+        Provider.of<Activities>(this.context, listen: false).rotation);
+  }
+
   midnight() {
     return CustomPaint(
       painter: ActivityArc(0.0, 2.0, Colors.black,
@@ -73,6 +79,7 @@ class _DayContainerState extends State<DayContainer> {
                       width: size,
                       child: Stack(children: [
                         for (var act in widget.activities) listEl(act),
+                        for (var act in widget.activities) imageList(act),
                       ]))
                   : Spacer(),
               CustomPaint(
@@ -90,7 +97,7 @@ class _DayContainerState extends State<DayContainer> {
                     infoProperties: InfoProperties(modifier: (_) => ''),
                     angleRange: 360,
                     startAngle: 270,
-                    size: 300),
+                    size: size),
                 min: 0.0,
                 max: 1.0,
                 initialValue:
