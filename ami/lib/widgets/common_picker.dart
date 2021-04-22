@@ -100,18 +100,24 @@ class _CommonPickerState extends State<CommonPicker> {
                   widget.activity.name,
                   style: TextStyle(color: Colors.black, fontSize: 20),
                 ),
-                subtitle: widget.activity.end == 2
-                    ? Text(
-                        '${timeConverter(widget.activity.start.toDouble())[0]}:${timeConverter(widget.activity.start.toDouble())[1]}',
+                subtitle: widget.activity.start != 2
+                    ? widget.activity.end == 2
+                        ? Text(
+                            '${timeConverter(widget.activity.start.toDouble())[0]}:${timeConverter(widget.activity.start.toDouble())[1]}',
+                            style: TextStyle(
+                              color: toColor(widget.activity.color),
+                              fontSize: 13,
+                            ))
+                        : Text(
+                            '${timeConverter(widget.activity.start.toDouble())[0]}:${timeConverter(widget.activity.start.toDouble())[1]} - ${timeConverter(widget.activity.end.toDouble())[0]}:${timeConverter(widget.activity.end.toDouble())[1]}',
+                            style: TextStyle(
+                                color: toColor(widget.activity.color),
+                                fontSize: 13))
+                    : Text('',
                         style: TextStyle(
                           color: toColor(widget.activity.color),
                           fontSize: 13,
-                        ))
-                    : Text(
-                        '${timeConverter(widget.activity.start.toDouble())[0]}:${timeConverter(widget.activity.start.toDouble())[1]} - ${timeConverter(widget.activity.end.toDouble())[0]}:${timeConverter(widget.activity.end.toDouble())[1]}',
-                        style: TextStyle(
-                            color: toColor(widget.activity.color),
-                            fontSize: 13)),
+                        )),
                 trailing: Provider.of<Activities>(this.context, listen: false)
                         .isEditable
                     ? GestureDetector(

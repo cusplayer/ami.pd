@@ -161,31 +161,34 @@ class _AddScreenState extends State<AddScreen> {
                       ),
                     ),
                   ),
-                  Container(
-                    margin: EdgeInsets.only(
-                      right: MediaQuery.of(context).size.width / 15,
-                    ),
-                    alignment: Alignment.centerRight,
-                    child: GestureDetector(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.black),
-                          color: color,
-                          borderRadius: BorderRadius.circular(50.0),
-                        ),
-                        height: MediaQuery.of(context).size.width / 10,
-                        width: MediaQuery.of(context).size.width / 10,
-                      ),
-                      onTap: () => showModalBottomSheet(
-                          context: context,
-                          builder: (_) {
-                            return Container(
-                              height: 300,
-                              child: ColorPickerWidget(this.callbackColor),
-                            );
-                          }),
-                    ),
-                  ),
+                  isTime
+                      ? Container(
+                          margin: EdgeInsets.only(
+                            right: MediaQuery.of(context).size.width / 15,
+                          ),
+                          alignment: Alignment.centerRight,
+                          child: GestureDetector(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.black),
+                                color: color,
+                                borderRadius: BorderRadius.circular(50.0),
+                              ),
+                              height: MediaQuery.of(context).size.width / 10,
+                              width: MediaQuery.of(context).size.width / 10,
+                            ),
+                            onTap: () => showModalBottomSheet(
+                                context: context,
+                                builder: (_) {
+                                  return Container(
+                                    height: 300,
+                                    child:
+                                        ColorPickerWidget(this.callbackColor),
+                                  );
+                                }),
+                          ),
+                        )
+                      : Spacer(),
                 ],
               ),
             ),
@@ -206,41 +209,43 @@ class _AddScreenState extends State<AddScreen> {
                             isTime = !isTime;
                           })),
                 ),
-                Container(
-                  margin: EdgeInsets.only(
-                      bottom: MediaQuery.of(context).size.width / 16),
-                  child: ToggleButtons(
-                      children: [
-                        Container(
-                          padding: EdgeInsets.all(3),
-                          child: Text(
-                            'Активность',
-                            style: TextStyle(fontSize: 12),
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.all(3),
-                          child: Text(
-                            'Задача',
-                            style: TextStyle(fontSize: 12),
-                          ),
-                        ),
-                      ],
-                      onPressed: (int index) {
-                        setState(() {
-                          for (int buttonIndex = 0;
-                              buttonIndex < isSelected.length;
-                              buttonIndex++) {
-                            if (buttonIndex == index) {
-                              isSelected[buttonIndex] = true;
-                            } else {
-                              isSelected[buttonIndex] = false;
-                            }
-                          }
-                        });
-                      },
-                      isSelected: isSelected),
-                ),
+                isTime
+                    ? Container(
+                        margin: EdgeInsets.only(
+                            bottom: MediaQuery.of(context).size.width / 16),
+                        child: ToggleButtons(
+                            children: [
+                              Container(
+                                padding: EdgeInsets.all(3),
+                                child: Text(
+                                  'Активность',
+                                  style: TextStyle(fontSize: 12),
+                                ),
+                              ),
+                              Container(
+                                padding: EdgeInsets.all(3),
+                                child: Text(
+                                  'Задача',
+                                  style: TextStyle(fontSize: 12),
+                                ),
+                              ),
+                            ],
+                            onPressed: (int index) {
+                              setState(() {
+                                for (int buttonIndex = 0;
+                                    buttonIndex < isSelected.length;
+                                    buttonIndex++) {
+                                  if (buttonIndex == index) {
+                                    isSelected[buttonIndex] = true;
+                                  } else {
+                                    isSelected[buttonIndex] = false;
+                                  }
+                                }
+                              });
+                            },
+                            isSelected: isSelected),
+                      )
+                    : Spacer(),
                 Container(
                   padding: EdgeInsets.only(bottom: 20),
                   child: TextButton(
@@ -287,15 +292,18 @@ class _AddScreenState extends State<AddScreen> {
                     MaterialStateProperty.all<Color>(Colors.deepPurple),
               ),
               onPressed: () async {
-                isAllowed =
-                    await Provider.of<Activities>(this.context, listen: false)
+                isAllowed = isTime
+                    ? await Provider.of<Activities>(this.context, listen: false)
                         .isAllowed(
-                  double.parse(hour1) / 24 + double.parse(minute1) / 1440,
-                  isSelected[0]
-                      ? 2
-                      : double.parse(hour2) / 24 + double.parse(minute2) / 1440,
-                  '${uuid.v1()}',
-                );
+                        double.parse(hour1) / 24 + double.parse(minute1) / 1440,
+                        isSelected[0]
+                            ? 2
+                            : double.parse(hour2) / 24 +
+                                double.parse(minute2) / 1440,
+                        '${uuid.v1()}',
+                      )
+                    : await Provider.of<Activities>(this.context, listen: false)
+                        .isAllowed(2, 2, '${uuid.v1()}');
 
                 if (isAllowed) {
                   if (color != Colors.white) {
@@ -307,6 +315,17 @@ class _AddScreenState extends State<AddScreen> {
                         ),
                       );
                       return;
+                    }
+                    if (!isTime) {
+                      Navigator.pop(context);
+                      Provider.of<Activities>(this.context, listen: false)
+                          .addActivity(
+                              '${uuid.v1()}',
+                              _textController.text,
+                              2,
+                              2,
+                              color,
+                              '${date.year}-${(month(date))}-${day(date)}');
                     } else if (isSelected[0]) {
                       Navigator.pop(context);
                       Provider.of<Activities>(this.context, listen: false)

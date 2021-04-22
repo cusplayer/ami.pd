@@ -234,66 +234,68 @@ class Activities with ChangeNotifier {
 
   Future isAllowed(num activityStart, num activityEnd, id) async {
     var isAllowedVar = true;
-    _activities.forEach((element) {
-      if (id != element.id) {
-        if (activityEnd != 2) {
-          if (element.end != 2) {
-            if (element.start > element.end) {
-              if (activityStart > element.start ||
-                  activityEnd > element.start ||
-                  activityStart < element.end ||
-                  activityEnd < element.end ||
-                  (activityStart < element.start &&
-                      activityEnd > element.end &&
-                      activityStart > activityEnd) ||
-                  activityStart == element.start) {
-                isAllowedVar = false;
-              }
-            } else if (element.start < element.end) {
-              if (activityStart > element.start &&
-                      activityStart < element.end ||
-                  activityEnd < element.end && activityEnd > element.start ||
-                  (activityStart < element.start &&
-                      activityEnd > element.end) ||
-                  activityStart == element.start) {
-                isAllowedVar = false;
-              }
-            }
-          } else {
-            if (activityStart < activityEnd) {
-              if (activityStart < element.start &&
-                  activityEnd > element.start) {
-                isAllowedVar = false;
-              }
-            }
-            if (activityStart > activityEnd) {
-              if (activityStart < element.start ||
-                  element.start < activityEnd) {
-                isAllowedVar = false;
-              }
-            }
-          }
-        } else {
-          if (element.end != 2) {
-            if (element.start < element.end) {
-              if (activityStart > element.start &&
-                  activityStart < element.end) {
-                isAllowedVar = false;
+    if (activityStart != 2) {
+      _activities.forEach((element) {
+        if (id != element.id) {
+          if (activityEnd != 2) {
+            if (element.end != 2) {
+              if (element.start > element.end) {
+                if (activityStart > element.start ||
+                    activityEnd > element.start ||
+                    activityStart < element.end ||
+                    activityEnd < element.end ||
+                    (activityStart < element.start &&
+                        activityEnd > element.end &&
+                        activityStart > activityEnd) ||
+                    activityStart == element.start) {
+                  isAllowedVar = false;
+                }
+              } else if (element.start < element.end) {
+                if (activityStart > element.start &&
+                        activityStart < element.end ||
+                    activityEnd < element.end && activityEnd > element.start ||
+                    (activityStart < element.start &&
+                        activityEnd > element.end) ||
+                    activityStart == element.start) {
+                  isAllowedVar = false;
+                }
               }
             } else {
-              if (activityStart > element.start ||
-                  activityStart < element.end) {
-                isAllowedVar = false;
+              if (activityStart < activityEnd) {
+                if (activityStart < element.start &&
+                    activityEnd > element.start) {
+                  isAllowedVar = false;
+                }
+              }
+              if (activityStart > activityEnd) {
+                if (activityStart < element.start ||
+                    element.start < activityEnd) {
+                  isAllowedVar = false;
+                }
               }
             }
           } else {
-            if (element.start == activityStart) {
-              isAllowedVar = false;
+            if (element.end != 2) {
+              if (element.start < element.end) {
+                if (activityStart > element.start &&
+                    activityStart < element.end) {
+                  isAllowedVar = false;
+                }
+              } else {
+                if (activityStart > element.start ||
+                    activityStart < element.end) {
+                  isAllowedVar = false;
+                }
+              }
+            } else {
+              if (element.start == activityStart) {
+                isAllowedVar = false;
+              }
             }
           }
         }
-      }
-    });
+      });
+    }
     return isAllowedVar;
   }
 

@@ -54,7 +54,7 @@ class _ImagesState extends State<Images> {
                     (widget.activity.start - widget.rotation - _angle)),
         child: Image.asset(
           'assets/images/running.png',
-          scale: 5.0,
+          scale: 6.0,
         ),
       ),
     );

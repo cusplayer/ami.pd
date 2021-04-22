@@ -175,29 +175,49 @@ class _EditScreenState extends State<EditScreen> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              widget.activity.end != 2
-                  ? Row(
-                      children: [
-                        Picker(this.callbackh1, true,
-                            timeConverter(widget.activity.start.toDouble())[0]),
-                        Picker(this.callbackm1, false,
-                            timeConverter(widget.activity.start.toDouble())[1]),
-                        Text(':'),
-                        Picker(this.callbackh2, true,
-                            timeConverter(widget.activity.end.toDouble())[0]),
-                        Picker(this.callbackm2, false,
-                            timeConverter(widget.activity.end.toDouble())[1]),
-                      ],
-                    )
-                  : Row(
-                      children: [
-                        Picker(this.callbackh1, true,
-                            timeConverter(widget.activity.start.toDouble())[0]),
-                        Text(':'),
-                        Picker(this.callbackm1, false,
-                            timeConverter(widget.activity.start.toDouble())[1]),
-                      ],
-                    )
+              widget.activity.start != 2
+                  ? widget.activity.end != 2
+                      ? Row(
+                          children: [
+                            Picker(
+                                this.callbackh1,
+                                true,
+                                timeConverter(
+                                    widget.activity.start.toDouble())[0]),
+                            Picker(
+                                this.callbackm1,
+                                false,
+                                timeConverter(
+                                    widget.activity.start.toDouble())[1]),
+                            Text(':'),
+                            Picker(
+                                this.callbackh2,
+                                true,
+                                timeConverter(
+                                    widget.activity.end.toDouble())[0]),
+                            Picker(
+                                this.callbackm2,
+                                false,
+                                timeConverter(
+                                    widget.activity.end.toDouble())[1]),
+                          ],
+                        )
+                      : Row(
+                          children: [
+                            Picker(
+                                this.callbackh1,
+                                true,
+                                timeConverter(
+                                    widget.activity.start.toDouble())[0]),
+                            Text(':'),
+                            Picker(
+                                this.callbackm1,
+                                false,
+                                timeConverter(
+                                    widget.activity.start.toDouble())[1]),
+                          ],
+                        )
+                  : Spacer()
             ],
           ),
         ),

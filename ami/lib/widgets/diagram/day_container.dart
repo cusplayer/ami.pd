@@ -39,19 +39,27 @@ class _DayContainerState extends State<DayContainer> {
 
   double size = 400;
   listEl(Activity act) {
-    return CustomPaint(
-      painter: ActivityArc(
-          act.start.toDouble(),
-          act.end.toDouble(),
-          toColor(act.color),
-          Provider.of<Activities>(this.context, listen: false).rotation),
-      size: Size(size, size),
-    );
+    if (act.start != 2) {
+      return CustomPaint(
+        painter: ActivityArc(
+            act.start.toDouble(),
+            act.end.toDouble(),
+            toColor(act.color),
+            Provider.of<Activities>(this.context, listen: false).rotation),
+        size: Size(size, size),
+      );
+    } else {
+      return SizedBox();
+    }
   }
 
   imageList(Activity act) {
-    return Images(act, size,
-        Provider.of<Activities>(this.context, listen: false).rotation);
+    if (act.start != 0) {
+      return Images(act, size,
+          Provider.of<Activities>(this.context, listen: false).rotation);
+    } else {
+      return SizedBox();
+    }
   }
 
   midnight() {
