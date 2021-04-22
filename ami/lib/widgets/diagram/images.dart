@@ -27,28 +27,27 @@ class _ImagesState extends State<Images> {
 
   @override
   Widget build(BuildContext context) {
-    double size = widget.size * 0.5;
     return Container(
       child: Positioned(
         left: (2 * pi * (widget.activity.start - widget.rotation - _angle)) > 0
-            ? widget.size * 0.9 / 2 +
+            ? widget.size * 0.92 / 2 +
                 widget.size *
-                    0.9 /
+                    0.75 /
                     2 *
                     sin(2 *
                         pi *
                         (widget.activity.start - widget.rotation - _angle))
-            : widget.size * 0.9 / 2 +
+            : widget.size * 0.92 / 2 +
                 widget.size *
-                    0.9 /
+                    0.75 /
                     2 *
                     sin(2 *
                             pi *
                             (widget.activity.start - widget.rotation - _angle) +
                         pi * 2),
-        top: widget.size * 0.9 / 2 -
+        top: widget.size * 0.95 / 2 -
             widget.size *
-                0.9 /
+                0.75 /
                 2 *
                 cos(2 *
                     pi *

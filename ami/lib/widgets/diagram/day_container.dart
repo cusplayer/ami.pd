@@ -37,7 +37,7 @@ class _DayContainerState extends State<DayContainer> {
     return Color(value);
   }
 
-  double size = 300;
+  double size = 400;
   listEl(Activity act) {
     return CustomPaint(
       painter: ActivityArc(
@@ -68,6 +68,7 @@ class _DayContainerState extends State<DayContainer> {
       Container(
         child: InteractiveViewer(
           child: Stack(
+            alignment: Alignment.center,
             children: [
               CustomPaint(
                 painter: DayWidget(),
@@ -86,40 +87,43 @@ class _DayContainerState extends State<DayContainer> {
                 painter: Midnight(),
                 size: Size(size, size),
               ),
-              SleekCircularSlider(
-                appearance: CircularSliderAppearance(
-                    animationEnabled: false,
-                    customColors: CustomSliderColors(
-                      progressBarColor: Color(0x00000000),
-                      trackColor: Color(0x00000000),
-                      hideShadow: true,
-                    ),
-                    infoProperties: InfoProperties(modifier: (_) => ''),
-                    angleRange: 360,
-                    startAngle: 270,
-                    size: size),
-                min: 0.0,
-                max: 1.0,
-                initialValue:
-                    Provider.of<Activities>(this.context, listen: false)
-                        .rotation,
-                onChange: (double value) async {
-                  await Provider.of<Activities>(this.context, listen: false)
-                      .updateRotation(value);
-                  Provider.of<Activities>(this.context, listen: false)
-                      .editDate();
-                  Provider.of<Activities>(this.context, listen: false).addTime(
+              Positioned(
+                child: SleekCircularSlider(
+                  appearance: CircularSliderAppearance(
+                      animationEnabled: false,
+                      customColors: CustomSliderColors(
+                        progressBarColor: Color(0x00000000),
+                        trackColor: Color(0x00000000),
+                        hideShadow: true,
+                      ),
+                      infoProperties: InfoProperties(modifier: (_) => ''),
+                      angleRange: 360,
+                      startAngle: 270,
+                      size: size * 0.65),
+                  min: 0.0,
+                  max: 1.0,
+                  initialValue:
                       Provider.of<Activities>(this.context, listen: false)
-                          .rotation);
-                },
-                // onChangeStart: (double startValue) async => {
-                //   await Provider.of<Activities>(this.context, listen: false)
-                //       .updateRotation(startValue)
-                // },
-                // onChangeEnd: (double endValue) async => {
-                //   await Provider.of<Activities>(this.context, listen: false)
-                //       .updateRotation(endValue)
-                // },
+                          .rotation,
+                  onChange: (double value) async {
+                    await Provider.of<Activities>(this.context, listen: false)
+                        .updateRotation(value);
+                    Provider.of<Activities>(this.context, listen: false)
+                        .editDate();
+                    Provider.of<Activities>(this.context, listen: false)
+                        .addTime(
+                            Provider.of<Activities>(this.context, listen: false)
+                                .rotation);
+                  },
+                  // onChangeStart: (double startValue) async => {
+                  //   await Provider.of<Activities>(this.context, listen: false)
+                  //       .updateRotation(startValue)
+                  // },
+                  // onChangeEnd: (double endValue) async => {
+                  //   await Provider.of<Activities>(this.context, listen: false)
+                  //       .updateRotation(endValue)
+                  // },
+                ),
               ),
             ],
           ),
