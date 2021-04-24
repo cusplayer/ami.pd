@@ -67,6 +67,7 @@ class _CommonPickerState extends State<CommonPicker> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.all(0),
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(15.0)),
       child: Card(
         elevation: 0.0,
@@ -133,25 +134,48 @@ class _CommonPickerState extends State<CommonPicker> {
                     ),
               trailing: Provider.of<Activities>(this.context, listen: false)
                       .isEditable
-                  ? GestureDetector(
-                      child: Image.asset(
-                        'assets/images/vector.png',
-                        width: MediaQuery.of(context).size.width / 15,
-                      ),
-                      onTap: () => showModalBottomSheet(
-                          elevation: 20.0,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(30),
-                                topRight: Radius.circular(30)),
-                          ),
-                          context: context,
-                          builder: (BuildContext context) {
-                            return EditScreen(widget.activity);
-                          }),
-                      // onTap: () =>
-                      //     Provider.of<Activities>(this.context, listen: false)
-                      //         .returnEdit(widget.activity),
+                  ? Container(
+                      width: MediaQuery.of(context).size.width / 5,
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            GestureDetector(
+                              child: Image.asset(
+                                'assets/images/vector.png',
+                                width: MediaQuery.of(context).size.width / 15,
+                              ),
+                              onTap: () => showModalBottomSheet(
+                                  elevation: 20.0,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(30),
+                                        topRight: Radius.circular(30)),
+                                  ),
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return EditScreen(widget.activity);
+                                  }),
+                              // onTap: () =>
+                              //     Provider.of<Activities>(this.context, listen: false)
+                              //         .returnEdit(widget.activity),
+                            ),
+                            GestureDetector(
+                              child: Image.asset(
+                                Provider.of<Activities>(this.context,
+                                            listen: false)
+                                        .isDraggable
+                                    ? 'assets/images/yes.png'
+                                    : 'assets/images/no.png',
+                                width: MediaQuery.of(context).size.width / 15,
+                              ),
+                              onTap: () => Provider.of<Activities>(this.context,
+                                      listen: false)
+                                  .changeDraggable(),
+                              // onTap: () =>
+                              //     Provider.of<Activities>(this.context, listen: false)
+                              //         .returnEdit(widget.activity),
+                            ),
+                          ]),
                     )
                   : Container(
                       width: MediaQuery.of(context).size.width / 15,

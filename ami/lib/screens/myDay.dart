@@ -167,16 +167,29 @@ class _MyDayState extends State<MyDay> {
                                 ),
                               ),
                               Container(
+                                  padding: EdgeInsets.all(0),
                                   height:
                                       MediaQuery.of(context).size.height / 2,
                                   child: DragAndDropLists(
                                     children: _contents = [
                                       DragAndDropList(
+                                        canDrag: false,
                                         children: <DragAndDropItem>[
                                           for (var i = 0;
                                               i < activities.activities.length;
                                               i++)
                                             DragAndDropItem(
+                                              canDrag: activities.activities[i]
+                                                          .start ==
+                                                      2 &&
+                                                  Provider.of<Activities>(
+                                                          this.context,
+                                                          listen: false)
+                                                      .isDraggable &&
+                                                  Provider.of<Activities>(
+                                                          this.context,
+                                                          listen: false)
+                                                      .isEditable,
                                               child: CommonPicker(mediaQuery,
                                                   activities.activities[i]),
                                             ),

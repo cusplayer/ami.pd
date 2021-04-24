@@ -21,6 +21,7 @@ class Activities with ChangeNotifier {
   double rotation = 0.0;
   bool subtract = false;
   bool add = false;
+  bool isDraggable = false;
 
   late List<Activity> sortedActivities;
 
@@ -29,6 +30,11 @@ class Activities with ChangeNotifier {
   }
 
   bool isEditable = false;
+
+  void changeDraggable() {
+    isDraggable = !isDraggable;
+    notifyListeners();
+  }
 
   // void clear() {
   //   commentWidgets.clear();
@@ -154,6 +160,7 @@ class Activities with ChangeNotifier {
 
   void changeEditable() {
     isEditable = !isEditable;
+    isDraggable == true ? isDraggable = false : isDraggable = isDraggable;
     notifyListeners();
   }
 
@@ -174,7 +181,7 @@ class Activities with ChangeNotifier {
     this.date1.date = newDate;
     calendar();
     fetchAndSet();
-    refreshTime();
+    // refreshTime();
     notifyListeners();
   }
 
@@ -224,10 +231,37 @@ class Activities with ChangeNotifier {
   }
 
   void changePosition(oldIndex, newIndex) {
+    if (oldIndex < newIndex) {
+      for (var activity in _activities) {
+        if (activity.serial! >= newIndex) {
+          activity.serial = activity.serial! + 1;
+        }
+      }
+      if (newIndex + 1 >= _activities.length) {
+        _activities.add(Activity(
+            id: _activities[oldIndex].id,
+            name: _activities[oldIndex].name,
+            start: _activities[oldIndex].start,
+            end: _activities[oldIndex].end,
+            color: _activities[oldIndex].color,
+            isDone: _activities[oldIndex].isDone,
+            date: _activities[oldIndex].date,
+            serial: newIndex + 1));
+        _activities.removeWhere((element) => element.serial == oldIndex);
+      } else
+        _activities[oldIndex].serial = _activities[newIndex + 1].serial;
+    } else {
+      var oldActivity = _activities[oldIndex];
+      _activities.removeAt(oldIndex);
+      for (var activity in _activities) {
+        if (activity.serial! >= newIndex) {
+          activity.serial = activity.serial! + 1;
+        }
+      }
+      oldActivity.serial = newIndex;
+      _activities.add(oldActivity);
+    }
     print('old index $oldIndex , new inxed $newIndex');
-    var oldSerial = _activities[oldIndex].serial;
-    _activities[oldIndex].serial = _activities[newIndex].serial;
-    _activities[newIndex].serial = oldSerial;
     sortSerial();
   }
 
