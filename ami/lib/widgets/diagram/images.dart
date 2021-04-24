@@ -32,14 +32,14 @@ class _ImagesState extends State<Images> {
         left: (2 * pi * (widget.activity.start - widget.rotation - _angle)) > 0
             ? widget.size * 0.92 / 2 +
                 widget.size *
-                    0.75 /
+                    0.91 /
                     2 *
                     sin(2 *
                         pi *
                         (widget.activity.start - widget.rotation - _angle))
             : widget.size * 0.92 / 2 +
                 widget.size *
-                    0.75 /
+                    0.91 /
                     2 *
                     sin(2 *
                             pi *
@@ -47,7 +47,7 @@ class _ImagesState extends State<Images> {
                         pi * 2),
         top: widget.size * 0.95 / 2 -
             widget.size *
-                0.75 /
+                0.91 /
                 2 *
                 cos(2 *
                     pi *

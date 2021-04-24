@@ -9,7 +9,7 @@ class Midnight extends CustomPainter {
     var _centerX = size.width / 2;
     var _centerY = size.height / 2;
     var _center = Offset(_centerX, _centerY);
-    var _radius = min(_centerX, _centerY) * 0.6;
+    var _radius = min(_centerX, _centerY) * 0.72;
     var _time = DateFormat('HH:mm').format(DateTime.now()).split(':');
     var _angle = int.parse(_time[0]) / 24 + int.parse(_time[1]) / 60 / 24;
     var _shift = _angle * pi * 2;

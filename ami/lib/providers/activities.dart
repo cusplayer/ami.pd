@@ -50,6 +50,39 @@ class Activities with ChangeNotifier {
     // notifyListeners();
   }
 
+  isCurrentTime(start, end) {
+    if (start != 2) {
+      var _time = DateFormat('HH:mm').format(DateTime.now()).split(':');
+      var _relativeTime = (int.parse(_time[0]) / 24 +
+                  int.parse(_time[1]) / 60 / 24 +
+                  rotation) <
+              1
+          ? (int.parse(_time[0]) / 24 +
+              int.parse(_time[1]) / 60 / 24 +
+              rotation)
+          : (int.parse(_time[0]) / 24 +
+                  int.parse(_time[1]) / 60 / 24 +
+                  rotation) -
+              1;
+      if (end != 2) {
+        if (start < end) {
+          if (_relativeTime > start && _relativeTime < end) {
+            return true;
+          }
+        } else {
+          if (_relativeTime > start || _relativeTime < end) {
+            return true;
+          }
+        }
+      } else {
+        if (_relativeTime * 0.998 < start && _relativeTime * 1.002 > start) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
   getRotation() {
     var time = DateFormat('HH:mm').format(DateTime.now()).split(':');
     var angle = int.parse(time[0]) / 24 + int.parse(time[1]) / 60 / 24;
@@ -72,6 +105,7 @@ class Activities with ChangeNotifier {
       add = false;
       fetchAndSet();
     }
+    notifyListeners();
   }
 
   Future refreshTime() async {
@@ -85,6 +119,7 @@ class Activities with ChangeNotifier {
         hours: (timeToAdd ~/ (1 / 24)),
         minutes: ((timeToAdd % (1 / 24)) * 1442).toInt()));
     time = DateFormat('HH:mm').format(temporaryTime);
+    sortSerial();
     notifyListeners();
   }
 
@@ -166,7 +201,8 @@ class Activities with ChangeNotifier {
               end: activity['end'],
               color: activity['color'],
               isDone: activity['isDone'],
-              date: activity['date']),
+              date: activity['date'],
+              serial: 0),
         )
         .toList();
     _activities.removeWhere((activity) => (activity.date) != initialDate);
@@ -175,6 +211,24 @@ class Activities with ChangeNotifier {
 
   void sortActivities() {
     _activities.sort((a, b) => a.start.compareTo(b.start));
+    // _activities.sort((a, b) => a.serial!.compareTo(b.serial!));
+  }
+
+  void sortSerial() {
+    _activities.sort((a, b) => a.serial!.compareTo(b.serial!));
+    for (int i = 0; i < _activities.length; i++) {
+      _activities[i].serial = i;
+      DBHelper.update('activities', {'serial': i}, _activities[i].id);
+    }
+    notifyListeners();
+  }
+
+  void changePosition(oldIndex, newIndex) {
+    print('old index $oldIndex , new inxed $newIndex');
+    var oldSerial = _activities[oldIndex].serial;
+    _activities[oldIndex].serial = _activities[newIndex].serial;
+    _activities[newIndex].serial = oldSerial;
+    sortSerial();
   }
 
   void addActivity(
@@ -186,7 +240,8 @@ class Activities with ChangeNotifier {
         end: end,
         color: color.toString(),
         isDone: 0,
-        date: date);
+        date: date,
+        serial: 0);
     notifyListeners();
     DBHelper.insert('activities', {
       'id': newActivity.id,
@@ -195,7 +250,8 @@ class Activities with ChangeNotifier {
       'end': newActivity.end,
       'color': newActivity.color,
       'isDone': 0,
-      'date': newActivity.date
+      'date': newActivity.date,
+      'serial': 0
     });
     fetchAndSet();
     refreshTime();
@@ -302,19 +358,19 @@ class Activities with ChangeNotifier {
   Future<void> fetchAndSet() async {
     final datalist = await DBHelper.getData('activities');
     _activities = datalist
-        .map(
-          (activity) => Activity(
-              id: activity['id'],
-              name: activity['name'],
-              start: activity['start'],
-              end: activity['end'],
-              color: activity['color'],
-              isDone: activity['isDone'],
-              date: activity['date']),
-        )
+        .map((activity) => Activity(
+            id: activity['id'],
+            name: activity['name'],
+            start: activity['start'],
+            end: activity['end'],
+            color: activity['color'],
+            isDone: activity['isDone'],
+            date: activity['date'],
+            serial: activity['serial']))
         .toList();
     calendar();
     sortActivities();
+    sortSerial();
     notifyListeners();
   }
 }

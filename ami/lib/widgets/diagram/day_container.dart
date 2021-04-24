@@ -37,7 +37,7 @@ class _DayContainerState extends State<DayContainer> {
     return Color(value);
   }
 
-  double size = 400;
+  double size = 330;
   listEl(Activity act) {
     if (act.start != 2) {
       return CustomPaint(
@@ -54,7 +54,7 @@ class _DayContainerState extends State<DayContainer> {
   }
 
   imageList(Activity act) {
-    if (act.start != 0) {
+    if (act.start != 2) {
       return Images(act, size,
           Provider.of<Activities>(this.context, listen: false).rotation);
     } else {
@@ -107,7 +107,7 @@ class _DayContainerState extends State<DayContainer> {
                       infoProperties: InfoProperties(modifier: (_) => ''),
                       angleRange: 360,
                       startAngle: 270,
-                      size: size * 0.65),
+                      size: size * 0.8),
                   min: 0.0,
                   max: 1.0,
                   initialValue:

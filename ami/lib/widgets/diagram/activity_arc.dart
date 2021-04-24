@@ -22,7 +22,7 @@ class ActivityArc extends CustomPainter {
     var centerY = size.height / 2;
     var shift = angle * pi * 2;
     var center = Offset(centerX, centerY);
-    var radius = min(centerX, centerY) * 0.6;
+    var radius = min(centerX, centerY) * 0.72;
     final rotationStart = startActivity - rotation;
     final rotationEnd = endActivity - rotation;
     endActivity == 2

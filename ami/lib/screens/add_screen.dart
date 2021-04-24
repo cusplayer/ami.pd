@@ -94,6 +94,23 @@ class _AddScreenState extends State<AddScreen> {
   //       builder: (BuildContext context) {
   //       });
   // }
+  //   void _presentDatePicker() {
+  void _presentDatePicker() {
+    showDatePicker(
+            helpText: '',
+            context: context,
+            locale: const Locale("ru", "RU"),
+            initialDate: Provider.of<Activities>(this.context, listen: false)
+                .initialDate,
+            firstDate: DateTime(2020),
+            lastDate: DateTime.now().add(const Duration(days: 365)))
+        .then((pickedDate) {
+      if (pickedDate != null) {
+        Provider.of<Activities>(this.context, listen: false)
+            .updateDate(pickedDate);
+      }
+    });
+  }
 
   @override
   void initState() {
@@ -161,105 +178,100 @@ class _AddScreenState extends State<AddScreen> {
                       ),
                     ),
                   ),
-                  isTime
-                      ? Container(
-                          margin: EdgeInsets.only(
-                            right: MediaQuery.of(context).size.width / 15,
-                          ),
-                          alignment: Alignment.centerRight,
-                          child: GestureDetector(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                border: Border.all(color: Colors.black),
-                                color: color,
-                                borderRadius: BorderRadius.circular(50.0),
-                              ),
-                              height: MediaQuery.of(context).size.width / 10,
-                              width: MediaQuery.of(context).size.width / 10,
-                            ),
-                            onTap: () => showModalBottomSheet(
-                                context: context,
-                                builder: (_) {
-                                  return Container(
-                                    height: 300,
-                                    child:
-                                        ColorPickerWidget(this.callbackColor),
-                                  );
-                                }),
-                          ),
-                        )
-                      : Spacer(),
+                  Container(
+                    margin: EdgeInsets.only(
+                      right: MediaQuery.of(context).size.width / 15,
+                    ),
+                    alignment: Alignment.centerRight,
+                    child: GestureDetector(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black),
+                          color: color,
+                          borderRadius: BorderRadius.circular(50.0),
+                        ),
+                        height: MediaQuery.of(context).size.width / 10,
+                        width: MediaQuery.of(context).size.width / 10,
+                      ),
+                      onTap: () => showModalBottomSheet(
+                          context: context,
+                          builder: (_) {
+                            return Container(
+                              height: 300,
+                              child: ColorPickerWidget(this.callbackColor),
+                            );
+                          }),
+                    ),
+                  ),
                 ],
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Spacer(
-                  flex: 3,
-                ),
-                Container(
-                  padding: EdgeInsets.fromLTRB(0, 0, 15, 20),
-                  child: GestureDetector(
-                      child: Image.asset(
-                        'assets/images/watch.png',
-                        width: MediaQuery.of(context).size.width / 15,
-                      ),
-                      onTap: () => setState(() {
-                            isTime = !isTime;
-                          })),
-                ),
-                isTime
-                    ? Container(
-                        margin: EdgeInsets.only(
-                            bottom: MediaQuery.of(context).size.width / 16),
-                        child: ToggleButtons(
-                            children: [
-                              Container(
-                                padding: EdgeInsets.all(3),
-                                child: Text(
-                                  'Активность',
-                                  style: TextStyle(fontSize: 12),
-                                ),
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              Spacer(
+                flex: 3,
+              ),
+              Container(
+                padding: EdgeInsets.fromLTRB(0, 0, 15, 20),
+                child: GestureDetector(
+                    child: Image.asset(
+                      'assets/images/watch.png',
+                      width: MediaQuery.of(context).size.width / 15,
+                    ),
+                    onTap: () => setState(() {
+                          isTime = !isTime;
+                        })),
+              ),
+              isTime
+                  ? Container(
+                      margin: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).size.width / 16),
+                      child: ToggleButtons(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.all(3),
+                              child: Text(
+                                'Активность',
+                                style: TextStyle(fontSize: 12),
                               ),
-                              Container(
-                                padding: EdgeInsets.all(3),
-                                child: Text(
-                                  'Задача',
-                                  style: TextStyle(fontSize: 12),
-                                ),
+                            ),
+                            Container(
+                              padding: EdgeInsets.all(3),
+                              child: Text(
+                                'Задача',
+                                style: TextStyle(fontSize: 12),
                               ),
-                            ],
-                            onPressed: (int index) {
-                              setState(() {
-                                for (int buttonIndex = 0;
-                                    buttonIndex < isSelected.length;
-                                    buttonIndex++) {
-                                  if (buttonIndex == index) {
-                                    isSelected[buttonIndex] = true;
-                                  } else {
-                                    isSelected[buttonIndex] = false;
-                                  }
+                            ),
+                          ],
+                          onPressed: (int index) {
+                            setState(() {
+                              for (int buttonIndex = 0;
+                                  buttonIndex < isSelected.length;
+                                  buttonIndex++) {
+                                if (buttonIndex == index) {
+                                  isSelected[buttonIndex] = true;
+                                } else {
+                                  isSelected[buttonIndex] = false;
                                 }
-                              });
-                            },
-                            isSelected: isSelected),
-                      )
-                    : Spacer(),
-                Container(
-                  padding: EdgeInsets.only(bottom: 20),
-                  child: TextButton(
-                      child:
-                          Text(DateFormat.MMMd('ru').format(date).toString()),
-                      onPressed: () => Provider.of<Activities>(this.context,
-                              listen: false)
-                          .presentDatePicker(context, date, this.dateCallback)),
+                              }
+                            });
+                          },
+                          isSelected: isSelected),
+                    )
+                  : Spacer(),
+              Container(
+                padding: EdgeInsets.only(bottom: 20),
+                child: TextButton(
+                  onPressed: _presentDatePicker,
+                  child: Text(
+                    Provider.of<Activities>(this.context, listen: true)
+                        .getDateView(),
+                  ),
                 ),
-                Spacer(
-                  flex: 2,
-                ),
-              ],
-            ),
+              ),
+              Spacer(
+                flex: 2,
+              ),
+            ]),
             isTime
                 ? Container(
                     margin: EdgeInsets.only(
@@ -306,7 +318,7 @@ class _AddScreenState extends State<AddScreen> {
                         .isAllowed(2, 2, '${uuid.v1()}');
 
                 if (isAllowed) {
-                  if (color != Colors.white) {
+                  if (color != Colors.white || !isTime) {
                     if (_textController.text == '') {
                       showDialog(
                         context: context,

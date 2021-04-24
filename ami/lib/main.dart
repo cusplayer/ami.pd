@@ -32,6 +32,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           scaffoldBackgroundColor: Colors.white,
           primarySwatch: MaterialColor(0xFFE9765B, color),
+          primaryColor: MaterialColor(0xFFE9765B, color),
           fontFamily: 'Bloggersans',
         ),
         initialRoute: '/',

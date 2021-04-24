@@ -4,6 +4,8 @@ import 'package:ami/screens/add_screen.dart';
 import 'package:ami/widgets/diagram/activity_arc.dart';
 import 'package:ami/widgets/common_picker.dart';
 import 'package:ami/widgets/diagram/day_container.dart';
+import 'package:drag_and_drop_lists/drag_and_drop_list_interface.dart';
+import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -21,6 +23,8 @@ class _MyDayState extends State<MyDay> {
   var activityEnd;
   List<Widget> widgetList = [];
   late Future fetchAndSetFuture;
+  List<DragAndDropList> _contents = [];
+  late List<Activity> _activities;
 
   void callbackA(double ns1, double ne1) {
     setState(() {
@@ -44,6 +48,25 @@ class _MyDayState extends State<MyDay> {
             .updateDate(pickedDate);
       }
     });
+  }
+
+  _onItemReorder(
+      int oldItemIndex, int oldListIndex, int newItemIndex, int newListIndex) {
+    // setState(() {
+    //   var movedItem = _contents[oldListIndex].children.removeAt(oldItemIndex);
+    //   _contents[newListIndex].children.insert(newItemIndex, movedItem);
+    // });
+    Provider.of<Activities>(this.context, listen: false)
+        .changePosition(oldItemIndex, newItemIndex);
+  }
+
+  _onListReorder(int oldListIndex, int newListIndex) {
+    // Provider.of<Activities>(this.context, listen: false)
+    //     .changePosition(oldListIndex, newListIndex);
+    // setState(() {
+    //   var movedList = _contents.removeAt(oldListIndex);
+    //   _contents.insert(newListIndex, movedList);
+    // });
   }
 
   @override
@@ -144,30 +167,50 @@ class _MyDayState extends State<MyDay> {
                                 ),
                               ),
                               Container(
-                                height: MediaQuery.of(context).size.height / 2,
-                                child: SingleChildScrollView(
-                                  physics: ScrollPhysics(),
-                                  child: Column(
-                                    children: <Widget>[
-                                      ListView.builder(
-                                          padding: EdgeInsets.all(0),
-                                          physics: ScrollPhysics(),
-                                          shrinkWrap: true,
-                                          itemCount:
-                                              activities.activities.length,
-                                          itemBuilder: (context, index) {
-                                            return CommonPicker(mediaQuery,
-                                                activities.activities[index]);
-                                          }),
-                                      SizedBox(
-                                        height:
-                                            MediaQuery.of(context).size.height /
-                                                2,
-                                      ),
+                                  height:
+                                      MediaQuery.of(context).size.height / 2,
+                                  child: DragAndDropLists(
+                                    children: _contents = [
+                                      DragAndDropList(
+                                        children: <DragAndDropItem>[
+                                          for (var i = 0;
+                                              i < activities.activities.length;
+                                              i++)
+                                            DragAndDropItem(
+                                              child: CommonPicker(mediaQuery,
+                                                  activities.activities[i]),
+                                            ),
+                                        ],
+                                      )
                                     ],
-                                  ),
-                                ),
-                              ), //Developer button
+                                    onItemReorder: _onItemReorder,
+                                    onListReorder: _onListReorder,
+                                  )),
+                              // Container(
+                              //   height: MediaQuery.of(context).size.height / 2,
+                              //   child: SingleChildScrollView(
+                              //     physics: ScrollPhysics(),
+                              //     child: Column(
+                              //       children: <Widget>[
+                              //         ListView.builder(
+                              //             padding: EdgeInsets.all(0),
+                              //             physics: ScrollPhysics(),
+                              //             shrinkWrap: true,
+                              //             itemCount:
+                              //                 activities.activities.length,
+                              //             itemBuilder: (context, index) {
+                              //               return CommonPicker(mediaQuery,
+                              //                   activities.activities[index]);
+                              //             }),
+                              //         SizedBox(
+                              //           height:
+                              //               MediaQuery.of(context).size.height /
+                              //                   2,
+                              //         ),
+                              //       ],
+                              //     ),
+                              //   ),
+                              // ), //Developer button
                               // ElementPicker(mediaQuery, this.callbackA),
                               // FlatButton(
                               //     onPressed: () {

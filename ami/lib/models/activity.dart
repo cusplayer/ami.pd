@@ -6,13 +6,15 @@ class Activity {
   final String color;
   final int? isDone;
   final String date;
+  int? serial;
 
-  const Activity(
+  Activity(
       {required this.id,
       required this.name,
       required this.start,
       required this.end,
       required this.color,
       required this.isDone,
-      required this.date});
+      required this.date,
+      required this.serial});
 }
