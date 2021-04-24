@@ -171,8 +171,12 @@ class _MyDayState extends State<MyDay> {
                                   height:
                                       MediaQuery.of(context).size.height / 2,
                                   child: DragAndDropLists(
+                                    contentsWhenEmpty: Text(''),
+                                    itemSizeAnimationDurationMilliseconds: 0,
+                                    listPadding: EdgeInsets.all(0),
                                     children: _contents = [
                                       DragAndDropList(
+                                        contentsWhenEmpty: Text(''),
                                         canDrag: false,
                                         children: <DragAndDropItem>[
                                           for (var i = 0;

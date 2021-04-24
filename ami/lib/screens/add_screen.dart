@@ -122,275 +122,322 @@ class _AddScreenState extends State<AddScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30), topRight: Radius.circular(30))),
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              margin: EdgeInsets.symmetric(
-                  vertical: MediaQuery.of(context).size.width / 15),
-              width: MediaQuery.of(context).size.width,
-              child: Stack(
-                alignment: AlignmentDirectional.center,
-                children: [
-                  Positioned(
-                    child: GestureDetector(
-                      child: _textController.text != ''
-                          ? Container(
-                              width: MediaQuery.of(context).size.width * 0.6,
-                              decoration: BoxDecoration(
-                                border: Border(
-                                  bottom:
-                                      BorderSide(width: 2, color: Colors.black),
-                                ),
-                              ),
-                              child: Text(
-                                _textController.text,
-                                style: TextStyle(fontSize: 25),
-                              ),
-                            )
-                          : Container(
-                              width: MediaQuery.of(context).size.width * 0.6,
-                              decoration: BoxDecoration(
-                                border: Border(
-                                  bottom:
-                                      BorderSide(width: 2, color: Colors.black),
-                                ),
-                              ),
-                              child: Text(
-                                'Введите название',
-                                style: TextStyle(fontSize: 25),
-                              ),
-                            ),
-                      onTap: () => showDialog(
-                        context: context,
-                        builder: (ctx) => AlertDialog(
-                            title: Text('Название'),
-                            content: TextField(
-                              autofocus: true,
-                              controller: _textController,
-                              onSubmitted: (_) => setState(() {}),
-                            ),
-                            actions: []),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(
-                      right: MediaQuery.of(context).size.width / 15,
-                    ),
-                    alignment: Alignment.centerRight,
-                    child: GestureDetector(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.black),
-                          color: color,
-                          borderRadius: BorderRadius.circular(50.0),
-                        ),
-                        height: MediaQuery.of(context).size.width / 10,
-                        width: MediaQuery.of(context).size.width / 10,
-                      ),
-                      onTap: () => showModalBottomSheet(
-                          context: context,
-                          builder: (_) {
-                            return Container(
-                              height: 300,
-                              child: ColorPickerWidget(this.callbackColor),
-                            );
-                          }),
-                    ),
-                  ),
-                ],
-              ),
+    return Stack(
+      children: [
+        Container(
+          height: MediaQuery.of(context).size.height / 2,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [color, Colors.white],
+              begin: Alignment.topRight,
+              end: Alignment.center,
             ),
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              Spacer(
-                flex: 3,
-              ),
-              Container(
-                padding: EdgeInsets.fromLTRB(0, 0, 15, 20),
-                child: GestureDetector(
-                    child: Image.asset(
-                      'assets/images/watch.png',
-                      width: MediaQuery.of(context).size.width / 15,
-                    ),
-                    onTap: () => setState(() {
-                          isTime = !isTime;
-                        })),
-              ),
-              isTime
-                  ? Container(
-                      margin: EdgeInsets.only(
-                          bottom: MediaQuery.of(context).size.width / 16),
-                      child: ToggleButtons(
-                          children: [
-                            Container(
-                              padding: EdgeInsets.all(3),
-                              child: Text(
-                                'Активность',
-                                style: TextStyle(fontSize: 12),
-                              ),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(30),
+              topRight: Radius.circular(30),
+            ),
+          ),
+        ),
+        Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(30), topRight: Radius.circular(30))),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Container(
+                  margin: EdgeInsets.symmetric(
+                      vertical: MediaQuery.of(context).size.width / 15),
+                  width: MediaQuery.of(context).size.width,
+                  child: Stack(
+                    alignment: AlignmentDirectional.center,
+                    children: [
+                      Positioned(
+                        child: GestureDetector(
+                          child: _textController.text != ''
+                              ? Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.6,
+                                  decoration: BoxDecoration(
+                                    border: Border(
+                                      bottom: BorderSide(
+                                          width: 2, color: Colors.black),
+                                    ),
+                                  ),
+                                  child: Text(
+                                    _textController.text,
+                                    style: TextStyle(fontSize: 25),
+                                  ),
+                                )
+                              : Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.6,
+                                  decoration: BoxDecoration(
+                                    border: Border(
+                                      bottom: BorderSide(
+                                          width: 2, color: Colors.black),
+                                    ),
+                                  ),
+                                  child: Text(
+                                    'Введите название',
+                                    style: TextStyle(fontSize: 25),
+                                  ),
+                                ),
+                          onTap: () => showDialog(
+                            context: context,
+                            builder: (ctx) => AlertDialog(
+                                title: Text('Название'),
+                                content: TextField(
+                                  autofocus: true,
+                                  controller: _textController,
+                                  onSubmitted: (_) => setState(() {}),
+                                ),
+                                actions: []),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(
+                          right: MediaQuery.of(context).size.width / 15,
+                        ),
+                        alignment: Alignment.centerRight,
+                        child: GestureDetector(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.black),
+                              color: color,
+                              borderRadius: BorderRadius.circular(50.0),
                             ),
-                            Container(
-                              padding: EdgeInsets.all(3),
-                              child: Text(
-                                'Задача',
-                                style: TextStyle(fontSize: 12),
-                              ),
-                            ),
-                          ],
-                          onPressed: (int index) {
-                            setState(() {
-                              for (int buttonIndex = 0;
-                                  buttonIndex < isSelected.length;
-                                  buttonIndex++) {
-                                if (buttonIndex == index) {
-                                  isSelected[buttonIndex] = true;
-                                } else {
-                                  isSelected[buttonIndex] = false;
-                                }
-                              }
-                            });
-                          },
-                          isSelected: isSelected),
-                    )
-                  : Spacer(),
-              Container(
-                padding: EdgeInsets.only(bottom: 20),
-                child: TextButton(
-                  onPressed: _presentDatePicker,
-                  child: Text(
-                    Provider.of<Activities>(this.context, listen: true)
-                        .getDateView(),
+                            height: MediaQuery.of(context).size.width / 10,
+                            width: MediaQuery.of(context).size.width / 10,
+                          ),
+                          onTap: () => showModalBottomSheet(
+                              context: context,
+                              builder: (_) {
+                                return Container(
+                                  height: 300,
+                                  child: ColorPickerWidget(this.callbackColor),
+                                );
+                              }),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              ),
-              Spacer(
-                flex: 2,
-              ),
-            ]),
-            isTime
-                ? Container(
-                    margin: EdgeInsets.only(
-                        bottom: MediaQuery.of(context).size.width / 16),
-                    height: 100,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Picker(this.callbackh1, true, 0),
-                        Picker(this.callbackm1, false, 0),
-                        !isSelected[0]
-                            ? Row(children: [
-                                Text(
-                                  ':',
-                                  style: TextStyle(fontSize: 20),
+                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  isTime
+                      ? Container(
+                          margin: EdgeInsets.only(
+                              bottom: MediaQuery.of(context).size.width / 16),
+                          child: ToggleButtons(
+                              children: [
+                                Container(
+                                  child: Text(
+                                    'Активность',
+                                    style: TextStyle(fontSize: 10),
+                                  ),
                                 ),
-                                Picker(this.callbackh2, true, 0),
-                                Picker(this.callbackm2, false, 0)
-                              ])
-                            : Container()
-                      ],
-                    ),
-                  )
-                : SizedBox(
-                    height: 100,
-                  ),
-            TextButton(
-              style: ButtonStyle(
-                backgroundColor:
-                    MaterialStateProperty.all<Color>(Colors.deepPurple),
-              ),
-              onPressed: () async {
-                isAllowed = isTime
-                    ? await Provider.of<Activities>(this.context, listen: false)
-                        .isAllowed(
-                        double.parse(hour1) / 24 + double.parse(minute1) / 1440,
-                        isSelected[0]
-                            ? 2
-                            : double.parse(hour2) / 24 +
-                                double.parse(minute2) / 1440,
-                        '${uuid.v1()}',
-                      )
-                    : await Provider.of<Activities>(this.context, listen: false)
-                        .isAllowed(2, 2, '${uuid.v1()}');
-
-                if (isAllowed) {
-                  if (color != Colors.white || !isTime) {
-                    if (_textController.text == '') {
-                      showDialog(
-                        context: context,
-                        builder: (ctx) => AlertDialog(
-                          title: Text('Введите название'),
+                                Container(
+                                  child: Text(
+                                    'Задача',
+                                    style: TextStyle(fontSize: 10),
+                                  ),
+                                ),
+                              ],
+                              onPressed: (int index) {
+                                setState(() {
+                                  for (int buttonIndex = 0;
+                                      buttonIndex < isSelected.length;
+                                      buttonIndex++) {
+                                    if (buttonIndex == index) {
+                                      isSelected[buttonIndex] = true;
+                                    } else {
+                                      isSelected[buttonIndex] = false;
+                                    }
+                                  }
+                                });
+                              },
+                              isSelected: isSelected),
+                        )
+                      : Spacer(),
+                ]),
+                isTime
+                    ? Container(
+                        margin: EdgeInsets.only(
+                            bottom: MediaQuery.of(context).size.width / 16),
+                        height: 100,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Picker(this.callbackh1, true, 0),
+                            Picker(this.callbackm1, false, 0),
+                            !isSelected[0]
+                                ? Row(children: [
+                                    Text(
+                                      ':',
+                                      style: TextStyle(fontSize: 20),
+                                    ),
+                                    Picker(this.callbackh2, true, 0),
+                                    Picker(this.callbackm2, false, 0)
+                                  ])
+                                : Container()
+                          ],
                         ),
-                      );
-                      return;
-                    }
-                    if (!isTime) {
-                      Navigator.pop(context);
-                      Provider.of<Activities>(this.context, listen: false)
-                          .addActivity(
-                              '${uuid.v1()}',
-                              _textController.text,
-                              2,
-                              2,
-                              color,
-                              '${date.year}-${(month(date))}-${day(date)}');
-                    } else if (isSelected[0]) {
-                      Navigator.pop(context);
-                      Provider.of<Activities>(this.context, listen: false)
-                          .addActivity(
-                              '${uuid.v1()}',
-                              _textController.text,
-                              double.parse(hour1) / 24 +
-                                  double.parse(minute1) / 1440,
-                              2,
-                              color,
-                              '${date.year}-${(month(date))}-${day(date)}');
-                      // Provider.of<Activities>(this.context, listen: false)
-                      //     .clear();
-                    } else if (isSelected[1]) {
-                      Navigator.pop(context);
-                      Provider.of<Activities>(this.context, listen: false)
-                          .addActivity(
-                              '${uuid.v1()}',
-                              _textController.text,
-                              double.parse(hour1) / 24 +
-                                  double.parse(minute1) / 1440,
-                              double.parse(hour2) / 24 +
-                                  double.parse(minute2) / 1440,
-                              color,
-                              '${date.year}-${(month(date))}-${day(date)}');
-                      // Provider.of<Activities>(this.context, listen: false)
-                      //     .clear();
-                    }
-                  } else {
-                    showDialog(
-                      context: context,
-                      builder: (ctx) => AlertDialog(
-                        title: Text('Выберите цвет'),
+                      )
+                    : SizedBox(
+                        height: 100,
                       ),
-                    );
-                  }
-                } else {
-                  showDialog(
-                    context: context,
-                    builder: (ctx) => AlertDialog(
-                      title: Text('Выбранное время недопустимо'),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+                      child: GestureDetector(
+                          child: Container(
+                            height: 35,
+                            width: 35,
+                            padding: EdgeInsets.all(3),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(100),
+                              color: Theme.of(context).primaryColor,
+                            ),
+                            child: Image.asset(
+                              'assets/images/time.png',
+                              width: MediaQuery.of(context).size.width / 15,
+                              scale: 1.5,
+                            ),
+                          ),
+                          onTap: () => setState(() {
+                                isTime = !isTime;
+                              })),
                     ),
-                  );
-                }
-              },
-              child: Text(
-                'Добавить',
-                style: TextStyle(color: Colors.white, fontSize: 20),
-              ),
+                    GestureDetector(
+                      onTap: () async {
+                        isAllowed = isTime
+                            ? await Provider.of<Activities>(this.context,
+                                    listen: false)
+                                .isAllowed(
+                                double.parse(hour1) / 24 +
+                                    double.parse(minute1) / 1440,
+                                isSelected[0]
+                                    ? 2
+                                    : double.parse(hour2) / 24 +
+                                        double.parse(minute2) / 1440,
+                                '${uuid.v1()}',
+                              )
+                            : await Provider.of<Activities>(this.context,
+                                    listen: false)
+                                .isAllowed(2, 2, '${uuid.v1()}');
+
+                        if (isAllowed) {
+                          if (color != Colors.white || !isTime) {
+                            if (_textController.text == '') {
+                              showDialog(
+                                context: context,
+                                builder: (ctx) => AlertDialog(
+                                  title: Text('Введите название'),
+                                ),
+                              );
+                              return;
+                            }
+                            if (!isTime) {
+                              Navigator.pop(context);
+                              Provider.of<Activities>(this.context,
+                                      listen: false)
+                                  .addActivity(
+                                      '${uuid.v1()}',
+                                      _textController.text,
+                                      2,
+                                      2,
+                                      color,
+                                      '${date.year}-${(month(date))}-${day(date)}');
+                            } else if (isSelected[0]) {
+                              Navigator.pop(context);
+                              Provider.of<Activities>(this.context,
+                                      listen: false)
+                                  .addActivity(
+                                      '${uuid.v1()}',
+                                      _textController.text,
+                                      double.parse(hour1) / 24 +
+                                          double.parse(minute1) / 1440,
+                                      2,
+                                      color,
+                                      '${date.year}-${(month(date))}-${day(date)}');
+                              // Provider.of<Activities>(this.context, listen: false)
+                              //     .clear();
+                            } else if (isSelected[1]) {
+                              Navigator.pop(context);
+                              Provider.of<Activities>(this.context,
+                                      listen: false)
+                                  .addActivity(
+                                      '${uuid.v1()}',
+                                      _textController.text,
+                                      double.parse(hour1) / 24 +
+                                          double.parse(minute1) / 1440,
+                                      double.parse(hour2) / 24 +
+                                          double.parse(minute2) / 1440,
+                                      color,
+                                      '${date.year}-${(month(date))}-${day(date)}');
+                              // Provider.of<Activities>(this.context, listen: false)
+                              //     .clear();
+                            }
+                          } else {
+                            showDialog(
+                              context: context,
+                              builder: (ctx) => AlertDialog(
+                                title: Text('Выберите цвет'),
+                              ),
+                            );
+                          }
+                        } else {
+                          showDialog(
+                            context: context,
+                            builder: (ctx) => AlertDialog(
+                              title: Text('Выбранное время недопустимо'),
+                            ),
+                          );
+                        }
+                      },
+                      child: Container(
+                          width: 60,
+                          height: 60,
+                          padding: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(100),
+                            color: Theme.of(context).primaryColor,
+                          ),
+                          child: Image.asset('assets/images/arrow.png')),
+                    ),
+                    Container(
+                      padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                      child: GestureDetector(
+                        onTap: _presentDatePicker,
+                        child: Container(
+                          padding: EdgeInsets.all(3),
+                          height: 35,
+                          width: 35,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(100),
+                            color: Theme.of(context).primaryColor,
+                          ),
+                          child: Text(
+                            Provider.of<Activities>(this.context, listen: true)
+                                .getDateView()
+                                .split(" ")[0],
+                            style: TextStyle(
+                                color: Color(0xfffddbb8), fontSize: 20),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
-          ],
+          ),
         ),
-      ),
+      ],
     );
   }
 }
