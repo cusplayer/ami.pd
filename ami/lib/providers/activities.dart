@@ -42,18 +42,19 @@ class Activities with ChangeNotifier {
   // }
   //
   Future updateRotation(newRotation) async {
-    if (rotation + getRotation() > 1 &&
-        newRotation + getRotation() < 1 &&
-        rotation + getRotation() < 1.1) {
+    if (getRotation() - rotation > 0 &&
+        getRotation() - newRotation < 0 &&
+        getRotation() - rotation < 0.1) {
       subtract = true;
     }
-    if (newRotation + getRotation() > 1 &&
-        rotation + getRotation() < 1 &&
-        newRotation + getRotation() < 1.1) {
+    if (getRotation() - newRotation > 0 &&
+        getRotation() - rotation < 0 &&
+        getRotation() - newRotation < 0.1) {
       add = true;
     }
     rotation = newRotation;
     // notifyListeners();
+    print('rotation ${getRotation() - rotation}');
   }
 
   isCurrentTime(start, end) {
@@ -121,7 +122,7 @@ class Activities with ChangeNotifier {
   }
 
   void addTime(double timeToAdd) {
-    var temporaryTime = DateTime.now().add(Duration(
+    var temporaryTime = DateTime.now().subtract(Duration(
         hours: (timeToAdd ~/ (1 / 24)),
         minutes: ((timeToAdd % (1 / 24)) * 1442).toInt()));
     time = DateFormat('HH:mm').format(temporaryTime);

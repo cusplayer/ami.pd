@@ -71,118 +71,112 @@ class _CommonPickerState extends State<CommonPicker> {
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(15.0)),
       child: Card(
         elevation: 0.0,
-        child: Column(
-          children: [
-            ListTile(
-              tileColor: Provider.of<Activities>(this.context, listen: false)
-                      .isCurrentTime(widget.activity.start, widget.activity.end)
-                  ? toColor(widget.activity.color)
-                  : Colors.white,
-              // leading: Container(
-              //     height: MediaQuery.of(context).size.width / 15,
-              //     width: MediaQuery.of(context).size.width / 15,
-              //     decoration: BoxDecoration(
-              //       color: toColor(widget.activity.color),
-              //       border: Border.all(color: Colors.black),
-              //       borderRadius: BorderRadius.circular(50.0),
-              //     )),
-              leading: Transform.scale(
-                scale: 1.5,
-                child: Checkbox(
-                  value: widget.activity.isDone == 1 ? true : false,
-                  onChanged: (_) =>
-                      Provider.of<Activities>(this.context, listen: false)
-                          .editActivity(
-                              widget.activity.id,
-                              widget.activity.name,
-                              widget.activity.start,
-                              widget.activity.end,
-                              toColor(widget.activity.color),
-                              widget.activity.isDone == 0 ? 1 : 0,
-                              widget.activity.date),
-                ),
-              ),
-              title: Text(
-                widget.activity.name,
-                style: TextStyle(color: Colors.black, fontSize: 20),
-              ),
-              subtitle: widget.activity.start != 2
-                  ? widget.activity.end == 2
-                      ? Text(
-                          '${timeConverter(widget.activity.start.toDouble())[0]}:${timeConverter(widget.activity.start.toDouble())[1]}',
-                          style: TextStyle(
-                            color: Provider.of<Activities>(this.context,
-                                        listen: false)
-                                    .isCurrentTime(widget.activity.start,
-                                        widget.activity.end)
-                                ? Colors.white
-                                : Colors.black,
-                            fontSize: 13,
-                          ))
-                      : Text(
-                          '${timeConverter(widget.activity.start.toDouble())[0]}:${timeConverter(widget.activity.start.toDouble())[1]} - ${timeConverter(widget.activity.end.toDouble())[0]}:${timeConverter(widget.activity.end.toDouble())[1]}',
-                          style: TextStyle(
-                              color: Provider.of<Activities>(this.context,
-                                          listen: false)
-                                      .isCurrentTime(widget.activity.start,
-                                          widget.activity.end)
-                                  ? Colors.white
-                                  : Colors.black,
-                              fontSize: 13))
-                  : Text(
-                      '',
-                    ),
-              trailing: Provider.of<Activities>(this.context, listen: false)
-                      .isEditable
-                  ? Container(
-                      width: MediaQuery.of(context).size.width / 5,
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            GestureDetector(
-                              child: Image.asset(
-                                'assets/images/vector.png',
-                                width: MediaQuery.of(context).size.width / 15,
-                              ),
-                              onTap: () => showModalBottomSheet(
-                                  elevation: 20.0,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(30),
-                                        topRight: Radius.circular(30)),
-                                  ),
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return EditScreen(widget.activity);
-                                  }),
-                              // onTap: () =>
-                              //     Provider.of<Activities>(this.context, listen: false)
-                              //         .returnEdit(widget.activity),
-                            ),
-                            GestureDetector(
-                              child: Image.asset(
-                                Provider.of<Activities>(this.context,
-                                            listen: false)
-                                        .isDraggable
-                                    ? 'assets/images/yes.png'
-                                    : 'assets/images/no.png',
-                                width: MediaQuery.of(context).size.width / 15,
-                              ),
-                              onTap: () => Provider.of<Activities>(this.context,
-                                      listen: false)
-                                  .changeDraggable(),
-                              // onTap: () =>
-                              //     Provider.of<Activities>(this.context, listen: false)
-                              //         .returnEdit(widget.activity),
-                            ),
-                          ]),
-                    )
-                  : Container(
-                      width: MediaQuery.of(context).size.width / 15,
-                      height: MediaQuery.of(context).size.width / 15,
-                    ),
+        child: ListTile(
+          tileColor: Provider.of<Activities>(this.context, listen: false)
+                  .isCurrentTime(widget.activity.start, widget.activity.end)
+              ? toColor(widget.activity.color)
+              : Colors.white,
+          // leading: Container(
+          //     height: MediaQuery.of(context).size.width / 15,
+          //     width: MediaQuery.of(context).size.width / 15,
+          //     decoration: BoxDecoration(
+          //       color: toColor(widget.activity.color),
+          //       border: Border.all(color: Colors.black),
+          //       borderRadius: BorderRadius.circular(50.0),
+          //     )),
+          leading: Transform.scale(
+            scale: 1.5,
+            child: Checkbox(
+              value: widget.activity.isDone == 1 ? true : false,
+              onChanged: (_) =>
+                  Provider.of<Activities>(this.context, listen: false)
+                      .editActivity(
+                          widget.activity.id,
+                          widget.activity.name,
+                          widget.activity.start,
+                          widget.activity.end,
+                          toColor(widget.activity.color),
+                          widget.activity.isDone == 0 ? 1 : 0,
+                          widget.activity.date),
             ),
-          ],
+          ),
+          title: Text(
+            widget.activity.name,
+            style: TextStyle(color: Colors.black, fontSize: 20),
+          ),
+          subtitle: widget.activity.start != 2
+              ? widget.activity.end == 2
+                  ? Text(
+                      '${timeConverter(widget.activity.start.toDouble())[0]}:${timeConverter(widget.activity.start.toDouble())[1]}',
+                      style: TextStyle(
+                        color: Provider.of<Activities>(this.context,
+                                    listen: false)
+                                .isCurrentTime(
+                                    widget.activity.start, widget.activity.end)
+                            ? Colors.white
+                            : Colors.black,
+                        fontSize: 13,
+                      ))
+                  : Text(
+                      '${timeConverter(widget.activity.start.toDouble())[0]}:${timeConverter(widget.activity.start.toDouble())[1]} - ${timeConverter(widget.activity.end.toDouble())[0]}:${timeConverter(widget.activity.end.toDouble())[1]}',
+                      style: TextStyle(
+                          color: Provider.of<Activities>(this.context,
+                                      listen: false)
+                                  .isCurrentTime(widget.activity.start,
+                                      widget.activity.end)
+                              ? Colors.white
+                              : Colors.black,
+                          fontSize: 13))
+              : Text(
+                  '',
+                ),
+          trailing: Container(
+            width: MediaQuery.of(context).size.width / 5,
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  GestureDetector(
+                    child: Provider.of<Activities>(this.context, listen: false)
+                            .isEditable
+                        ? Image.asset(
+                            'assets/images/vector.png',
+                            width: MediaQuery.of(context).size.width / 15,
+                          )
+                        : Container(
+                            width: MediaQuery.of(context).size.width / 15,
+                          ),
+                    onTap: () => showModalBottomSheet(
+                        elevation: 20.0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(30),
+                              topRight: Radius.circular(30)),
+                        ),
+                        context: context,
+                        builder: (BuildContext context) {
+                          return EditScreen(widget.activity);
+                        }),
+                    // onTap: () =>
+                    //     Provider.of<Activities>(this.context, listen: false)
+                    //         .returnEdit(widget.activity),
+                  ),
+                  // GestureDetector(
+                  //   child: Image.asset(
+                  //     Provider.of<Activities>(this.context, listen: true)
+                  //             .isDraggable
+                  //         ? 'assets/images/yes.png'
+                  //         : 'assets/images/no.png',
+                  //     width: MediaQuery.of(context).size.width / 15,
+                  //   ),
+                  //   onTap: () =>
+                  //       Provider.of<Activities>(this.context, listen: false)
+                  //           .changeDraggable(),
+                  //   // onTap: () =>
+                  //   //     Provider.of<Activities>(this.context, listen: false)
+                  //   //         .returnEdit(widget.activity),
+                  // ),
+                ]),
+          ),
         ),
       ),
     );

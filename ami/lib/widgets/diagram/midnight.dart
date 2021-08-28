@@ -21,7 +21,7 @@ class Midnight extends CustomPainter {
     canvas.drawArc(
         new Rect.fromCenter(
             center: _center, width: _radius * 2, height: _radius * 2),
-        pi * 3 / 2 - _shift,
+        pi * 3 / 2 + _shift,
         ((2 * pi * (0.01)) < 0)
             ? (2 * pi * (0.01) + pi * 2)
             : (2 * pi * (0.01)),

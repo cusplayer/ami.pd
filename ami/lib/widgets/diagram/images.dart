@@ -29,21 +29,21 @@ class _ImagesState extends State<Images> {
   Widget build(BuildContext context) {
     return Container(
       child: Positioned(
-        left: (2 * pi * (widget.activity.start - widget.rotation - _angle)) > 0
+        left: (2 * pi * (widget.activity.start + widget.rotation - _angle)) > 0
             ? widget.size * 0.92 / 2 +
                 widget.size *
                     0.91 /
                     2 *
                     sin(2 *
                         pi *
-                        (widget.activity.start - widget.rotation - _angle))
+                        (widget.activity.start + widget.rotation - _angle))
             : widget.size * 0.92 / 2 +
                 widget.size *
                     0.91 /
                     2 *
                     sin(2 *
                             pi *
-                            (widget.activity.start - widget.rotation - _angle) +
+                            (widget.activity.start + widget.rotation - _angle) +
                         pi * 2),
         top: widget.size * 0.95 / 2 -
             widget.size *
@@ -51,7 +51,7 @@ class _ImagesState extends State<Images> {
                 2 *
                 cos(2 *
                     pi *
-                    (widget.activity.start - widget.rotation - _angle)),
+                    (widget.activity.start + widget.rotation - _angle)),
         child: Image.asset(
           'assets/images/running.png',
           scale: 6.0,

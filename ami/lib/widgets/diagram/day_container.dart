@@ -22,6 +22,7 @@ class DayContainer extends StatefulWidget {
 }
 
 class _DayContainerState extends State<DayContainer> {
+  double multiplier = 2.7;
   // @override
   // void initState() {
   //   Provider.of<Activities>(this.context, listen: false).sortedActivities =
@@ -96,7 +97,75 @@ class _DayContainerState extends State<DayContainer> {
                 size: Size(size, size),
               ),
               Positioned(
-                child: SleekCircularSlider(
+                child:
+                    // Listener(
+                    //   onPointerMove: (PointerEvent event) async {
+                    //     if (event.position.dy < size / 2 &&
+                    //         event.position.dx < size / 2) {
+                    //       await Provider.of<Activities>(this.context, listen: false)
+                    //           .updateRotation(Provider.of<Activities>(this.context,
+                    //                       listen: false)
+                    //                   .rotation +
+                    //               event.delta.dx / (size * multiplier) -
+                    //               event.delta.dy / (size * multiplier));
+                    //       Provider.of<Activities>(this.context, listen: false)
+                    //           .editDate();
+                    //       Provider.of<Activities>(this.context, listen: false)
+                    //           .addTime(Provider.of<Activities>(this.context,
+                    //                   listen: false)
+                    //               .rotation);
+                    //     } else if (event.position.dy < size / 2 &&
+                    //         event.position.dx > size / 2) {
+                    //       await Provider.of<Activities>(this.context, listen: false)
+                    //           .updateRotation(Provider.of<Activities>(this.context,
+                    //                       listen: false)
+                    //                   .rotation +
+                    //               event.delta.dx / (size * multiplier) +
+                    //               event.delta.dy / (size * multiplier));
+                    //       Provider.of<Activities>(this.context, listen: false)
+                    //           .editDate();
+                    //       Provider.of<Activities>(this.context, listen: false)
+                    //           .addTime(Provider.of<Activities>(this.context,
+                    //                   listen: false)
+                    //               .rotation);
+                    //     } else if (event.position.dy > size / 2 &&
+                    //         event.position.dx > size / 2) {
+                    //       await Provider.of<Activities>(this.context, listen: false)
+                    //           .updateRotation(Provider.of<Activities>(this.context,
+                    //                       listen: false)
+                    //                   .rotation -
+                    //               event.delta.dx / (size * multiplier) +
+                    //               event.delta.dy / (size * multiplier));
+                    //       Provider.of<Activities>(this.context, listen: false)
+                    //           .editDate();
+                    //       Provider.of<Activities>(this.context, listen: false)
+                    //           .addTime(Provider.of<Activities>(this.context,
+                    //                   listen: false)
+                    //               .rotation);
+                    //     } else if (event.position.dy > size / 2 &&
+                    //         event.position.dx < size / 2) {
+                    //       await Provider.of<Activities>(this.context, listen: false)
+                    //           .updateRotation(Provider.of<Activities>(this.context,
+                    //                       listen: false)
+                    //                   .rotation -
+                    //               event.delta.dx / (size * multiplier) -
+                    //               event.delta.dy / (size * multiplier));
+                    //       Provider.of<Activities>(this.context, listen: false)
+                    //           .editDate();
+                    //       Provider.of<Activities>(this.context, listen: false)
+                    //           .addTime(Provider.of<Activities>(this.context,
+                    //                   listen: false)
+                    //               .rotation);
+                    //     }
+                    //   },
+                    //   child: Container(
+                    //     decoration: BoxDecoration(border: Border.all()),
+                    //     width: size,
+                    //     height: size,
+                    //     child: Text(''),
+                    //   ),
+                    // ),
+                    SleekCircularSlider(
                   appearance: CircularSliderAppearance(
                       animationEnabled: false,
                       customColors: CustomSliderColors(
@@ -123,14 +192,14 @@ class _DayContainerState extends State<DayContainer> {
                             Provider.of<Activities>(this.context, listen: false)
                                 .rotation);
                   },
-                  // onChangeStart: (double startValue) async => {
-                  //   await Provider.of<Activities>(this.context, listen: false)
-                  //       .updateRotation(startValue)
-                  // },
-                  // onChangeEnd: (double endValue) async => {
-                  //   await Provider.of<Activities>(this.context, listen: false)
-                  //       .updateRotation(endValue)
-                  // },
+                  onChangeStart: (double startValue) async => {
+                    await Provider.of<Activities>(this.context, listen: false)
+                        .updateRotation(startValue)
+                  },
+                  onChangeEnd: (double endValue) async => {
+                    await Provider.of<Activities>(this.context, listen: false)
+                        .updateRotation(endValue)
+                  },
                 ),
               ),
             ],
