@@ -63,13 +63,13 @@ class _DayContainerState extends State<DayContainer> {
     }
   }
 
-  midnight() {
-    return CustomPaint(
-      painter: ActivityArc(0.0, 2.0, Colors.black,
-          Provider.of<Activities>(this.context, listen: false).rotation),
-      size: Size(size, size),
-    );
-  }
+  // midnight() {
+  //   return CustomPaint(
+  //     painter: ActivityArc(0.0, 2.0, Colors.black,
+  //         Provider.of<Activities>(this.context, listen: false).rotation),
+  //     size: Size(size, size),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -92,115 +92,118 @@ class _DayContainerState extends State<DayContainer> {
                         for (var act in widget.activities) imageList(act),
                       ]))
                   : Spacer(),
-              CustomPaint(
-                painter: Midnight(),
-                size: Size(size, size),
-              ),
+              // CustomPaint(
+              //   painter: Midnight(),
+              //   size: Size(size, size),
+              // ),
               Positioned(
-                child:
-                    // Listener(
-                    //   onPointerMove: (PointerEvent event) async {
-                    //     if (event.position.dy < size / 2 &&
-                    //         event.position.dx < size / 2) {
-                    //       await Provider.of<Activities>(this.context, listen: false)
-                    //           .updateRotation(Provider.of<Activities>(this.context,
-                    //                       listen: false)
-                    //                   .rotation +
-                    //               event.delta.dx / (size * multiplier) -
-                    //               event.delta.dy / (size * multiplier));
-                    //       Provider.of<Activities>(this.context, listen: false)
-                    //           .editDate();
-                    //       Provider.of<Activities>(this.context, listen: false)
-                    //           .addTime(Provider.of<Activities>(this.context,
-                    //                   listen: false)
-                    //               .rotation);
-                    //     } else if (event.position.dy < size / 2 &&
-                    //         event.position.dx > size / 2) {
-                    //       await Provider.of<Activities>(this.context, listen: false)
-                    //           .updateRotation(Provider.of<Activities>(this.context,
-                    //                       listen: false)
-                    //                   .rotation +
-                    //               event.delta.dx / (size * multiplier) +
-                    //               event.delta.dy / (size * multiplier));
-                    //       Provider.of<Activities>(this.context, listen: false)
-                    //           .editDate();
-                    //       Provider.of<Activities>(this.context, listen: false)
-                    //           .addTime(Provider.of<Activities>(this.context,
-                    //                   listen: false)
-                    //               .rotation);
-                    //     } else if (event.position.dy > size / 2 &&
-                    //         event.position.dx > size / 2) {
-                    //       await Provider.of<Activities>(this.context, listen: false)
-                    //           .updateRotation(Provider.of<Activities>(this.context,
-                    //                       listen: false)
-                    //                   .rotation -
-                    //               event.delta.dx / (size * multiplier) +
-                    //               event.delta.dy / (size * multiplier));
-                    //       Provider.of<Activities>(this.context, listen: false)
-                    //           .editDate();
-                    //       Provider.of<Activities>(this.context, listen: false)
-                    //           .addTime(Provider.of<Activities>(this.context,
-                    //                   listen: false)
-                    //               .rotation);
-                    //     } else if (event.position.dy > size / 2 &&
-                    //         event.position.dx < size / 2) {
-                    //       await Provider.of<Activities>(this.context, listen: false)
-                    //           .updateRotation(Provider.of<Activities>(this.context,
-                    //                       listen: false)
-                    //                   .rotation -
-                    //               event.delta.dx / (size * multiplier) -
-                    //               event.delta.dy / (size * multiplier));
-                    //       Provider.of<Activities>(this.context, listen: false)
-                    //           .editDate();
-                    //       Provider.of<Activities>(this.context, listen: false)
-                    //           .addTime(Provider.of<Activities>(this.context,
-                    //                   listen: false)
-                    //               .rotation);
-                    //     }
-                    //   },
-                    //   child: Container(
-                    //     decoration: BoxDecoration(border: Border.all()),
-                    //     width: size,
-                    //     height: size,
-                    //     child: Text(''),
-                    //   ),
-                    // ),
-                    SleekCircularSlider(
-                  appearance: CircularSliderAppearance(
-                      animationEnabled: false,
-                      customColors: CustomSliderColors(
-                        progressBarColor: Color(0x00000000),
-                        trackColor: Color(0x00000000),
-                        hideShadow: true,
-                      ),
-                      infoProperties: InfoProperties(modifier: (_) => ''),
-                      angleRange: 360,
-                      startAngle: 270,
-                      size: size * 0.8),
-                  min: 0.0,
-                  max: 1.0,
-                  initialValue:
+                child: Listener(
+                  onPointerMove: (PointerEvent event) async {
+                    if (event.position.dy < size / 2 &&
+                        event.position.dx < size / 2) {
                       Provider.of<Activities>(this.context, listen: false)
-                          .rotation,
-                  onChange: (double value) async {
-                    await Provider.of<Activities>(this.context, listen: false)
-                        .updateRotation(value);
+                          .updateRotation(Provider.of<Activities>(this.context,
+                                      listen: false)
+                                  .rotation +
+                              event.delta.dx / (size * multiplier) -
+                              event.delta.dy / (size * multiplier));
+                      Provider.of<Activities>(this.context, listen: false)
+                          .editDate();
+                      Provider.of<Activities>(this.context, listen: false)
+                          .addTime(Provider.of<Activities>(this.context,
+                                  listen: false)
+                              .rotation);
+                    } else if (event.position.dy < size / 2 &&
+                        event.position.dx > size / 2) {
+                      Provider.of<Activities>(this.context, listen: false)
+                          .updateRotation(Provider.of<Activities>(this.context,
+                                      listen: false)
+                                  .rotation +
+                              event.delta.dx / (size * multiplier) +
+                              event.delta.dy / (size * multiplier));
+                      Provider.of<Activities>(this.context, listen: false)
+                          .editDate();
+                      Provider.of<Activities>(this.context, listen: false)
+                          .addTime(Provider.of<Activities>(this.context,
+                                  listen: false)
+                              .rotation);
+                    } else if (event.position.dy > size / 2 &&
+                        event.position.dx > size / 2) {
+                      Provider.of<Activities>(this.context, listen: false)
+                          .updateRotation(Provider.of<Activities>(this.context,
+                                      listen: false)
+                                  .rotation -
+                              event.delta.dx / (size * multiplier) +
+                              event.delta.dy / (size * multiplier));
+                      Provider.of<Activities>(this.context, listen: false)
+                          .editDate();
+                      Provider.of<Activities>(this.context, listen: false)
+                          .addTime(Provider.of<Activities>(this.context,
+                                  listen: false)
+                              .rotation);
+                    } else if (event.position.dy > size / 2 &&
+                        event.position.dx < size / 2) {
+                      Provider.of<Activities>(this.context, listen: false)
+                          .updateRotation(Provider.of<Activities>(this.context,
+                                      listen: false)
+                                  .rotation -
+                              event.delta.dx / (size * multiplier) -
+                              event.delta.dy / (size * multiplier));
+                      Provider.of<Activities>(this.context, listen: false)
+                          .editDate();
+                      Provider.of<Activities>(this.context, listen: false)
+                          .addTime(Provider.of<Activities>(this.context,
+                                  listen: false)
+                              .rotation);
+                    }
+                  },
+                  onPointerUp: (PointerEvent event) async => {
                     Provider.of<Activities>(this.context, listen: false)
-                        .editDate();
-                    Provider.of<Activities>(this.context, listen: false)
-                        .addTime(
-                            Provider.of<Activities>(this.context, listen: false)
-                                .rotation);
+                        .scrollablePhysics()
                   },
-                  onChangeStart: (double startValue) async => {
-                    await Provider.of<Activities>(this.context, listen: false)
-                        .updateRotation(startValue)
-                  },
-                  onChangeEnd: (double endValue) async => {
-                    await Provider.of<Activities>(this.context, listen: false)
-                        .updateRotation(endValue)
-                  },
+                  child: Container(
+                    // decoration: BoxDecoration(border: Border.all()),
+                    width: size,
+                    height: size,
+                    child: Text(''),
+                  ),
                 ),
+                //     SleekCircularSlider(
+                //   appearance: CircularSliderAppearance(
+                //       animationEnabled: false,
+                //       customColors: CustomSliderColors(
+                //         progressBarColor: Color(0x00000000),
+                //         trackColor: Color(0x00000000),
+                //         hideShadow: true,
+                //       ),
+                //       infoProperties: InfoProperties(modifier: (_) => ''),
+                //       angleRange: 360,
+                //       startAngle: 270,
+                //       size: size * 0.8),
+                //   min: 0.0,
+                //   max: 1.0,
+                //   initialValue:
+                //       Provider.of<Activities>(this.context, listen: false)
+                //           .rotation,
+                //   onChange: (double value) async {
+                //     await Provider.of<Activities>(this.context, listen: false)
+                //         .updateRotation(value);
+                //     Provider.of<Activities>(this.context, listen: false)
+                //         .editDate();
+                //     Provider.of<Activities>(this.context, listen: false)
+                //         .addTime(
+                //             Provider.of<Activities>(this.context, listen: false)
+                //                 .rotation);
+                //   },
+                //   onChangeStart: (double startValue) async => {
+                //     await Provider.of<Activities>(this.context, listen: false)
+                //         .updateRotation(startValue)
+                //   },
+                //   onChangeEnd: (double endValue) async => {
+                //     await Provider.of<Activities>(this.context, listen: false)
+                //         .updateRotation(endValue)
+                //   },
+                // ),
               ),
             ],
           ),

@@ -22,6 +22,7 @@ class Activities with ChangeNotifier {
   bool subtract = false;
   bool add = false;
   bool isDraggable = false;
+  ScrollPhysics physics = ScrollPhysics();
 
   late List<Activity> sortedActivities;
 
@@ -52,9 +53,20 @@ class Activities with ChangeNotifier {
         getRotation() - newRotation < 0.1) {
       add = true;
     }
+    if (newRotation < 1) {
+      newRotation = newRotation + 1;
+    }
+    if (newRotation > 1) {
+      newRotation = newRotation - 1;
+    }
     rotation = newRotation;
-    // notifyListeners();
-    print('rotation ${getRotation() - rotation}');
+    physics = NeverScrollableScrollPhysics();
+    notifyListeners();
+  }
+
+  Future scrollablePhysics() async {
+    physics = AlwaysScrollableScrollPhysics();
+    notifyListeners();
   }
 
   isCurrentTime(start, end) {
@@ -104,15 +116,16 @@ class Activities with ChangeNotifier {
       date1.dateLocalView = formatterView.format(date1.date);
       date1.dateView = formatter.format(date1.date);
       subtract = false;
+      notifyListeners();
       fetchAndSet();
     } else if (add) {
       date1.date = date1.date.add(Duration(days: 1));
       date1.dateLocalView = formatterView.format(date1.date);
       date1.dateView = formatter.format(date1.date);
       add = false;
+      notifyListeners();
       fetchAndSet();
     }
-    notifyListeners();
   }
 
   Future refreshTime() async {
@@ -170,7 +183,7 @@ class Activities with ChangeNotifier {
     DateFormat formatterView = DateFormat.MMMd('ru');
     this.date1.dateLocalView == null
         ? this.date1.dateLocalView = formatterView.format(DateTime.now())
-        : print('ok');
+        : null;
     return this.date1.dateLocalView;
   }
 

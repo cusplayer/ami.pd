@@ -107,6 +107,9 @@ class _MyDayState extends State<MyDay> {
                             Provider.of<Activities>(this.context, listen: false)
                                 .refreshTime(),
                         child: SingleChildScrollView(
+                          physics: Provider.of<Activities>(this.context,
+                                  listen: false)
+                              .physics,
                           child: Center(
                             child: Column(children: [
                               Container(
