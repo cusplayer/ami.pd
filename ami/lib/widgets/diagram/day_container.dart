@@ -98,7 +98,7 @@ class _DayContainerState extends State<DayContainer> {
               // ),
               Positioned(
                 child: Listener(
-                  onPointerMove: (PointerEvent event) async {
+                  onPointerMove: (PointerEvent event) {
                     if (event.position.dy < size / 2 &&
                         event.position.dx < size / 2) {
                       Provider.of<Activities>(this.context, listen: false)
@@ -107,8 +107,6 @@ class _DayContainerState extends State<DayContainer> {
                                   .rotation +
                               event.delta.dx / (size * multiplier) -
                               event.delta.dy / (size * multiplier));
-                      Provider.of<Activities>(this.context, listen: false)
-                          .editDate();
                       Provider.of<Activities>(this.context, listen: false)
                           .addTime(Provider.of<Activities>(this.context,
                                   listen: false)
@@ -122,8 +120,6 @@ class _DayContainerState extends State<DayContainer> {
                               event.delta.dx / (size * multiplier) +
                               event.delta.dy / (size * multiplier));
                       Provider.of<Activities>(this.context, listen: false)
-                          .editDate();
-                      Provider.of<Activities>(this.context, listen: false)
                           .addTime(Provider.of<Activities>(this.context,
                                   listen: false)
                               .rotation);
@@ -135,8 +131,6 @@ class _DayContainerState extends State<DayContainer> {
                                   .rotation -
                               event.delta.dx / (size * multiplier) +
                               event.delta.dy / (size * multiplier));
-                      Provider.of<Activities>(this.context, listen: false)
-                          .editDate();
                       Provider.of<Activities>(this.context, listen: false)
                           .addTime(Provider.of<Activities>(this.context,
                                   listen: false)
@@ -150,17 +144,14 @@ class _DayContainerState extends State<DayContainer> {
                               event.delta.dx / (size * multiplier) -
                               event.delta.dy / (size * multiplier));
                       Provider.of<Activities>(this.context, listen: false)
-                          .editDate();
-                      Provider.of<Activities>(this.context, listen: false)
                           .addTime(Provider.of<Activities>(this.context,
                                   listen: false)
                               .rotation);
                     }
                   },
-                  onPointerUp: (PointerEvent event) async => {
-                    Provider.of<Activities>(this.context, listen: false)
-                        .scrollablePhysics()
-                  },
+                  onPointerUp: (_) =>
+                      Provider.of<Activities>(this.context, listen: false)
+                          .scrollablePhysics(),
                   child: Container(
                     // decoration: BoxDecoration(border: Border.all()),
                     width: size,

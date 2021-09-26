@@ -160,21 +160,21 @@ class _CommonPickerState extends State<CommonPicker> {
                     //     Provider.of<Activities>(this.context, listen: false)
                     //         .returnEdit(widget.activity),
                   ),
-                  // GestureDetector(
-                  //   child: Image.asset(
-                  //     Provider.of<Activities>(this.context, listen: true)
-                  //             .isDraggable
-                  //         ? 'assets/images/yes.png'
-                  //         : 'assets/images/no.png',
-                  //     width: MediaQuery.of(context).size.width / 15,
-                  //   ),
-                  //   onTap: () =>
-                  //       Provider.of<Activities>(this.context, listen: false)
-                  //           .changeDraggable(),
-                  //   // onTap: () =>
-                  //   //     Provider.of<Activities>(this.context, listen: false)
-                  //   //         .returnEdit(widget.activity),
-                  // ),
+                  GestureDetector(
+                    child: Image.asset(
+                      Provider.of<Activities>(this.context, listen: true)
+                              .isDraggable
+                          ? 'assets/images/yes.png'
+                          : 'assets/images/no.png',
+                      width: MediaQuery.of(context).size.width / 15,
+                    ),
+                    onTap: () =>
+                        Provider.of<Activities>(this.context, listen: false)
+                            .changeDraggable(),
+                    //   // onTap: () =>
+                    //   //     Provider.of<Activities>(this.context, listen: false)
+                    //   //         .returnEdit(widget.activity),
+                  ),
                 ]),
           ),
         ),

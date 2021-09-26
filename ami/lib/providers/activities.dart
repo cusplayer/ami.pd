@@ -42,16 +42,18 @@ class Activities with ChangeNotifier {
   //   notifyListeners();
   // }
   //
-  Future updateRotation(newRotation) async {
+  Future<void> updateRotation(newRotation) async {
     if (getRotation() - rotation > 0 &&
         getRotation() - newRotation < 0 &&
         getRotation() - rotation < 0.1) {
       subtract = true;
+      editDate();
     }
     if (getRotation() - newRotation > 0 &&
         getRotation() - rotation < 0 &&
         getRotation() - newRotation < 0.1) {
       add = true;
+      editDate();
     }
     if (newRotation < 1) {
       newRotation = newRotation + 1;
@@ -64,7 +66,7 @@ class Activities with ChangeNotifier {
     notifyListeners();
   }
 
-  Future scrollablePhysics() async {
+  void scrollablePhysics() {
     physics = AlwaysScrollableScrollPhysics();
     notifyListeners();
   }
@@ -116,6 +118,7 @@ class Activities with ChangeNotifier {
       date1.dateLocalView = formatterView.format(date1.date);
       date1.dateView = formatter.format(date1.date);
       subtract = false;
+      _activities = [];
       notifyListeners();
       fetchAndSet();
     } else if (add) {
@@ -123,9 +126,21 @@ class Activities with ChangeNotifier {
       date1.dateLocalView = formatterView.format(date1.date);
       date1.dateView = formatter.format(date1.date);
       add = false;
+      _activities = [
+        Activity(
+            id: '',
+            name: 'name',
+            start: 0,
+            end: 0,
+            color: '',
+            isDone: null,
+            date: '',
+            serial: null)
+      ];
       notifyListeners();
       fetchAndSet();
     }
+    notifyListeners();
   }
 
   Future refreshTime() async {

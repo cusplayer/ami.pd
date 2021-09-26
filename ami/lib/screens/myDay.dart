@@ -23,7 +23,6 @@ class _MyDayState extends State<MyDay> {
   var activityEnd;
   List<Widget> widgetList = [];
   late Future fetchAndSetFuture;
-  List<DragAndDropList> _contents = [];
   late List<Activity> _activities;
 
   void callbackA(double ns1, double ne1) {
@@ -50,6 +49,183 @@ class _MyDayState extends State<MyDay> {
     });
   }
 
+  @override
+  void initState() {
+    this.nightStart1 = 0.0;
+    this.nightEnd1 = 0.0;
+    this.activityStart = 0.0;
+    this.activityEnd = 0.0;
+    fetchAndSetFuture =
+        Provider.of<Activities>(context, listen: false).fetchAndSet();
+    super.initState();
+  }
+
+  late MediaQueryData mediaQuery;
+  late int selectedValue;
+  showPicker() {}
+
+  @override
+  Widget build(BuildContext context) {
+    var mediaQuery = MediaQuery.of(context);
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      floatingActionButton: Transform.scale(
+        scale: 1.2,
+        child: FloatingActionButton(
+          onPressed: () =>
+              // Provider.of<Activities>(this.context, listen: false)
+              //     .returnAdd(),
+              showModalBottomSheet(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(30),
+                        topRight: Radius.circular(30)),
+                  ),
+                  elevation: 20.0,
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AddScreen();
+                  }),
+          child: Transform.scale(scale: 1.5, child: Icon(Icons.add)),
+        ),
+      ),
+      body: FutureBuilder(
+        future: fetchAndSetFuture,
+        builder: (context, snapshot) => snapshot.connectionState ==
+                ConnectionState.waiting
+            ? Center(child: CircularProgressIndicator())
+            : Consumer<Activities>(
+                child: Center(
+                  child: const Text(''),
+                ),
+                builder: (context, activities, ch) => RefreshIndicator(
+                  onRefresh: () =>
+                      Provider.of<Activities>(this.context, listen: false)
+                          .refreshTime(),
+                  child: SingleChildScrollView(
+                    physics:
+                        Provider.of<Activities>(this.context, listen: false)
+                            .physics,
+                    child: Center(
+                      child: Column(
+                        children: [
+                          Container(
+                            margin: EdgeInsets.only(
+                                top: mediaQuery.size.height / 15),
+                            child: Text(
+                                Provider.of<Activities>(this.context,
+                                        listen: false)
+                                    .time,
+                                style: TextStyle(fontSize: 40)),
+                          ),
+                          Container(
+                            child: DayContainer(
+                                mediaQuery,
+                                activities.activities.length != 0
+                                    ? activities.activities[0].id != ''
+                                        ? Provider.of<Activities>(this.context,
+                                                listen: true)
+                                            .sortForArc(activities.activities)
+                                        : []
+                                    : []),
+                          ),
+                          Container(
+                            margin: EdgeInsets.only(
+                                top: MediaQuery.of(context).size.width / 50),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Spacer(),
+                                TextButton(
+                                  onPressed: _presentDatePicker,
+                                  child: Text(
+                                    Provider.of<Activities>(this.context,
+                                            listen: true)
+                                        .getDateView(),
+                                    style: TextStyle(fontSize: 32),
+                                  ),
+                                ),
+                                Spacer(),
+                                Container(
+                                  padding: EdgeInsets.only(bottom: 4),
+                                  child: GestureDetector(
+                                    child: Image(
+                                      width: MediaQuery.of(context).size.width /
+                                          15,
+                                      image: AssetImage(
+                                          'assets/images/vector.png'),
+                                    ),
+                                    onTap: () => Provider.of<Activities>(
+                                            this.context,
+                                            listen: false)
+                                        .changeEditable(),
+                                  ),
+                                ),
+                                Spacer(
+                                  flex: 20,
+                                ),
+                              ],
+                            ),
+                          ),
+                          activities.activities.length != 0
+                              ? activities.activities[0].id != ''
+                                  ? DragAndDrop()
+                                  : CircularProgressIndicator()
+                              : SizedBox(),
+                        ],
+                      ),
+                      // Container(
+                      //   height: MediaQuery.of(context).size.height / 2,
+                      //   child: SingleChildScrollView(
+                      //     physics: ScrollPhysics(),
+                      //     child: Column(
+                      //       children: <Widget>[
+                      //         ListView.builder(
+                      //             padding: EdgeInsets.all(0),
+                      //             physics: ScrollPhysics(),
+                      //             shrinkWrap: true,
+                      //             itemCount:
+                      //                 activities.activities.length,
+                      //             itemBuilder: (context, index) {
+                      //               return CommonPicker(mediaQuery,
+                      //                   activities.activities[index]);
+                      //             }),
+                      //         SizedBox(
+                      //           height:
+                      //               MediaQuery.of(context).size.height /
+                      //                   2,
+                      //         ),
+                      //       ],
+                      //     ),
+                      //   ),
+                      // ),
+                      // //Developer button
+                      // ElementPicker(mediaQuery, this.callbackA),
+                      // FlatButton(
+                      //     onPressed: () {
+                      //       Navigator.of(context).pushNamed('/day');
+                      //     },
+                      //     child: Text('э'))
+                    ),
+                  ),
+                ),
+              ),
+      ),
+      // ...Provider.of<Activities>(this.context, listen: false)
+      //     .commentWidgets,
+    );
+  }
+}
+
+class DragAndDrop extends StatefulWidget {
+  const DragAndDrop({Key? key}) : super(key: key);
+
+  @override
+  _DragAndDropState createState() => _DragAndDropState();
+}
+
+class _DragAndDropState extends State<DragAndDrop> {
+  List<DragAndDropList> _contents = [];
   _onItemReorder(
       int oldItemIndex, int oldListIndex, int newItemIndex, int newListIndex) {
     // setState(() {
@@ -70,206 +246,37 @@ class _MyDayState extends State<MyDay> {
   }
 
   @override
-  void initState() {
-    this.nightStart1 = 0.0;
-    this.nightEnd1 = 0.0;
-    this.activityStart = 0.0;
-    this.activityEnd = 0.0;
-    fetchAndSetFuture =
-        Provider.of<Activities>(context, listen: false).fetchAndSet();
-    super.initState();
-  }
-
-  late MediaQueryData mediaQuery;
-  late int selectedValue;
-  showPicker() {}
-
-  @override
   Widget build(BuildContext context) {
-    // print()
-    print(this.nightStart1);
-    var mediaQuery = MediaQuery.of(context);
-    return Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: Stack(
-          children: <Widget>[
-            FutureBuilder(
-              future: fetchAndSetFuture,
-              builder: (context, snapshot) => snapshot.connectionState ==
-                      ConnectionState.waiting
-                  ? Center(child: CircularProgressIndicator())
-                  : Consumer<Activities>(
-                      child: Center(
-                        child: const Text(''),
-                      ),
-                      builder: (context, activities, ch) => RefreshIndicator(
-                        onRefresh: () =>
-                            Provider.of<Activities>(this.context, listen: false)
-                                .refreshTime(),
-                        child: SingleChildScrollView(
-                          physics: Provider.of<Activities>(this.context,
-                                  listen: false)
-                              .physics,
-                          child: Center(
-                            child: Column(children: [
-                              Container(
-                                margin: EdgeInsets.only(
-                                    top: mediaQuery.size.height / 15),
-                                child: Text(
-                                    Provider.of<Activities>(this.context,
-                                            listen: false)
-                                        .time,
-                                    style: TextStyle(fontSize: 40)),
-                              ),
-                              Container(
-                                child: DayContainer(
-                                    mediaQuery,
-                                    Provider.of<Activities>(this.context,
-                                            listen: true)
-                                        .sortForArc(activities.activities)),
-                              ),
-                              Container(
-                                margin: EdgeInsets.only(
-                                    top:
-                                        MediaQuery.of(context).size.width / 50),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Spacer(),
-                                    TextButton(
-                                      onPressed: _presentDatePicker,
-                                      child: Text(
-                                        Provider.of<Activities>(this.context,
-                                                listen: true)
-                                            .getDateView(),
-                                        style: TextStyle(fontSize: 32),
-                                      ),
-                                    ),
-                                    Spacer(),
-                                    Container(
-                                      padding: EdgeInsets.only(bottom: 4),
-                                      child: GestureDetector(
-                                        child: Image(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width /
-                                              15,
-                                          image: AssetImage(
-                                              'assets/images/vector.png'),
-                                        ),
-                                        onTap: () => Provider.of<Activities>(
-                                                this.context,
-                                                listen: false)
-                                            .changeEditable(),
-                                      ),
-                                    ),
-                                    Spacer(
-                                      flex: 20,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                  padding: EdgeInsets.all(0),
-                                  height:
-                                      MediaQuery.of(context).size.height / 2,
-                                  child: DragAndDropLists(
-                                    contentsWhenEmpty: Text(''),
-                                    itemSizeAnimationDurationMilliseconds: 0,
-                                    listPadding: EdgeInsets.all(0),
-                                    children: _contents = [
-                                      DragAndDropList(
-                                        contentsWhenEmpty: Text(''),
-                                        canDrag: false,
-                                        children: <DragAndDropItem>[
-                                          for (var i = 0;
-                                              i < activities.activities.length;
-                                              i++)
-                                            DragAndDropItem(
-                                              canDrag: activities.activities[i]
-                                                          .start ==
-                                                      2 &&
-                                                  Provider.of<Activities>(
-                                                          this.context,
-                                                          listen: false)
-                                                      .isDraggable &&
-                                                  Provider.of<Activities>(
-                                                          this.context,
-                                                          listen: false)
-                                                      .isEditable,
-                                              child: CommonPicker(mediaQuery,
-                                                  activities.activities[i]),
-                                            ),
-                                        ],
-                                      )
-                                    ],
-                                    onItemReorder: _onItemReorder,
-                                    onListReorder: _onListReorder,
-                                  )),
-                              // Container(
-                              //   height: MediaQuery.of(context).size.height / 2,
-                              //   child: SingleChildScrollView(
-                              //     physics: ScrollPhysics(),
-                              //     child: Column(
-                              //       children: <Widget>[
-                              //         ListView.builder(
-                              //             padding: EdgeInsets.all(0),
-                              //             physics: ScrollPhysics(),
-                              //             shrinkWrap: true,
-                              //             itemCount:
-                              //                 activities.activities.length,
-                              //             itemBuilder: (context, index) {
-                              //               return CommonPicker(mediaQuery,
-                              //                   activities.activities[index]);
-                              //             }),
-                              //         SizedBox(
-                              //           height:
-                              //               MediaQuery.of(context).size.height /
-                              //                   2,
-                              //         ),
-                              //       ],
-                              //     ),
-                              //   ),
-                              // ), //Developer button
-                              // ElementPicker(mediaQuery, this.callbackA),
-                              // FlatButton(
-                              //     onPressed: () {
-                              //       Navigator.of(context).pushNamed('/day');
-                              //     },
-                              //     child: Text('э'))
-                            ]),
-                          ),
-                        ),
-                      ),
+    return Consumer<Activities>(
+      child: Center(
+        child: const Text(''),
+      ),
+      builder: (context, activities, ch) => Container(
+          padding: EdgeInsets.all(0),
+          height: MediaQuery.of(context).size.height / 2,
+          child: DragAndDropLists(
+            contentsWhenEmpty: Text(''),
+            itemSizeAnimationDurationMilliseconds: 1,
+            listPadding: EdgeInsets.all(0),
+            children: _contents = [
+              DragAndDropList(
+                contentsWhenEmpty: Text(''),
+                canDrag: false,
+                children: <DragAndDropItem>[
+                  for (var i = 0; i < activities.activities.length; i++)
+                    DragAndDropItem(
+                      canDrag: activities.activities[i].start == 2 &&
+                          activities.isDraggable &&
+                          activities.isEditable,
+                      child: CommonPicker(
+                          MediaQuery.of(context), activities.activities[i]),
                     ),
-            ),
-            Positioned(
-              top: MediaQuery.of(context).size.height / 1.12,
-              left: MediaQuery.of(context).size.width / 1.25,
-              child: Transform.scale(
-                scale: 1.2,
-                child: FloatingActionButton(
-                  onPressed: () =>
-                      // Provider.of<Activities>(this.context, listen: false)
-                      //     .returnAdd(),
-                      showModalBottomSheet(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(30),
-                                topRight: Radius.circular(30)),
-                          ),
-                          elevation: 20.0,
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AddScreen();
-                          }),
-                  child: Transform.scale(scale: 1.5, child: Icon(Icons.add)),
-                ),
-              ),
-            ),
-            ...Provider.of<Activities>(this.context, listen: false)
-                .commentWidgets,
-          ],
-        ));
+                ],
+              )
+            ],
+            onItemReorder: _onItemReorder,
+            onListReorder: _onListReorder,
+          )),
+    );
   }
 }
