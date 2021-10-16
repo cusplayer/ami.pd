@@ -72,7 +72,7 @@ class Activities with ChangeNotifier {
   }
 
   isCurrentTime(start, end) {
-    if (start != 2) {
+    if (start != 1) {
       var _time = DateFormat('HH:mm').format(DateTime.now()).split(':');
       var _relativeTime = (int.parse(_time[0]) / 24 +
                   int.parse(_time[1]) / 60 / 24 +
@@ -85,7 +85,10 @@ class Activities with ChangeNotifier {
                   int.parse(_time[1]) / 60 / 24 +
                   rotation) -
               1;
-      if (end != 2) {
+      // print(start.toString() + '   ' + end.toString());
+      print('rotation ' + rotation.toString());
+      print('relativeTime ' + _relativeTime.toString());
+      if (end != 1) {
         if (start < end) {
           if (_relativeTime > start && _relativeTime < end) {
             return true;
