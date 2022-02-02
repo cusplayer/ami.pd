@@ -118,17 +118,15 @@ class _MyDayState extends State<MyDay> {
                                     .time,
                                 style: TextStyle(fontSize: 40)),
                           ),
-                          Container(
-                            child: DayContainer(
-                                mediaQuery,
-                                activities.activities.length != 0
-                                    ? activities.activities[0].id != ''
-                                        ? Provider.of<Activities>(this.context,
-                                                listen: true)
-                                            .sortForArc(activities.activities)
-                                        : []
-                                    : []),
-                          ),
+                          DayContainer(
+                              mediaQuery,
+                              activities.activities.length != 0
+                                  ? activities.activities[0].id != ''
+                                      ? Provider.of<Activities>(this.context,
+                                              listen: true)
+                                          .sortForArc(activities.activities)
+                                      : []
+                                  : []),
                           Container(
                             margin: EdgeInsets.only(
                                 top: MediaQuery.of(context).size.width / 50),

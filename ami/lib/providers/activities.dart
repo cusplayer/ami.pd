@@ -47,13 +47,13 @@ class Activities with ChangeNotifier {
         getRotation() - newRotation < 0 &&
         getRotation() - rotation < 0.1) {
       subtract = true;
-      editDate();
+      // editDate();
     }
     if (getRotation() - newRotation > 0 &&
         getRotation() - rotation < 0 &&
         getRotation() - newRotation < 0.1) {
       add = true;
-      editDate();
+      // editDate();
     }
     if (newRotation < 1) {
       newRotation = newRotation + 1;
@@ -85,10 +85,10 @@ class Activities with ChangeNotifier {
                   int.parse(_time[1]) / 60 / 24 +
                   rotation) -
               1;
-      // print(start.toString() + '   ' + end.toString());
+      print('start: ' + start.toString() + ' end: ' + end.toString());
       print('rotation ' + rotation.toString());
       print('relativeTime ' + _relativeTime.toString());
-      if (end != 1) {
+      if (end != 2) {
         if (start < end) {
           if (_relativeTime > start && _relativeTime < end) {
             return true;
@@ -293,7 +293,6 @@ class Activities with ChangeNotifier {
       oldActivity.serial = newIndex;
       _activities.add(oldActivity);
     }
-    print('old index $oldIndex , new inxed $newIndex');
     sortSerial();
   }
 

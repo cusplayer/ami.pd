@@ -72,18 +72,12 @@ class _CommonPickerState extends State<CommonPicker> {
       child: Card(
         elevation: 0.0,
         child: ListTile(
-          tileColor: Provider.of<Activities>(this.context, listen: false)
-                  .isCurrentTime(widget.activity.start, widget.activity.end)
-              ? toColor(widget.activity.color)
-              : Colors.white,
-          // leading: Container(
-          //     height: MediaQuery.of(context).size.width / 15,
-          //     width: MediaQuery.of(context).size.width / 15,
-          //     decoration: BoxDecoration(
-          //       color: toColor(widget.activity.color),
-          //       border: Border.all(color: Colors.black),
-          //       borderRadius: BorderRadius.circular(50.0),
-          //     )),
+          tileColor:
+              // Provider.of<Activities>(this.context, listen: false)
+              //         .isCurrentTime(widget.activity.start, widget.activity.end)
+              //     ? toColor(widget.activity.color)
+              //     :
+              Colors.white,
           leading: Transform.scale(
             scale: 1.5,
             child: Checkbox(
@@ -105,28 +99,29 @@ class _CommonPickerState extends State<CommonPicker> {
             style: TextStyle(color: Colors.black, fontSize: 20),
           ),
           subtitle: widget.activity.start != 2
-              ? widget.activity.end == 2
-                  ? Text(
-                      '${timeConverter(widget.activity.start.toDouble())[0]}:${timeConverter(widget.activity.start.toDouble())[1]}',
-                      style: TextStyle(
-                        color: Provider.of<Activities>(this.context,
-                                    listen: false)
-                                .isCurrentTime(
-                                    widget.activity.start, widget.activity.end)
-                            ? Colors.white
-                            : Colors.black,
-                        fontSize: 13,
-                      ))
-                  : Text(
-                      '${timeConverter(widget.activity.start.toDouble())[0]}:${timeConverter(widget.activity.start.toDouble())[1]} - ${timeConverter(widget.activity.end.toDouble())[0]}:${timeConverter(widget.activity.end.toDouble())[1]}',
-                      style: TextStyle(
-                          color: Provider.of<Activities>(this.context,
-                                      listen: false)
-                                  .isCurrentTime(widget.activity.start,
-                                      widget.activity.end)
-                              ? Colors.white
-                              : Colors.black,
-                          fontSize: 13))
+              ?
+              //      widget.activity.end == 2
+              //         ?
+              Text(
+                  '${timeConverter(widget.activity.start.toDouble())[0]}:${timeConverter(widget.activity.start.toDouble())[1]}',
+                  style: TextStyle(
+                    color: Provider.of<Activities>(this.context, listen: false)
+                            .isCurrentTime(
+                                widget.activity.start, widget.activity.end)
+                        ? Colors.black
+                        : Colors.red,
+                    fontSize: 13,
+                  ))
+              // : Text(
+              //     '${timeConverter(widget.activity.start.toDouble())[0]}:${timeConverter(widget.activity.start.toDouble())[1]} - ${timeConverter(widget.activity.end.toDouble())[0]}:${timeConverter(widget.activity.end.toDouble())[1]}',
+              //     style: TextStyle(
+              //         color: Provider.of<Activities>(this.context,
+              //                     listen: false)
+              //                 .isCurrentTime(widget.activity.start,
+              //                     widget.activity.end)
+              //             ? Colors.white
+              //             : Colors.black,
+              //         fontSize: 13))
               : Text(
                   '',
                 ),

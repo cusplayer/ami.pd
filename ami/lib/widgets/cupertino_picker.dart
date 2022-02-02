@@ -50,7 +50,6 @@ class _PickerState extends State<Picker> {
       }
     }
     super.initState();
-    print('Время ${widget.time.toString()}');
   }
 
   late String yourParam;
