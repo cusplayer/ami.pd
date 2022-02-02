@@ -1,12 +1,9 @@
 import 'package:ami/models/activity.dart';
 import 'package:ami/providers/activities.dart';
 import 'package:ami/screens/add_screen.dart';
-import 'package:ami/widgets/diagram/activity_arc.dart';
-import 'package:ami/widgets/common_picker.dart';
+import 'package:ami/utils/present_date_picker.dart';
 import 'package:ami/widgets/diagram/day_container.dart';
-import 'package:drag_and_drop_lists/drag_and_drop_list_interface.dart';
-import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:ami/widgets/drag_and_drop.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'dart:math' as math;
@@ -32,23 +29,6 @@ class _MyDayState extends State<MyDay> {
     });
   }
 
-  void _presentDatePicker() {
-    showDatePicker(
-            helpText: '',
-            context: context,
-            locale: const Locale("ru", "RU"),
-            initialDate: Provider.of<Activities>(this.context, listen: false)
-                .initialDate,
-            firstDate: DateTime(2020),
-            lastDate: DateTime.now().add(const Duration(days: 365)))
-        .then((pickedDate) {
-      if (pickedDate != null) {
-        Provider.of<Activities>(this.context, listen: false)
-            .updateDate(pickedDate);
-      }
-    });
-  }
-
   @override
   void initState() {
     this.nightStart1 = 0.0;
@@ -62,42 +42,18 @@ class _MyDayState extends State<MyDay> {
 
   late MediaQueryData mediaQuery;
   late int selectedValue;
-  showPicker() {}
 
   @override
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      floatingActionButton: Transform.scale(
-        scale: 1.2,
-        child: FloatingActionButton(
-          onPressed: () =>
-              // Provider.of<Activities>(this.context, listen: false)
-              //     .returnAdd(),
-              showModalBottomSheet(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(30),
-                        topRight: Radius.circular(30)),
-                  ),
-                  elevation: 20.0,
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AddScreen();
-                  }),
-          child: Transform.scale(scale: 1.5, child: Icon(Icons.add)),
-        ),
-      ),
       body: FutureBuilder(
         future: fetchAndSetFuture,
         builder: (context, snapshot) => snapshot.connectionState ==
                 ConnectionState.waiting
             ? Center(child: CircularProgressIndicator())
             : Consumer<Activities>(
-                child: Center(
-                  child: const Text(''),
-                ),
                 builder: (context, activities, ch) => RefreshIndicator(
                   onRefresh: () =>
                       Provider.of<Activities>(this.context, listen: false)
@@ -116,7 +72,7 @@ class _MyDayState extends State<MyDay> {
                                 Provider.of<Activities>(this.context,
                                         listen: false)
                                     .time,
-                                style: TextStyle(fontSize: 40)),
+                                style: TextStyle(fontSize: 30)),
                           ),
                           DayContainer(
                               mediaQuery,
@@ -135,7 +91,7 @@ class _MyDayState extends State<MyDay> {
                               children: [
                                 Spacer(),
                                 TextButton(
-                                  onPressed: _presentDatePicker,
+                                  onPressed: () => presentDatePicker(context),
                                   child: Text(
                                     Provider.of<Activities>(this.context,
                                             listen: true)
@@ -172,109 +128,29 @@ class _MyDayState extends State<MyDay> {
                               : SizedBox(),
                         ],
                       ),
-                      // Container(
-                      //   height: MediaQuery.of(context).size.height / 2,
-                      //   child: SingleChildScrollView(
-                      //     physics: ScrollPhysics(),
-                      //     child: Column(
-                      //       children: <Widget>[
-                      //         ListView.builder(
-                      //             padding: EdgeInsets.all(0),
-                      //             physics: ScrollPhysics(),
-                      //             shrinkWrap: true,
-                      //             itemCount:
-                      //                 activities.activities.length,
-                      //             itemBuilder: (context, index) {
-                      //               return CommonPicker(mediaQuery,
-                      //                   activities.activities[index]);
-                      //             }),
-                      //         SizedBox(
-                      //           height:
-                      //               MediaQuery.of(context).size.height /
-                      //                   2,
-                      //         ),
-                      //       ],
-                      //     ),
-                      //   ),
-                      // ),
-                      // //Developer button
-                      // ElementPicker(mediaQuery, this.callbackA),
-                      // FlatButton(
-                      //     onPressed: () {
-                      //       Navigator.of(context).pushNamed('/day');
-                      //     },
-                      //     child: Text('э'))
                     ),
                   ),
                 ),
               ),
       ),
-      // ...Provider.of<Activities>(this.context, listen: false)
-      //     .commentWidgets,
-    );
-  }
-}
-
-class DragAndDrop extends StatefulWidget {
-  const DragAndDrop({Key? key}) : super(key: key);
-
-  @override
-  _DragAndDropState createState() => _DragAndDropState();
-}
-
-class _DragAndDropState extends State<DragAndDrop> {
-  List<DragAndDropList> _contents = [];
-  _onItemReorder(
-      int oldItemIndex, int oldListIndex, int newItemIndex, int newListIndex) {
-    // setState(() {
-    //   var movedItem = _contents[oldListIndex].children.removeAt(oldItemIndex);
-    //   _contents[newListIndex].children.insert(newItemIndex, movedItem);
-    // });
-    Provider.of<Activities>(this.context, listen: false)
-        .changePosition(oldItemIndex, newItemIndex);
-  }
-
-  _onListReorder(int oldListIndex, int newListIndex) {
-    // Provider.of<Activities>(this.context, listen: false)
-    //     .changePosition(oldListIndex, newListIndex);
-    // setState(() {
-    //   var movedList = _contents.removeAt(oldListIndex);
-    //   _contents.insert(newListIndex, movedList);
-    // });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Consumer<Activities>(
-      child: Center(
-        child: const Text(''),
+      floatingActionButton: Transform.scale(
+        scale: 1.2,
+        child: FloatingActionButton(
+          onPressed: () => showModalBottomSheet(
+              isScrollControlled: true,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30)),
+              ),
+              elevation: 20.0,
+              context: context,
+              builder: (BuildContext context) {
+                return AddScreen();
+              }),
+          child: Transform.scale(scale: 2, child: Icon(Icons.add)),
+        ),
       ),
-      builder: (context, activities, ch) => Container(
-          padding: EdgeInsets.all(0),
-          height: MediaQuery.of(context).size.height / 2,
-          child: DragAndDropLists(
-            contentsWhenEmpty: Text(''),
-            itemSizeAnimationDurationMilliseconds: 1,
-            listPadding: EdgeInsets.all(0),
-            children: _contents = [
-              DragAndDropList(
-                contentsWhenEmpty: Text(''),
-                canDrag: false,
-                children: <DragAndDropItem>[
-                  for (var i = 0; i < activities.activities.length; i++)
-                    DragAndDropItem(
-                      canDrag: activities.activities[i].start == 2 &&
-                          activities.isDraggable &&
-                          activities.isEditable,
-                      child: CommonPicker(
-                          MediaQuery.of(context), activities.activities[i]),
-                    ),
-                ],
-              )
-            ],
-            onItemReorder: _onItemReorder,
-            onListReorder: _onListReorder,
-          )),
     );
   }
 }

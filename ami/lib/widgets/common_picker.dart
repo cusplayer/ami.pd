@@ -10,7 +10,6 @@ import 'package:provider/provider.dart';
 
 class CommonPicker extends StatefulWidget {
   final MediaQueryData size;
-  // final Function callback;
   final Activity activity;
   CommonPicker(this.size, this.activity);
   @override
@@ -67,9 +66,11 @@ class _CommonPickerState extends State<CommonPicker> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(0),
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(15.0)),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(15.0),
+      ),
       child: Card(
+        margin: EdgeInsets.only(right: 10),
         elevation: 0.0,
         child: ListTile(
           tileColor:
@@ -81,6 +82,9 @@ class _CommonPickerState extends State<CommonPicker> {
           leading: Transform.scale(
             scale: 1.5,
             child: Checkbox(
+              visualDensity: VisualDensity.compact,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5)),
               value: widget.activity.isDone == 1 ? true : false,
               onChanged: (_) =>
                   Provider.of<Activities>(this.context, listen: false)

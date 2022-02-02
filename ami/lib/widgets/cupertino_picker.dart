@@ -59,7 +59,7 @@ class _PickerState extends State<Picker> {
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
     return Container(
-      width: mediaQuery.size.width / 5,
+      width: mediaQuery.size.width / 7,
       child: CupertinoPicker(
         backgroundColor: Colors.white,
         onSelectedItemChanged: (value) {
