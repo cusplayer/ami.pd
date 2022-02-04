@@ -52,8 +52,7 @@ class _AddScreenState extends State<AddScreen> {
   }
 
   toColor(colorString) {
-    String valueString =
-        colorString.split('(0x')[1].split(')')[0]; // kind of hacky..
+    String valueString = colorString.split('(0x')[1].split(')')[0];
     int value = int.parse(valueString, radix: 16);
     return Color(value);
   }
@@ -129,8 +128,13 @@ class _AddScreenState extends State<AddScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
+    return Container(
+      padding: EdgeInsets.fromLTRB(8, 8, 8, 0),
+      decoration: BoxDecoration(
+          color: Color(0xFF00BCB4),
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(30), topRight: Radius.circular(30))),
+      child: Stack(children: [
         Container(
           height: MediaQuery.of(context).size.height * 0.9,
           decoration: BoxDecoration(
@@ -157,17 +161,17 @@ class _AddScreenState extends State<AddScreen> {
                 children: [
                   Container(
                     margin: EdgeInsets.symmetric(
-                        vertical: MediaQuery.of(context).size.width / 15),
+                        vertical: MediaQuery.of(context).size.width / 30),
                     width: MediaQuery.of(context).size.width,
                     child: Stack(
                       alignment: AlignmentDirectional.center,
                       children: [
                         Positioned(
                           child: Padding(
-                            padding: const EdgeInsets.only(right: 60),
+                            padding: const EdgeInsets.fromLTRB(30, 0, 60, 0),
                             child: TextField(
-                              maxLines: 5,
-                              style: TextStyle(fontSize: 24),
+                              maxLines: 15,
+                              style: TextStyle(fontSize: 30),
                               decoration: InputDecoration(
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide.none,
@@ -183,7 +187,7 @@ class _AddScreenState extends State<AddScreen> {
                           ),
                         ),
                         Positioned(
-                          top: 0,
+                          top: 12,
                           right: 0,
                           child: Container(
                             margin: EdgeInsets.only(
@@ -257,6 +261,7 @@ class _AddScreenState extends State<AddScreen> {
                                   callbackm2: callbackm2,
                                   isSelectedCallback: isSelectedCallback,
                                   isSelected: isSelected,
+                                  name: 'Выберите время',
                                 ),
                               ),
                             );
@@ -383,7 +388,7 @@ class _AddScreenState extends State<AddScreen> {
             ),
           ),
         ),
-      ],
+      ]),
     );
   }
 }

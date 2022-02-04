@@ -32,8 +32,8 @@ class _DayContainerState extends State<DayContainer> {
   // }
 
   toColor(colorString) {
-    String valueString =
-        colorString.split('(0x')[1].split(')')[0]; // kind of hacky..
+    print(colorString);
+    String valueString = colorString.split('(0x')[1].split(')')[0];
     int value = int.parse(valueString, radix: 16);
     return Color(value);
   }
@@ -65,7 +65,7 @@ class _DayContainerState extends State<DayContainer> {
 
   // midnight() {
   //   return CustomPaint(
-  //     painter: ActivityArc(0.0, 2.0, Colors.black,
+  //     painter: ActivityArc(0.1, 0.5, Colors.black,
   //         Provider.of<Activities>(this.context, listen: false).rotation),
   //     size: Size(size, size),
   //   );
@@ -83,19 +83,15 @@ class _DayContainerState extends State<DayContainer> {
                 painter: DayWidget(),
                 size: Size(size, size),
               ),
-              widget.activities != null
-                  ? Container(
-                      height: size,
-                      width: size,
-                      child: Stack(children: [
-                        for (var act in widget.activities) listEl(act),
-                        for (var act in widget.activities) imageList(act),
-                      ]))
-                  : Spacer(),
-              // CustomPaint(
-              //   painter: Midnight(),
-              //   size: Size(size, size),
-              // ),
+              Container(
+                  height: size,
+                  width: size,
+                  child: Stack(children: [
+                    listEl(Provider.of<Activities>(this.context, listen: false)
+                        .night),
+                    for (var act in widget.activities) listEl(act),
+                    for (var act in widget.activities) imageList(act),
+                  ])),
               Positioned(
                 child: Listener(
                   onPointerMove: (PointerEvent event) {
@@ -153,48 +149,11 @@ class _DayContainerState extends State<DayContainer> {
                       Provider.of<Activities>(this.context, listen: false)
                           .scrollablePhysics(),
                   child: Container(
-                    // decoration: BoxDecoration(border: Border.all()),
                     width: size,
                     height: size,
                     child: Text(''),
                   ),
                 ),
-                //     SleekCircularSlider(
-                //   appearance: CircularSliderAppearance(
-                //       animationEnabled: false,
-                //       customColors: CustomSliderColors(
-                //         progressBarColor: Color(0x00000000),
-                //         trackColor: Color(0x00000000),
-                //         hideShadow: true,
-                //       ),
-                //       infoProperties: InfoProperties(modifier: (_) => ''),
-                //       angleRange: 360,
-                //       startAngle: 270,
-                //       size: size * 0.8),
-                //   min: 0.0,
-                //   max: 1.0,
-                //   initialValue:
-                //       Provider.of<Activities>(this.context, listen: false)
-                //           .rotation,
-                //   onChange: (double value) async {
-                //     await Provider.of<Activities>(this.context, listen: false)
-                //         .updateRotation(value);
-                //     Provider.of<Activities>(this.context, listen: false)
-                //         .editDate();
-                //     Provider.of<Activities>(this.context, listen: false)
-                //         .addTime(
-                //             Provider.of<Activities>(this.context, listen: false)
-                //                 .rotation);
-                //   },
-                //   onChangeStart: (double startValue) async => {
-                //     await Provider.of<Activities>(this.context, listen: false)
-                //         .updateRotation(startValue)
-                //   },
-                //   onChangeEnd: (double endValue) async => {
-                //     await Provider.of<Activities>(this.context, listen: false)
-                //         .updateRotation(endValue)
-                //   },
-                // ),
               ),
             ],
           ),

@@ -27,9 +27,10 @@ class _DragAndDropState extends State<DragAndDrop> {
   Widget build(BuildContext context) {
     return Consumer<Activities>(
       builder: (context, activities, ch) => Container(
-          padding: EdgeInsets.all(0),
-          height: MediaQuery.of(context).size.height / 2,
+          padding: EdgeInsets.zero,
+          height: MediaQuery.of(context).size.height / 3.2,
           child: DragAndDropLists(
+            lastListTargetSize: 0,
             removeTopPadding: true,
             itemSizeAnimationDurationMilliseconds: 1,
             listPadding: EdgeInsets.zero,
@@ -39,8 +40,7 @@ class _DragAndDropState extends State<DragAndDrop> {
                 children: <DragAndDropItem>[
                   for (var i = 0; i < activities.activities.length; i++)
                     DragAndDropItem(
-                      canDrag: activities.activities[i].start == 2 &&
-                          activities.isDraggable,
+                      canDrag: activities.activities[i].start == 2,
                       child: CommonPicker(
                           MediaQuery.of(context), activities.activities[i]),
                     ),

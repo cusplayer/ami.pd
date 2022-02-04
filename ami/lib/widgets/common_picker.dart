@@ -1,11 +1,8 @@
-import 'package:ami/helpers/db_helper.dart';
 import 'package:ami/models/activity.dart';
 import 'package:ami/providers/activities.dart';
 import 'package:ami/screens/edit_screen.dart';
-import 'package:ami/widgets/color_picker.dart';
 import 'package:flutter/material.dart';
 
-import 'package:ami/widgets/cupertino_picker.dart';
 import 'package:provider/provider.dart';
 
 class CommonPicker extends StatefulWidget {
@@ -73,12 +70,10 @@ class _CommonPickerState extends State<CommonPicker> {
         margin: EdgeInsets.only(right: 10),
         elevation: 0.0,
         child: ListTile(
-          tileColor:
-              // Provider.of<Activities>(this.context, listen: false)
-              //         .isCurrentTime(widget.activity.start, widget.activity.end)
-              //     ? toColor(widget.activity.color)
-              //     :
-              Colors.white,
+          tileColor: Provider.of<Activities>(this.context, listen: false)
+                  .isCurrentTime(widget.activity.start, widget.activity.end)
+              ? toColor(widget.activity.color)
+              : Colors.white,
           leading: Transform.scale(
             scale: 1.5,
             child: Checkbox(
@@ -103,29 +98,28 @@ class _CommonPickerState extends State<CommonPicker> {
             style: TextStyle(color: Colors.black, fontSize: 20),
           ),
           subtitle: widget.activity.start != 2
-              ?
-              //      widget.activity.end == 2
-              //         ?
-              Text(
-                  '${timeConverter(widget.activity.start.toDouble())[0]}:${timeConverter(widget.activity.start.toDouble())[1]}',
-                  style: TextStyle(
-                    color: Provider.of<Activities>(this.context, listen: false)
-                            .isCurrentTime(
-                                widget.activity.start, widget.activity.end)
-                        ? Colors.black
-                        : Colors.red,
-                    fontSize: 13,
-                  ))
-              // : Text(
-              //     '${timeConverter(widget.activity.start.toDouble())[0]}:${timeConverter(widget.activity.start.toDouble())[1]} - ${timeConverter(widget.activity.end.toDouble())[0]}:${timeConverter(widget.activity.end.toDouble())[1]}',
-              //     style: TextStyle(
-              //         color: Provider.of<Activities>(this.context,
-              //                     listen: false)
-              //                 .isCurrentTime(widget.activity.start,
-              //                     widget.activity.end)
-              //             ? Colors.white
-              //             : Colors.black,
-              //         fontSize: 13))
+              ? widget.activity.end == 2
+                  ? Text(
+                      '${timeConverter(widget.activity.start.toDouble())[0]}:${timeConverter(widget.activity.start.toDouble())[1]}',
+                      style: TextStyle(
+                        color: Provider.of<Activities>(this.context,
+                                    listen: false)
+                                .isCurrentTime(
+                                    widget.activity.start, widget.activity.end)
+                            ? Colors.white
+                            : Colors.black,
+                        fontSize: 13,
+                      ))
+                  : Text(
+                      '${timeConverter(widget.activity.start.toDouble())[0]}:${timeConverter(widget.activity.start.toDouble())[1]} - ${timeConverter(widget.activity.end.toDouble())[0]}:${timeConverter(widget.activity.end.toDouble())[1]}',
+                      style: TextStyle(
+                          color: Provider.of<Activities>(this.context,
+                                      listen: false)
+                                  .isCurrentTime(widget.activity.start,
+                                      widget.activity.end)
+                              ? Colors.white
+                              : Colors.black,
+                          fontSize: 13))
               : Text(
                   '',
                 ),
@@ -159,21 +153,19 @@ class _CommonPickerState extends State<CommonPicker> {
                     //     Provider.of<Activities>(this.context, listen: false)
                     //         .returnEdit(widget.activity),
                   ),
-                  GestureDetector(
-                    child: Image.asset(
-                      Provider.of<Activities>(this.context, listen: true)
-                              .isDraggable
-                          ? 'assets/images/yes.png'
-                          : 'assets/images/no.png',
-                      width: MediaQuery.of(context).size.width / 15,
+                  if (Provider.of<Activities>(this.context, listen: false)
+                      .isEditable)
+                    GestureDetector(
+                      child: Image.asset(
+                        widget.activity.start == 2
+                            ? 'assets/images/yes.png'
+                            : 'assets/images/no.png',
+                        width: MediaQuery.of(context).size.width / 15,
+                      ),
+                      //   // onTap: () =>
+                      //   //     Provider.of<Activities>(this.context, listen: false)
+                      //   //         .returnEdit(widget.activity),
                     ),
-                    onTap: () =>
-                        Provider.of<Activities>(this.context, listen: false)
-                            .changeDraggable(),
-                    //   // onTap: () =>
-                    //   //     Provider.of<Activities>(this.context, listen: false)
-                    //   //         .returnEdit(widget.activity),
-                  ),
                 ]),
           ),
         ),

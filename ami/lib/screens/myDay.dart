@@ -4,6 +4,7 @@ import 'package:ami/screens/add_screen.dart';
 import 'package:ami/utils/present_date_picker.dart';
 import 'package:ami/widgets/diagram/day_container.dart';
 import 'package:ami/widgets/drag_and_drop.dart';
+import 'package:ami/widgets/settings/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'dart:math' as math;
@@ -58,77 +59,112 @@ class _MyDayState extends State<MyDay> {
                   onRefresh: () =>
                       Provider.of<Activities>(this.context, listen: false)
                           .refreshTime(),
-                  child: SingleChildScrollView(
-                    physics:
-                        Provider.of<Activities>(this.context, listen: false)
-                            .physics,
-                    child: Center(
-                      child: Column(
-                        children: [
-                          Container(
-                            margin: EdgeInsets.only(
-                                top: mediaQuery.size.height / 15),
-                            child: Text(
-                                Provider.of<Activities>(this.context,
-                                        listen: false)
-                                    .time,
-                                style: TextStyle(fontSize: 30)),
-                          ),
-                          DayContainer(
-                              mediaQuery,
-                              activities.activities.length != 0
-                                  ? activities.activities[0].id != ''
-                                      ? Provider.of<Activities>(this.context,
-                                              listen: true)
-                                          .sortForArc(activities.activities)
-                                      : []
-                                  : []),
-                          Container(
-                            margin: EdgeInsets.only(
-                                top: MediaQuery.of(context).size.width / 50),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Spacer(),
-                                TextButton(
-                                  onPressed: () => presentDatePicker(context),
-                                  child: Text(
+                  child: Column(
+                    children: [
+                      Container(
+                        height: MediaQuery.of(context).size.height / 25,
+                        width: MediaQuery.of(context).size.width,
+                        margin:
+                            EdgeInsets.only(top: mediaQuery.size.height / 15),
+                        child: Row(
+                          children: [
+                            Flexible(
+                                flex: 1, child: Center(child: SettingsPage())),
+                            Flexible(
+                              flex: 1,
+                              child: Center(
+                                child: Text(
                                     Provider.of<Activities>(this.context,
-                                            listen: true)
-                                        .getDateView(),
-                                    style: TextStyle(fontSize: 32),
-                                  ),
-                                ),
-                                Spacer(),
-                                Container(
-                                  padding: EdgeInsets.only(bottom: 4),
-                                  child: GestureDetector(
-                                    child: Image(
-                                      width: MediaQuery.of(context).size.width /
-                                          15,
-                                      image: AssetImage(
-                                          'assets/images/vector.png'),
-                                    ),
-                                    onTap: () => Provider.of<Activities>(
-                                            this.context,
                                             listen: false)
-                                        .changeEditable(),
-                                  ),
-                                ),
-                                Spacer(
-                                  flex: 20,
-                                ),
-                              ],
+                                        .time,
+                                    style: TextStyle(fontSize: 30)),
+                              ),
                             ),
-                          ),
-                          activities.activities.length != 0
-                              ? activities.activities[0].id != ''
-                                  ? DragAndDrop()
-                                  : CircularProgressIndicator()
-                              : SizedBox(),
-                        ],
+                            Spacer(
+                              flex: 1,
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
+                      Container(
+                        height: MediaQuery.of(context).size.height / 2,
+                        width: MediaQuery.of(context).size.width,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            InkWell(
+                              onTap: () => Provider.of<Activities>(this.context,
+                                      listen: false)
+                                  .yesterday(),
+                              child: Padding(
+                                padding: const EdgeInsets.all(5),
+                                child: Icon(Icons.arrow_back_ios),
+                              ),
+                            ),
+                            DayContainer(
+                                mediaQuery,
+                                activities.activities.length != 0
+                                    ? activities.activities[0].id != ''
+                                        ? Provider.of<Activities>(this.context,
+                                                listen: true)
+                                            .sortForArc(activities.activities)
+                                        : []
+                                    : []),
+                            InkWell(
+                              onTap: () => Provider.of<Activities>(this.context,
+                                      listen: false)
+                                  .tomorrow(),
+                              child: Padding(
+                                padding: const EdgeInsets.all(5),
+                                child: Icon(Icons.arrow_forward_ios),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        height: MediaQuery.of(context).size.height / 15,
+                        margin: EdgeInsets.only(
+                            top: MediaQuery.of(context).size.width / 50),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Spacer(),
+                            TextButton(
+                              onPressed: () => presentDatePicker(context),
+                              child: Text(
+                                Provider.of<Activities>(this.context,
+                                        listen: true)
+                                    .getDateView(),
+                                style: TextStyle(fontSize: 32),
+                              ),
+                            ),
+                            Spacer(),
+                            Container(
+                              padding: EdgeInsets.only(bottom: 4),
+                              child: GestureDetector(
+                                child: Image(
+                                  width: MediaQuery.of(context).size.width / 15,
+                                  image: AssetImage('assets/images/vector.png'),
+                                ),
+                                onTap: () => Provider.of<Activities>(
+                                        this.context,
+                                        listen: false)
+                                    .changeEditable(),
+                              ),
+                            ),
+                            Spacer(
+                              flex: 20,
+                            ),
+                          ],
+                        ),
+                      ),
+                      activities.activities.length != 0
+                          ? activities.activities[0].id != ''
+                              ? DragAndDrop()
+                              : CircularProgressIndicator()
+                          : SizedBox(),
+                    ],
                   ),
                 ),
               ),

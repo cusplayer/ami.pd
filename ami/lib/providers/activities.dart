@@ -1,9 +1,5 @@
 import 'package:ami/helpers/db_helper.dart';
 import 'package:ami/models/date.dart';
-import 'package:ami/screens/add_screen.dart';
-import 'package:ami/screens/edit_screen.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -21,7 +17,15 @@ class Activities with ChangeNotifier {
   double rotation = 0.0;
   bool subtract = false;
   bool add = false;
-  bool isDraggable = false;
+  Activity night = Activity(
+      id: 'night',
+      name: 'Сон',
+      start: 0.8,
+      end: 0.2,
+      color: 'Color(0xff214883)',
+      isDone: 0,
+      date: 'all',
+      serial: 10);
   ScrollPhysics physics = ScrollPhysics();
 
   late List<Activity> sortedActivities;
@@ -32,29 +36,30 @@ class Activities with ChangeNotifier {
 
   bool isEditable = false;
 
-  void changeDraggable() {
-    isDraggable = !isDraggable;
+  void tomorrow() {
+    add = true;
+    editDate();
+  }
+
+  void yesterday() {
+    subtract = true;
+    editDate();
+  }
+
+  void setNight(double start, double end) {
+    night = Activity(
+        id: night.id,
+        name: night.name,
+        start: start,
+        end: end,
+        color: night.color,
+        isDone: night.isDone,
+        date: night.date,
+        serial: night.serial);
     notifyListeners();
   }
 
-  // void clear() {
-  //   commentWidgets.clear();
-  //   notifyListeners();
-  // }
-  //
   Future<void> updateRotation(newRotation) async {
-    if (getRotation() - rotation > 0 &&
-        getRotation() - newRotation < 0 &&
-        getRotation() - rotation < 0.1) {
-      subtract = true;
-      // editDate();
-    }
-    if (getRotation() - newRotation > 0 &&
-        getRotation() - rotation < 0 &&
-        getRotation() - newRotation < 0.1) {
-      add = true;
-      // editDate();
-    }
     if (newRotation < 1) {
       newRotation = newRotation + 1;
     }
@@ -72,19 +77,14 @@ class Activities with ChangeNotifier {
   }
 
   isCurrentTime(start, end) {
-    if (start != 1) {
+    if (start != 2) {
       var _time = DateFormat('HH:mm').format(DateTime.now()).split(':');
-      var _relativeTime = (int.parse(_time[0]) / 24 +
-                  int.parse(_time[1]) / 60 / 24 +
-                  rotation) <
-              1
-          ? (int.parse(_time[0]) / 24 +
-              int.parse(_time[1]) / 60 / 24 +
-              rotation)
-          : (int.parse(_time[0]) / 24 +
-                  int.parse(_time[1]) / 60 / 24 +
-                  rotation) -
-              1;
+      double _reverseRotation = 1 - rotation;
+      double _relativeTimeDirty = int.parse(_time[0]) / 24 +
+          int.parse(_time[1]) / 60 / 24 +
+          _reverseRotation;
+      var _relativeTime =
+          _relativeTimeDirty < 1 ? _relativeTimeDirty : _relativeTimeDirty - 1;
       print('start: ' + start.toString() + ' end: ' + end.toString());
       print('rotation ' + rotation.toString());
       print('relativeTime ' + _relativeTime.toString());
@@ -176,23 +176,8 @@ class Activities with ChangeNotifier {
     return activity;
   }
 
-  // void returnAdd() {
-  //   if (commentWidgets.isEmpty) {
-  //     commentWidgets.add(AddScreen());
-  //   }
-  //   notifyListeners();
-  // }
-
-  // void returnEdit(activity) {
-  //   if (commentWidgets.isEmpty) {
-  //     commentWidgets.add(EditScreen(activity));
-  //   }
-  //   notifyListeners();
-  // }
-
   void changeEditable() {
     isEditable = !isEditable;
-    isDraggable == true ? isDraggable = false : isDraggable = isDraggable;
     notifyListeners();
   }
 
@@ -202,6 +187,10 @@ class Activities with ChangeNotifier {
     this.date1.dateLocalView == null
         ? this.date1.dateLocalView = formatterView.format(DateTime.now())
         : null;
+    print('localView + ${this.date1.dateLocalView}');
+    if (this.date1.dateLocalView == formatterView.format(DateTime.now())) {
+      this.date1.dateLocalView = 'Сегодня';
+    }
     return this.date1.dateLocalView;
   }
 
