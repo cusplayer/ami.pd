@@ -238,7 +238,7 @@ class Activities with ChangeNotifier {
   }
 
   void sortActivities() {
-    _activities.sort((a, b) => a.start.compareTo(b.start));
+    _activities.sort((a, b) => b.start.compareTo(a.start));
     // _activities.sort((a, b) => a.serial!.compareTo(b.serial!));
   }
 

@@ -97,7 +97,7 @@ class _PickTimeState extends State<PickTime> {
                 Picker(widget.callbackh1, true, 0),
                 Picker(widget.callbackm1, false, 0),
                 widget.isSelected != null
-                    ? widget.isSelected![0]
+                    ? widget.isSelected![1]
                         ? Row(children: [
                             Text(
                               ':',

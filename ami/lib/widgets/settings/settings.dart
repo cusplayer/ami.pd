@@ -55,12 +55,20 @@ class _SettingsPageState extends State<SettingsPage> {
                   isSelected: null,
                   name: 'Выберите ночное время',
                 ),
+                actions: [
+                  ElevatedButton(
+                      child: Text("Принять"),
+                      onPressed: () {
+                        Navigator.of(context).pop(true); // Return value
+                      }),
+                ],
               ),
-            ).then((value) =>
-                Provider.of<Activities>(this.context, listen: false).setNight(
-                  double.parse(hour1) / 24 + double.parse(minute1) / 1440,
-                  double.parse(hour2) / 24 + double.parse(minute2) / 1440,
-                )),
+            ).then((value) => value
+                ? Provider.of<Activities>(this.context, listen: false).setNight(
+                    double.parse(hour1) / 24 + double.parse(minute1) / 1440,
+                    double.parse(hour2) / 24 + double.parse(minute2) / 1440,
+                  )
+                : null),
         child: Container(
           child: Image.asset(
             'assets/images/sleep.png',

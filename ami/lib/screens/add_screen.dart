@@ -378,8 +378,9 @@ class _AddScreenState extends State<AddScreen> {
                         Provider.of<Activities>(this.context, listen: true)
                             .getDateView()
                             .split(" ")[0],
+                        textAlign: TextAlign.center,
                         style:
-                            TextStyle(color: Color(0xfffddbb8), fontSize: 20),
+                            TextStyle(color: Color(0xfffddbb8), fontSize: 16),
                       ),
                     ),
                   ),
