@@ -145,9 +145,6 @@ class _DayContainerState extends State<DayContainer> {
                               .rotation);
                     }
                   },
-                  onPointerUp: (_) =>
-                      Provider.of<Activities>(this.context, listen: false)
-                          .scrollablePhysics(),
                   child: Container(
                     width: size,
                     height: size,

@@ -162,9 +162,6 @@ class _CommonPickerState extends State<CommonPicker> {
                             : 'assets/images/no.png',
                         width: MediaQuery.of(context).size.width / 15,
                       ),
-                      //   // onTap: () =>
-                      //   //     Provider.of<Activities>(this.context, listen: false)
-                      //   //         .returnEdit(widget.activity),
                     ),
                 ]),
           ),

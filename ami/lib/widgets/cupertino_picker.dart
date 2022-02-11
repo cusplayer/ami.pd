@@ -14,6 +14,10 @@ class Picker extends StatefulWidget {
 
 class _PickerState extends State<Picker> {
   late Text text;
+  late String yourParam;
+  var arr = <Text>[];
+  var selectedValue;
+
   void initState() {
     arr = [];
     if (widget.isHours) {
@@ -52,9 +56,6 @@ class _PickerState extends State<Picker> {
     super.initState();
   }
 
-  late String yourParam;
-  var arr = <Text>[];
-  var selectedValue;
   @override
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);

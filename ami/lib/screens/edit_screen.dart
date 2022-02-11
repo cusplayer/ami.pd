@@ -25,8 +25,7 @@ class _EditScreenState extends State<EditScreen> {
   final day =
       DateTime.now().day < 10 ? '0${DateTime.now().day}' : DateTime.now().day;
   toColor(colorString) {
-    String valueString =
-        colorString.split('(0x')[1].split(')')[0]; // kind of hacky..
+    String valueString = colorString.split('(0x')[1].split(')')[0];
     int value = int.parse(valueString, radix: 16);
     return Color(value);
   }
@@ -77,7 +76,6 @@ class _EditScreenState extends State<EditScreen> {
     this.hour2 = timeConverter(widget.activity.end.toDouble())[0].toString();
     this.minute2 = timeConverter(widget.activity.end.toDouble())[1].toString();
     color = toColor(widget.activity.color);
-    // print(widget.activity.id);
     super.initState();
   }
 
@@ -263,9 +261,6 @@ class _EditScreenState extends State<EditScreen> {
               style: ButtonStyle(
                   backgroundColor:
                       MaterialStateColor.resolveWith((states) => Colors.red)),
-              // shape: new RoundedRectangleBorder(
-              //     borderRadius:
-              //         new BorderRadius.circular(30.0)),
               child: Text(
                 'Удалить',
                 style: TextStyle(color: Colors.white, fontSize: 20),

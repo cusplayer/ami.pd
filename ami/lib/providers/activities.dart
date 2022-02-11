@@ -7,7 +7,6 @@ import '../models/activity.dart';
 
 class Activities with ChangeNotifier {
   List<Activity> _activities = [];
-
   final commentWidgets = <Widget>[];
   DateFormat formatter = DateFormat('yyyy-MM-dd');
   Date date1 = Date(
@@ -68,11 +67,6 @@ class Activities with ChangeNotifier {
     }
     rotation = newRotation;
     physics = NeverScrollableScrollPhysics();
-    notifyListeners();
-  }
-
-  void scrollablePhysics() {
-    physics = AlwaysScrollableScrollPhysics();
     notifyListeners();
   }
 

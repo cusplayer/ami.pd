@@ -1,3 +1,4 @@
+import 'package:ami/models/button_type.dart';
 import 'package:ami/providers/activities.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -51,8 +52,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   callbackm1: callbackm1,
                   callbackh2: callbackh2,
                   callbackm2: callbackm2,
-                  isSelectedCallback: null,
-                  isSelected: null,
+                  timeType: ButtonType.activity,
                   name: 'Выберите ночное время',
                 ),
                 actions: [

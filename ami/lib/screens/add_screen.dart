@@ -1,18 +1,20 @@
-import 'dart:math';
-
-import 'package:ami/widgets/pick_time.dart';
+import 'package:ami/widgets/nested_button.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
-import 'package:ami/models/activity.dart';
+import 'package:ami/models/button_type.dart';
 import 'package:ami/providers/activities.dart';
 import 'package:ami/widgets/color_picker.dart';
-import 'package:ami/widgets/cupertino_picker.dart';
+import 'package:ami/widgets/pick_time.dart';
 
 class AddScreen extends StatefulWidget {
+  final ButtonType buttonType;
+  AddScreen({
+    Key? key,
+    required this.buttonType,
+  }) : super(key: key);
   @override
   _AddScreenState createState() => _AddScreenState();
 }
@@ -29,8 +31,6 @@ class _AddScreenState extends State<AddScreen> {
   late bool isAllowed;
   var uuid = Uuid();
   final _textController = TextEditingController();
-  DateTime date = DateTime.now();
-  var isSelected = [true, false];
   void callbackColor(Color color) {
     setState(() {
       this.color = color;
@@ -83,24 +83,10 @@ class _AddScreenState extends State<AddScreen> {
 
   void dateCallback(DateTime date) {
     setState(() {
-      this.date = date;
+      Provider.of<Activities>(this.context, listen: true).date1.date = date;
     });
   }
 
-  void isSelectedCallback(bool isSelected, int index) {
-    setState(() {
-      this.isSelected[index] = isSelected;
-    });
-  }
-
-  // void showModal() {
-  //   showModalBottomSheet<void>(
-  //       isDismissible: false,
-  //       context: context,
-  //       builder: (BuildContext context) {
-  //       });
-  // }
-  //   void _presentDatePicker() {
   void _presentDatePicker() {
     showDatePicker(
             helpText: '',
@@ -120,8 +106,6 @@ class _AddScreenState extends State<AddScreen> {
 
   @override
   void initState() {
-    this.date =
-        Provider.of<Activities>(this.context, listen: false).initialDate;
     initializeDateFormatting();
     super.initState();
   }
@@ -259,9 +243,8 @@ class _AddScreenState extends State<AddScreen> {
                                   callbackm1: callbackm1,
                                   callbackh2: callbackh2,
                                   callbackm2: callbackm2,
-                                  isSelectedCallback: isSelectedCallback,
-                                  isSelected: isSelected,
                                   name: 'Выберите время',
+                                  timeType: widget.buttonType,
                                 ),
                               ),
                             );
@@ -275,7 +258,7 @@ class _AddScreenState extends State<AddScreen> {
                             .isAllowed(
                             double.parse(hour1) / 24 +
                                 double.parse(minute1) / 1440,
-                            isSelected[0]
+                            widget.buttonType == ButtonType.task
                                 ? 2
                                 : double.parse(hour2) / 24 +
                                     double.parse(minute2) / 1440,
@@ -305,8 +288,8 @@ class _AddScreenState extends State<AddScreen> {
                                   2,
                                   2,
                                   color,
-                                  '${date.year}-${(month(date))}-${day(date)}');
-                        } else if (isSelected[0]) {
+                                  '${Provider.of<Activities>(this.context, listen: false).date1.date.year}-${(month(Provider.of<Activities>(this.context, listen: false).date1.date))}-${day(Provider.of<Activities>(this.context, listen: false).date1.date)}');
+                        } else if (widget.buttonType == ButtonType.task) {
                           Navigator.pop(context);
                           Provider.of<Activities>(this.context, listen: false)
                               .addActivity(
@@ -316,10 +299,10 @@ class _AddScreenState extends State<AddScreen> {
                                       double.parse(minute1) / 1440,
                                   2,
                                   color,
-                                  '${date.year}-${(month(date))}-${day(date)}');
+                                  '${Provider.of<Activities>(this.context, listen: false).date1.date.year}-${(month(Provider.of<Activities>(this.context, listen: false).date1.date))}-${day(Provider.of<Activities>(this.context, listen: false).date1.date)}');
                           // Provider.of<Activities>(this.context, listen: false)
                           //     .clear();
-                        } else if (isSelected[1]) {
+                        } else if (widget.buttonType == ButtonType.activity) {
                           Navigator.pop(context);
                           Provider.of<Activities>(this.context, listen: false)
                               .addActivity(
@@ -330,7 +313,7 @@ class _AddScreenState extends State<AddScreen> {
                                   double.parse(hour2) / 24 +
                                       double.parse(minute2) / 1440,
                                   color,
-                                  '${date.year}-${(month(date))}-${day(date)}');
+                                  '${Provider.of<Activities>(this.context, listen: true).date1.date.year}-${(month(Provider.of<Activities>(this.context, listen: true).date1.date))}-${day(Provider.of<Activities>(this.context, listen: true).date1.date)}');
                           // Provider.of<Activities>(this.context, listen: false)
                           //     .clear();
                         }
